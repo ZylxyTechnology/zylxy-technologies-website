@@ -3,7 +3,6 @@
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
 import { talentAcquisitionData } from "@/data/talent-acquisition";
 import { talentAcquisitionStyles } from "@/styles/talent-acquisition";
-import Form from "next/form";
 import { useState } from "react";
 
 export default function TalentAcquisitionPage() {
@@ -185,7 +184,7 @@ export default function TalentAcquisitionPage() {
               within our automated partner sheet.
             </p>
 
-            <Form action="#" onSubmit={handleFormSubmit} className={s.formGrid}>
+            <form onSubmit={handleFormSubmit} className={s.formGrid}>
               <div className={s.halfWidthField}>
                 <label className={s.label}>
                   {formConfig.fields.companyName.label}
@@ -398,7 +397,7 @@ export default function TalentAcquisitionPage() {
                     : "Submit Mandate"}
                 </button>
               </div>
-            </Form>
+            </form>
           </div>
         </div>
       </section>

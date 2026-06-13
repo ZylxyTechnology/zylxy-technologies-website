@@ -4,8 +4,11 @@ import { NextResponse } from "next/server";
 const getSheetsClient = async () => {
   const auth = new google.auth.GoogleAuth({
     credentials: {
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      client_email: process.env.TALENT_BOT_EMAIL,
+      private_key: process.env.TALENT_PRIVATE_KEY?.replace(/"/g, "")?.replace(
+        /\\n/g,
+        "\n",
+      ),
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
@@ -16,10 +19,15 @@ export async function GET() {
   try {
     const sheets = await getSheetsClient();
     const spreadsheetId = process.env.CORPORATE_SPREADSHEET_ID;
+
+    // Log the ID being used to your terminal console for verification
+    console.log("GET Request - Using Spreadsheet ID:", spreadsheetId);
+
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Sheet1!A2:N",
+      range: "A2:N",
     });
+
     const rows = response.data.values || [];
     const jobs = rows.map((row, index) => ({
       id: `job-${index + 1}`,
@@ -39,6 +47,7 @@ export async function GET() {
     }));
     return NextResponse.json({ success: true, data: jobs }, { status: 200 });
   } catch (error) {
+    console.error("GET API Error:", error);
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 },
@@ -51,11 +60,31 @@ export async function POST(request) {
     const sheets = await getSheetsClient();
     const payload = await request.json();
     const { formType, ...formData } = payload;
-    let spreadsheetId = "";
+    let spreadsheetId =
+      formType === "corporate"
+        ? process.env.CORPORATE_SPREADSHEET_ID
+        : process.env.STUDENT_SPREADSHEET_ID;
+
+    // Log the ID being used to your terminal console for verification
+    console.log(
+      "POST Request - FormType:",
+      formType,
+      "Attempting ID:",
+      spreadsheetId,
+    );
+
+    if (!spreadsheetId) {
+      throw new Error("Spreadsheet ID is undefined. Check .env.local");
+    }
+
+    const timestamp = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+
     let values = [];
-    const timestamp = new Date().toISOString();
     if (formType === "corporate") {
-      spreadsheetId = process.env.CORPORATE_SPREADSHEET_ID;
       values = [
         [
           timestamp,
@@ -76,7 +105,6 @@ export async function POST(request) {
         ],
       ];
     } else if (formType === "student") {
-      spreadsheetId = process.env.STUDENT_SPREADSHEET_ID;
       values = [
         [
           timestamp,
@@ -95,17 +123,20 @@ export async function POST(request) {
         ],
       ];
     }
+
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: "Sheet1!A:A",
+      range: "A:A",
       valueInputOption: "USER_ENTERED",
       requestBody: { values },
     });
+
     return NextResponse.json(
       { success: true, message: "Success" },
       { status: 200 },
     );
   } catch (error) {
+    console.error("POST API Error:", error);
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 },

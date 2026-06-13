@@ -1,43 +1,20 @@
-name: Deploy Next.js to Hostinger
+name: Development Build Check
 
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-test:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Install dependencies
         run: npm install
-
-      - name: Build with Next.js
+      - name: Build Check
         run: npm run build
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./out/
-          server-dir: ./
-          timeout: 90000
-          state-name: .ftp-deploy-sync-state-v9.json
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.next/cache/**
-            README.md

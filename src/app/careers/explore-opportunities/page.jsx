@@ -3,7 +3,6 @@
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
 import { exploreOpportunitiesData } from "@/data/explore-opportunities";
 import { exploreOpportunitiesStyles } from "@/styles/explore-opportunities";
-import Form from "next/form";
 import { useRef, useState } from "react";
 
 export default function ExploreOpportunitiesPage() {
@@ -231,7 +230,7 @@ export default function ExploreOpportunitiesPage() {
                 : formConfig.subheading}
             </p>
 
-            <Form action="#" onSubmit={handleFormSubmit} className={s.formGrid}>
+            <form onSubmit={handleFormSubmit} className={s.formGrid}>
               <div className={s.halfWidthField}>
                 <label className={s.label}>
                   {formConfig.fields.fullName.label}
@@ -432,7 +431,7 @@ export default function ExploreOpportunitiesPage() {
                     : "Transmit Application"}
                 </button>
               </div>
-            </Form>
+            </form>
           </div>
         </div>
       </section>

@@ -6,7 +6,7 @@ export async function POST(request) {
     const body = await request.json();
     const { name, email, phone, service, message } = body;
 
-    // Validate required fields
+    // Validate required fields - Logic preserved from your original
     if (!name || !email) {
       return NextResponse.json(
         { success: false, error: "Name and Email are required." },
@@ -21,12 +21,13 @@ export async function POST(request) {
       timeStyle: "short",
     });
 
-    // Initialize Google Auth using your .env.local credentials
+    // Initialize Google Auth using your LEAD BOT credentials from .env.local
     const auth = new google.auth.GoogleAuth({
       credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        // The regex ensures the exact formatting of the private key is preserved
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+        // Updated variable name to match your new .env.local structure
+        client_email: process.env.LEAD_BOT_EMAIL,
+        // Updated variable name and regex preserved
+        private_key: process.env.LEAD_PRIVATE_KEY?.replace(/\\n/g, "\n"),
       },
       scopes: [
         "https://www.googleapis.com/auth/drive",
@@ -40,7 +41,7 @@ export async function POST(request) {
     // Append the row to your specific Google Sheet
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "A1:F1", // Assuming your headers are Date, Name, Email, Phone, Service, Message
+      range: "A1:F1",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
