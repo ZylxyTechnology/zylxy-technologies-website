@@ -21,12 +21,16 @@ export const navbarStyles = {
   brandTitle: "font-sans font-extrabold text-lg text-white tracking-tight",
   brandSubtitle:
     "font-sans text-[10px] font-medium text-white/40 tracking-wider",
-  menuList: "hidden md:flex items-center gap-0.5",
+  menuList: "hidden md:flex items-center gap-1.5",
   menuButton:
     "px-3.5 py-1.5 text-sm font-medium text-white/60 font-sans hover:text-[#60A5FA] hover:bg-blue-600/12 transition-all rounded-md",
-  buttonGroup: "flex items-center gap-2.5",
+  rightActionsGroup: "hidden md:flex items-center gap-4.5",
+  hubspotPill:
+    "px-4 py-1.5 text-xs font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 hover:border-[#FF7A59]/40 hover:bg-[#FF7A59]/20 transition-all rounded-full flex items-center gap-2 font-sans shadow-[0_0_15px_rgba(255,122,89,0.05)] select-none shrink-0",
+  hubspotPulseDot:
+    "w-1.5 h-1.5 rounded-full bg-[#FF7A59] shadow-[0_0_8px_#FF7A59] animate-pulse",
+  hubspotMobilePill:
+    "text-sm font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 px-3 py-2 rounded-lg flex items-center justify-between w-full mt-1",
   primaryBtn:
-    "px-5 py-2 text-xs md:text-sm bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5",
-  outlineBtn:
-    "px-5 py-2 text-xs md:text-sm bg-transparent border border-white/20 hover:border-white/50 hover:bg-white/10 text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0",
+    "px-5 py-2 text-xs bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5",
 };

@@ -42,6 +42,18 @@
   --animate-star-glow: starGlow 3s ease-in-out infinite alternate;
   --animate-ring-pulse: ringPulse 8s ease-in-out infinite alternate;
 
+  --color-hs-orange: #ff7a59;
+  --color-hs-orange-light: #ff9a73;
+  --color-hs-orange-tint: #fff6f3;
+  --color-hs-orange-border: #ffd4c4;
+  --color-hs-navy: #2f3e4e;
+  --color-hs-navy-medium: #3f5265;
+  --color-hs-gray-cool: #516f8d;
+  --color-hs-border-light: #eaf0f6;
+  --color-hs-bg-light: #fff8f5;
+
+  --font-lexend: "Lexend", "Plus Jakarta Sans", system-ui, sans-serif;
+
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -84,7 +96,7 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-24px);
+      transform: translateY(-16px);
     }
   }
   @keyframes starGlow {

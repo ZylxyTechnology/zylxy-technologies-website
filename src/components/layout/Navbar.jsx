@@ -33,6 +33,7 @@ export default function Navbar() {
             <Link href="/" className={navbarStyles.menuButton}>
               Home
             </Link>
+
             <Link href="/#services-section" className={navbarStyles.menuButton}>
               Services
             </Link>
@@ -90,7 +91,11 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center">
+          <div className={navbarStyles.rightActionsGroup}>
+            <Link href="/hubspot" className={navbarStyles.hubspotPill}>
+              <span className={navbarStyles.hubspotPulseDot} />
+              HubSpot CRM
+            </Link>
             <Link href="/#leadgen-section" className={navbarStyles.primaryBtn}>
               Free Consultation
             </Link>
@@ -122,7 +127,7 @@ export default function Navbar() {
       </div>
 
       <div
-        className={`md:hidden bg-[#050e21] border-white/5 px-8 flex flex-col overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-[450px] py-4 border-t opacity-100" : "max-h-0 py-0 opacity-0"}`}
+        className={`md:hidden bg-[#050e21] border-white/5 px-8 flex flex-col overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-[500px] py-4 border-t opacity-100" : "max-h-0 py-0 opacity-0"}`}
       >
         <div className="flex flex-col gap-4">
           <Link
@@ -139,6 +144,16 @@ export default function Navbar() {
           >
             Services
           </Link>
+
+          <Link
+            href="/hubspot"
+            className={navbarStyles.hubspotMobilePill}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <span>HubSpot CRM</span>
+            <span className="w-2 h-2 rounded-full bg-[#FF7A59] shadow-[0_0_6px_#FF7A59]" />
+          </Link>
+
           <div className="flex flex-col gap-2.5">
             <span className="text-sm font-bold text-white">Careers</span>
             <Link
