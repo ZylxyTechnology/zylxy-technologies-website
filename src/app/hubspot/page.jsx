@@ -1,29 +1,27 @@
-import HubSpotIntroFeature from "@/app/hubspot/sections/features/HubSpot-IntroFeature";
-import KeyFeatures from "@/app/hubspot/sections/features/Hubspot-keyFeatures";
-import FAQ from "@/app/hubspot/sections/Hubspot-faq";
-import Hero from "@/app/hubspot/sections/Hubspot-Hero";
-import Results from "@/app/hubspot/sections/Hubspot-Results";
+import HubSpotPackagesOverview from "@/app/hubspot/sections/HubSpot-PackagesOverview";
 import HubSpotStatsBar from "@/app/hubspot/sections/HubSpot-StatsBar";
-import Testimonials from "@/app/hubspot/sections/Hubspot-Testimonials";
 import WhyMe from "@/app/hubspot/sections/HubSpot-WhyMe";
-import HowItWorks from "@/app/hubspot/sections/Hubspot-WorksDone";
-import HubSpotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
+import Hero from "@/app/hubspot/sections/Hubspot-Hero";
+import Testimonials from "@/app/hubspot/sections/Hubspot-Testimonials";
+import FAQ from "@/app/hubspot/sections/Hubspot-faq";
+import HubSpotFeaturedProjects from "@/app/hubspot/sections/features/HubSpot-FeaturedProjects";
+import HubSpotIntroFeature from "@/app/hubspot/sections/features/HubSpot-IntroFeature";
 import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
+import HubspotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
 
 export default function HubSpotConsultantPage() {
   return (
-    <main className="w-full bg-white overflow-x-clip min-h-screen selection:bg-hs-orange/20">
+    <main className="w-full bg-white overflow-x-clip min-h-screen selection:bg-[#FF7A59]/20">
       <HubSpotNavbar />
       <Hero />
       <HubSpotStatsBar />
       <HubSpotIntroFeature />
-      <KeyFeatures />
+      <HubSpotFeaturedProjects />
+      <HubSpotPackagesOverview />
       <WhyMe />
-      <HowItWorks />
-      <Results />
       <Testimonials />
       <FAQ />
-      <HubSpotFooter />
+      <HubspotFooter />
     </main>
   );
 }
