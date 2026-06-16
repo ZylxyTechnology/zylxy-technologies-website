@@ -1,63 +1,52 @@
 "use client";
 
+import { introFeatureData } from "@/app/hubspot/data/introFeatures";
 import { introFeatureStyles as s } from "@/app/hubspot/styles/introFeature";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function HubSpotIntroFeature() {
   const [activePhase, setActivePhase] = useState(1);
+  const currentPhase = introFeatureData.workflowPhases.find(
+    (p) => p.id === activePhase,
+  );
 
-  const workflowData = [
-    {
-      id: 1,
-      num: "01",
-      label: "Audit",
-      phaseLabel: "PHASE 01 // AUDIT & DIAGNOSE",
-      title: "HubSpot Health Check",
-      challengeText:
-        "Struggling with disorganized CRM data, duplicate contact records, or completely broken, outdated automation workflows?",
-      solutionText:
-        "We begin with a thorough, deep-dive audit of your entire portal architecture to map data leaks, isolate duplicate patterns, and deliver an actionable remediation roadmap.",
-    },
-    {
-      id: 2,
-      num: "02",
-      label: "Build",
-      phaseLabel: "PHASE 02 // BUILD & STREAMLINE",
-      title: "Project-Based Implementation",
-      challengeText:
-        "Buried under manual processes, repetitive everyday tasks, or highly inefficient lead and application tracking loops?",
-      solutionText:
-        "We build structured custom objects, design frictionless pipeline stages, and implement robust automation workflows so your operations run cleanly without manual oversight.",
-    },
-    {
-      id: 3,
-      num: "03",
-      label: "Scale",
-      phaseLabel: "PHASE 03 // OPTIMIZE & SCALE",
-      title: "Ongoing HubSpot Support",
-      challengeText:
-        "Facing low software adoption across internal teams or suffer from blind spots due to limited executive reporting visibility?",
-      solutionText:
-        "We deliver dedicated monthly optimization iterations, build custom operational analytics dashboards, and conduct tailored team training workshops to maximize ROI.",
-    },
-  ];
-
-  const currentPhase = workflowData.find((p) => p.id === activePhase);
-
+  // Computes the structural angle position of the workflow nodes
   const getRotationAngle = () => {
     if (activePhase === 1) return "rotate-0";
     if (activePhase === 2) return "-rotate-120";
     return "-rotate-240";
   };
 
+  // Computes the metric expansion scaling factor requested by your director
+  const getScaleClass = () => {
+    if (activePhase === 1) return "scale-100"; // Baseline target size
+    if (activePhase === 2) return "scale-[1.08]"; // Moderate scale expansion
+    return "scale-[1.16]"; // Maximum layout visibility
+  };
+
   return (
     <section className={s.section}>
       <div className={s.container}>
+        {/* Left Interactive Graphical Hub Card */}
         <div className={s.leftCol}>
-          <div className={s.workflowWheelWrapper}>
+          <div className={s.bgGridDecor} />
+          <div className={s.radialGlowAccent} />
+
+          {/* Linked rotation and scale modifiers into a single layout container */}
+          <div className={`${s.workflowWheelWrapper} ${getScaleClass()}`}>
             <div className={s.wheelCoreContent}>
               <span className={s.stepNum}>{currentPhase.num}</span>
               <span className={s.stepLabel}>{currentPhase.label}</span>
+
+              <div className={s.stepIndicatorDots}>
+                {introFeatureData.workflowPhases.map((phase) => (
+                  <div
+                    key={phase.id}
+                    className={`${s.dotBase} ${activePhase === phase.id ? s.dotActive : s.dotNormal}`}
+                  />
+                ))}
+              </div>
             </div>
 
             <svg
@@ -89,18 +78,13 @@ export default function HubSpotIntroFeature() {
           </div>
         </div>
 
+        {/* Right Info Framework Column */}
         <div className={s.rightCol}>
-          <h2 className={s.heading}>How I Make HubSpot Work Smarter For You</h2>
-          <p className={s.subtext}>
-            I build solutions that align with how your team actually works—not
-            just how the software is designed. By focusing on your specific
-            operational needs, my goal is to create simple, scalable systems
-            that save time, improve data quality, and help teams work more
-            efficiently.
-          </p>
+          <h2 className={s.heading}>{introFeatureData.header.heading}</h2>
+          <p className={s.subtext}>{introFeatureData.header.subtext}</p>
 
           <div className={s.phasesWrapper}>
-            {workflowData.map((phase) => {
+            {introFeatureData.workflowPhases.map((phase) => {
               const isActive = activePhase === phase.id;
               return (
                 <div
@@ -128,8 +112,9 @@ export default function HubSpotIntroFeature() {
                       </span>
                       <p className={s.bodyText}>{phase.challengeText}</p>
                     </div>
+
                     {isActive && (
-                      <div className={s.textBlock + " animate-fade-in"}>
+                      <div className={`${s.textBlock} animate-fade-in`}>
                         <span className={`${s.label} ${s.solutionLabel}`}>
                           The Solution
                         </span>
@@ -143,8 +128,12 @@ export default function HubSpotIntroFeature() {
           </div>
 
           <div className={s.btnRow}>
-            <button className={s.primaryBtn}>Book a Free Consultation</button>
-            <button className={s.secondaryBtn}>View Service Packages</button>
+            <Link href="/hubspot#faq" className={s.primaryBtn}>
+              Book a Free Consultation
+            </Link>
+            <Link href="/hubspot#packages" className={s.secondaryBtn}>
+              View Service Packages
+            </Link>
           </div>
         </div>
       </div>

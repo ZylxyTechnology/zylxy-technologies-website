@@ -1,5 +1,6 @@
 "use client";
 
+import { navigationMenuLinks as nav } from "@/app/hubspot/data/navigation";
 import { navbarStyles as s } from "@/app/hubspot/styles/navbar";
 import {
   Award,
@@ -40,7 +41,12 @@ export default function HubSpotNavbar() {
 
         <div className={s.menuList}>
           <div className={s.menuItemWrapper}>
-            <button className={s.menuButton}>About</button>
+            <Link
+              href="/hubspot#why-me"
+              className={`${s.menuButton} no-underline`}
+            >
+              About
+            </Link>
           </div>
 
           <div className={s.menuItemWrapper}>
@@ -56,43 +62,55 @@ export default function HubSpotNavbar() {
                 </p>
               </div>
               <div className={s.megaGrid}>
-                <div className={s.megaCard}>
+                <Link
+                  href={nav.services[0].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Layers className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Starter Package</h5>
+                    <h5 className={s.megaCardTitle}>{nav.services[0].name}</h5>
                     <p className={s.megaCardDesc}>
                       Build a strong foundation with an organized CRM, clean
                       data, and basic automation.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.services[1].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <TrendingUp className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Growth Package</h5>
+                    <h5 className={s.megaCardTitle}>{nav.services[1].name}</h5>
                     <p className={s.megaCardDesc}>
                       Expand capabilities with advanced automation, lead
                       nurturing workflows, and pipeline customization.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.services[2].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Custom Package</h5>
+                    <h5 className={s.megaCardTitle}>{nav.services[2].name}</h5>
                     <p className={s.megaCardDesc}>
                       Design advanced solutions with custom objects, custom
                       properties, and strategic process optimization.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href="/hubspot#packages"
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <HelpCircle className="w-4 h-4" />
                   </div>
@@ -106,7 +124,7 @@ export default function HubSpotNavbar() {
                       Support to best fit your organization.
                     </p>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -124,45 +142,59 @@ export default function HubSpotNavbar() {
                 </p>
               </div>
               <div className={s.megaGrid}>
-                <div className={s.megaCard}>
+                <Link
+                  href={nav.industries[0].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Heart className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Nonprofits</h5>
+                    <h5 className={s.megaCardTitle}>
+                      {nav.industries[0].name}
+                    </h5>
                     <p className={s.megaCardDesc}>
                       Built to streamline donor workflows, grant pipelines, and
                       impact transparency metrics.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[1].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Briefcase className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Small Businesses</h5>
+                    <h5 className={s.megaCardTitle}>
+                      {nav.industries[1].name}
+                    </h5>
                     <p className={s.megaCardDesc}>
                       Strategic setups to automate high-touch manual admin tasks
                       and scale daily lead routing.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[2].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Users className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>
-                      Workforce Development Programs
-                    </h5>
+                    <h5 className={s.megaCardTitle}>Workforce Development</h5>
                     <p className={s.megaCardDesc}>
                       Engineered tracking architectures for application queues,
                       job placements, and metrics.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[3].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <GraduationCap className="w-4 h-4" />
                   </div>
@@ -175,8 +207,11 @@ export default function HubSpotNavbar() {
                       automation, and cohort mapping.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[4].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Rocket className="w-4 h-4" />
                   </div>
@@ -189,8 +224,11 @@ export default function HubSpotNavbar() {
                       venture rounds, and founders.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[5].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Globe className="w-4 h-4" />
                   </div>
@@ -201,22 +239,26 @@ export default function HubSpotNavbar() {
                       localized outreach systems.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[6].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <UserCheck className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>
-                      Membership-Based Organizations
-                    </h5>
+                    <h5 className={s.megaCardTitle}>Membership-Based</h5>
                     <p className={s.megaCardDesc}>
                       Automated renewals, tiered benefits access management, and
                       contact subscription states.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.industries[7].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Award className="w-4 h-4" />
                   </div>
@@ -229,7 +271,7 @@ export default function HubSpotNavbar() {
                       smart billing account integrations.
                     </p>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -247,61 +289,78 @@ export default function HubSpotNavbar() {
                 </p>
               </div>
               <div className={s.megaGrid}>
-                <div className={s.megaCard}>
+                <Link
+                  href={nav.projects[0].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <Zap className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Academy Enrollment</h5>
+                    <h5 className={s.megaCardTitle}>{nav.projects[0].name}</h5>
                     <p className={s.megaCardDesc}>
                       Streamlined application and enrollment systems using
                       workflows and custom objects.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.projects[1].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <CheckSquare className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Survey Management</h5>
+                    <h5 className={s.megaCardTitle}>{nav.projects[1].name}</h5>
                     <p className={s.megaCardDesc}>
                       Built survey submission, automated follow-ups, and custom
                       visibility reporting.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.projects[2].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <ClipboardList className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Event Registration</h5>
+                    <h5 className={s.megaCardTitle}>{nav.projects[2].name}</h5>
                     <p className={s.megaCardDesc}>
                       Created automated registration and attendance workflows to
                       reduce manual tracking.
                     </p>
                   </div>
-                </div>
-                <div className={s.megaCard}>
+                </Link>
+                <Link
+                  href={nav.projects[3].href}
+                  className={`${s.megaCard} no-underline`}
+                >
                   <div className={s.megaCardIcon}>
                     <LineChart className="w-4 h-4" />
                   </div>
                   <div className={s.megaCardContent}>
-                    <h5 className={s.megaCardTitle}>Reporting Dashboards</h5>
+                    <h5 className={s.megaCardTitle}>{nav.projects[3].name}</h5>
                     <p className={s.megaCardDesc}>
                       Real-time operational metric setups designed specifically
                       for leadership teams.
                     </p>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
         <div className={s.actionWrapper}>
-          <button className={s.primaryBtn}>Book a Free Consultation</button>
+          <Link
+            href="/hubspot#faq"
+            className={`${s.primaryBtn} no-underline text-center`}
+          >
+            Book a Free Consultation
+          </Link>
         </div>
       </div>
     </nav>

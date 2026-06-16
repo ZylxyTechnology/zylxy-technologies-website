@@ -1,45 +1,23 @@
 "use client";
 
+import { packagesData } from "@/app/hubspot/data/packageData";
 import { packagesOverviewStyles as s } from "@/app/hubspot/styles/packagesOverview";
-import { ArrowRight, Layers, ShieldCheck, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  Layers,
+  ShieldCheck,
+  Sliders,
+  TrendingUp,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function HubSpotPackagesOverview() {
-  const packages = [
-    {
-      slug: "starter",
-      badge: "CRM Foundation",
-      title: "Starter Package",
-      tagline:
-        "Build a strong HubSpot foundation with an organized CRM, clean data, and basic automation[cite: 30].",
-      bestFor:
-        "Small businesses and nonprofits that need a structured CRM and basic automation[cite: 30].",
-      icon: <Layers className="w-5 h-5 text-[#FF7A59]" />,
-      isPopular: false,
-    },
-    {
-      slug: "growth",
-      badge: "Operational Scaling",
-      title: "Growth Package",
-      tagline:
-        "Expand your HubSpot capabilities with advanced automation, lead management, and custom reporting metrics[cite: 30].",
-      bestFor:
-        "Organizations looking to scale marketing, automated pipelines, or sales team reporting tracking layouts[cite: 30].",
-      icon: <TrendingUp className="w-5 h-5 text-[#FF7A59]" />,
-      isPopular: true,
-    },
-    {
-      slug: "custom",
-      badge: "Enterprise Architecture",
-      title: "Custom Package",
-      tagline:
-        "Design a fully customized HubSpot solution tailored uniquely to your complex operational process models[cite: 30].",
-      bestFor:
-        "Organizations needing advanced custom objects setup, multi-system migrations, or long-term alignment consulting[cite: 30].",
-      icon: <ShieldCheck className="w-5 h-5 text-[#FF7A59]" />,
-      isPopular: false,
-    },
-  ];
+  const packageIcons = {
+    starter: <Layers className="w-5 h-5 text-[#FF7A59]" />,
+    growth: <TrendingUp className="w-5 h-5 text-[#FF7A59]" />,
+    custom: <ShieldCheck className="w-5 h-5 text-[#FF7A59]" />,
+    flexible: <Sliders className="w-5 h-5 text-[#FF7A59]" />,
+  };
 
   return (
     <section id="packages" className={s.section}>
@@ -50,15 +28,15 @@ export default function HubSpotPackagesOverview() {
           <p className={s.subtext}>
             Explore transparent configuration structures built to transform
             disorganized databases into automated engines tailored exactly to
-            your staff workflow[cite: 30].
+            your staff workflow[cite: 21].
           </p>
         </div>
 
-        <div className={s.grid}>
-          {packages.map((pkg) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full items-stretch">
+          {Object.values(packagesData).map((pkg) => (
             <div
               key={pkg.slug}
-              className={`${s.card} ${pkg.isPopular ? s.cardActive : ""}`}
+              className={`${s.card} ${pkg.isPopular ? s.cardActive : ""} flex flex-col justify-between`}
             >
               {pkg.isPopular && (
                 <div className={s.popularBadge}>Most Popular</div>
@@ -67,29 +45,35 @@ export default function HubSpotPackagesOverview() {
               <div className="w-full">
                 <div className={s.cardHeader}>
                   <div className="w-10 h-10 rounded-lg bg-[#FFF0EB] border border-[#FEDDCC] flex items-center justify-center">
-                    {pkg.icon}
+                    {packageIcons[pkg.slug]}
                   </div>
                   <div className="space-y-1">
                     <span className={s.packageBadge}>{pkg.badge}</span>
-                    <h3 className={s.packageTitle}>{pkg.title}</h3>
+                    <h3 className="font-lexend font-bold text-xl text-[#1B1F3A]">
+                      {pkg.title}
+                    </h3>
                   </div>
                 </div>
 
-                <p className={s.packageTagline}>{pkg.tagline}</p>
+                <p className="font-inter text-xs text-[#677489] leading-relaxed font-medium min-h-[60px]">
+                  {pkg.tagline}
+                </p>
                 <div className={s.divider} />
 
                 <div className={s.metaRow}>
                   <span className={s.metaLabel}>Ideal For</span>
-                  <p className={s.metaValue}>{pkg.bestFor}</p>
+                  <p className="font-inter text-xs text-[#2F3E4E] font-medium leading-relaxed">
+                    {pkg.bestFor}
+                  </p>
                 </div>
               </div>
 
               <Link
                 href={`/hubspot/packages/${pkg.slug}`}
-                className={`${s.actionBtn} ${pkg.isPopular ? s.actionBtnActive : s.actionBtnNormal} no-underline`}
+                className={`${s.actionBtn} ${pkg.isPopular ? s.actionBtnActive : s.actionBtnNormal} no-underline mt-4`}
               >
-                Explore Scope & Deliverables
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                Explore Scope
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           ))}

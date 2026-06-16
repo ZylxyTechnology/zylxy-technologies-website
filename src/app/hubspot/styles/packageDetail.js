@@ -1,11 +1,15 @@
 export const packageDetailStyles = {
-  main: "w-full bg-[#FFF8F5] min-h-screen font-sans antialiased pb-20",
+  // REMOVED pb-20 to prevent the light background from bleeding below the footer
+  main: "w-full bg-[#FFF8F5] min-h-screen font-sans antialiased",
   backLinkWrapper: "w-full max-w-[1280px] mx-auto px-6 sm:px-8 pt-12 pb-6",
   backLink:
     "inline-flex items-center gap-2 text-sm font-bold text-[#677489] hover:text-[#FF7A59] transition-colors no-underline group cursor-pointer",
   backArrow: "w-4 h-4 transition-transform group-hover:-translate-x-0.5",
+
+  // ADDED pb-24 here to safely push content away from the footer block instead
   contentGrid:
-    "w-full max-w-[1280px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start",
+    "w-full max-w-[1280px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-24",
+
   leftColumn: "lg:col-span-7 flex flex-col gap-8 text-left",
   headerBlock: "flex flex-col gap-4 items-start",
   packageBadge:

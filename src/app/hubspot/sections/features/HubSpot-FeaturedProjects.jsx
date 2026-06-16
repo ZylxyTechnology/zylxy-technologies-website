@@ -12,30 +12,35 @@ import {
 export default function HubSpotFeaturedProjects() {
   const projects = [
     {
+      id: "academy-enrollment",
       title: "Academy Enrollment Automation",
       desc: "Automated application and enrollment processes using HubSpot workflows and custom objects.",
       icon: <Workflow className="w-5 h-5 stroke-[2]" />,
       tag: "Operations Hub",
     },
     {
+      id: "survey-management",
       title: "Survey Management System",
       desc: "Built survey submission, follow-up, and reporting processes to improve data collection and visibility.",
       icon: <ClipboardCheck className="w-5 h-5 stroke-[2]" />,
       tag: "Data Operations",
     },
     {
+      id: "event-registration",
       title: "Event Registration Tracking",
       desc: "Created automated registration and attendance workflows that reduced manual effort and improved reporting.",
       icon: <CalendarDays className="w-5 h-5 stroke-[2]" />,
       tag: "Marketing Automation",
     },
     {
+      id: "reporting-dashboards",
       title: "Executive Reporting Dashboards",
       desc: "Developed dashboards that provide leadership teams with real-time program and operational metrics.",
       icon: <PieChart className="w-5 h-5 stroke-[2]" />,
       tag: "Analytics",
     },
     {
+      id: "crm-cleanup",
       title: "CRM Data Cleanup & Tuning",
       desc: "Improved data quality through duplicate management, property organization, and process optimization.",
       icon: <DatabaseZap className="w-5 h-5 stroke-[2]" />,
@@ -58,7 +63,7 @@ export default function HubSpotFeaturedProjects() {
 
         <div className={s.grid}>
           {projects.map((project, idx) => (
-            <div key={idx} className={s.card}>
+            <div key={idx} id={project.id} className={s.card}>
               <div className={s.cardContent}>
                 <div className={s.iconWrapper}>{project.icon}</div>
                 <h3 className={s.cardTitle}>{project.title}</h3>

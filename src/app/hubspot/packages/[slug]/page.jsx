@@ -1,23 +1,24 @@
-import { packagesData } from "@/app/hubspot/packages/data/packageData";
-import HubSpotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
+import { packagesData } from "@/app/hubspot/data/packageData";
 import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
+import HubSpotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
 import { packageDetailStyles as s } from "@/app/hubspot/styles/packageDetail";
 import {
+  Activity,
   ArrowRight,
   CheckCircle2,
   ChevronLeft,
   Clock,
+  HelpCircle,
+  Kanban,
   Shield,
 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function PackagePage({ params }) {
-  // Gracefully resolve the params object promise for modern Next environments
   const { slug } = await params;
   const packageDetail = packagesData[slug.toLowerCase()];
 
-  // Throw 404 block state routing if segment string parameters fail match checks
   if (!packageDetail) {
     notFound();
   }
@@ -26,7 +27,6 @@ export default async function PackagePage({ params }) {
     <main className={s.main}>
       <HubSpotNavbar />
 
-      {/* Navigation Return Hook */}
       <div className={s.backLinkWrapper}>
         <Link href="/hubspot" className={s.backLink}>
           <ChevronLeft className={s.backArrow} />
@@ -34,9 +34,7 @@ export default async function PackagePage({ params }) {
         </Link>
       </div>
 
-      {/* Structural Data Layout Column Wrapper */}
       <div className={s.contentGrid}>
-        {/* Deliverables Scope Execution Frame */}
         <div className={s.leftColumn}>
           <div className={s.headerBlock}>
             <span className={s.packageBadge}>{packageDetail.badge}</span>
@@ -44,25 +42,55 @@ export default async function PackagePage({ params }) {
             <p className={s.overviewText}>{packageDetail.tagline}</p>
           </div>
 
-          <div className={s.deliverablesCard}>
-            <h3 className={s.cardHeading}>Included Deliverables & Scope</h3>
-            <div className={s.deliverablesList}>
-              {packageDetail.deliverables.map((item, index) => (
-                <div key={index} className={s.deliverableRow}>
-                  <CheckCircle2 className={s.checkIcon} />
-                  <span className={s.deliverableText}>{item}</span>
+          {packageDetail.isFlexibleEngagement ? (
+            <div className="flex flex-col gap-6 w-full">
+              {packageDetail.subModels.map((model, index) => (
+                <div
+                  key={index}
+                  className="bg-white border border-[#F0E8E3] rounded-2xl p-6 shadow-xs text-left space-y-2"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#FFF0EB] flex items-center justify-center text-[#FF7A59]">
+                      {index === 0 ? (
+                        <Activity className="w-4 h-4" />
+                      ) : index === 1 ? (
+                        <Kanban className="w-4 h-4" />
+                      ) : (
+                        <HelpCircle className="w-4 h-4" />
+                      )}
+                    </div>
+                    <h3 className="font-lexend font-bold text-lg text-[#1B1F3A]">
+                      {model.name}
+                    </h3>
+                  </div>
+                  <p className="font-inter text-sm text-[#677489] leading-relaxed pl-11">
+                    {model.details}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
+          ) : (
+            <div className={s.deliverablesCard}>
+              <h3 className={s.cardHeading}>Included Deliverables & Scope</h3>
+              <div className={s.deliverablesList}>
+                {packageDetail.deliverables.map((item, index) => (
+                  <div key={index} className={s.deliverableRow}>
+                    <CheckCircle2 className={s.checkIcon} />
+                    <span className={s.deliverableText}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Dynamic Context Meta Sidebar Target Block */}
         <div className={s.rightColumn}>
           <div className={s.stickyCard}>
             <div className={s.metaGroup}>
               <span className={s.metaLabel}>Ideal For</span>
-              <p className={s.metaValue}>{packageDetail.idealFor}</p>
+              <p className={s.metaValue}>
+                {packageDetail.bestFor || packageDetail.idealFor}
+              </p>
             </div>
 
             <div className={s.divider} />
@@ -74,11 +102,9 @@ export default async function PackagePage({ params }) {
                   Timeline
                 </span>
                 <span className={s.specText}>
-                  {slug.toLowerCase() === "starter"
-                    ? "1-2 Weeks"
-                    : slug.toLowerCase() === "growth"
-                      ? "3-4 Weeks"
-                      : "Custom Scope"}
+                  {slug.toLowerCase() === "flexible"
+                    ? "Variable"
+                    : "Fixed Scope"}
                 </span>
               </div>
 
@@ -88,9 +114,9 @@ export default async function PackagePage({ params }) {
                   Engagement
                 </span>
                 <span className={s.specText}>
-                  {slug.toLowerCase() === "custom"
-                    ? "Support Retainer"
-                    : "Fixed-Scope"}
+                  {slug.toLowerCase() === "flexible"
+                    ? "Agile Framework"
+                    : "Milestone Built"}
                 </span>
               </div>
             </div>
@@ -107,7 +133,7 @@ export default async function PackagePage({ params }) {
             <p className={s.infoNoticeText}>
               Need to modify or customize these specific operational outputs? We
               chart data architecture structures unique to your core operational
-              targets during your discovery assessment lifecycle call.
+              targets during your discovery assessment lifecycle call[cite: 21].
             </p>
           </div>
         </div>
