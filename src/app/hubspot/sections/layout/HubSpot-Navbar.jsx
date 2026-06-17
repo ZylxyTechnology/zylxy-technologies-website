@@ -108,7 +108,7 @@ export default function HubSpotNavbar() {
                   </div>
                 </Link>
                 <Link
-                  href="/hubspot#packages"
+                  href="/hubspot/packages/flexible"
                   className={`${s.megaCard} no-underline`}
                 >
                   <div className={s.megaCardIcon}>
@@ -356,7 +356,7 @@ export default function HubSpotNavbar() {
 
         <div className={s.actionWrapper}>
           <Link
-            href="/hubspot#faq"
+            href="/hubspot#consultation"
             className={`${s.primaryBtn} no-underline text-center`}
           >
             Book a Free Consultation

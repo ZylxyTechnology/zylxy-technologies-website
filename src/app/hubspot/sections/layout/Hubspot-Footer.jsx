@@ -36,7 +36,10 @@ export default function HubSpotFooter() {
 
         <div className={s.rightCol}>
           <h4 className={s.ctaTitle}>{footerData.cta.title}</h4>
-          <Link href="/hubspot#faq" className={s.ctaButton}>
+          <Link
+            href="/hubspot#consultation"
+            className={`${s.ctaButton} no-underline`}
+          >
             {footerData.cta.buttonText}
           </Link>
         </div>

@@ -2,6 +2,7 @@
 
 import { hubspotData } from "@/app/hubspot/data/Hubspot-Data";
 import { heroStyles as s } from "@/app/hubspot/styles/hero";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
@@ -42,8 +43,19 @@ export default function Hero() {
           </p>
 
           <div className={s.btnRow}>
-            <button className={s.primaryBtn}>Get a free consultation</button>
-            <button className={s.secondaryBtn}>See my work</button>
+            <Link
+              href="/hubspot#consultation"
+              className={`${s.primaryBtn} no-underline inline-block text-center`}
+            >
+              Get a free consultation
+            </Link>
+            {/* UPDATED ANCHOR LINK ROUTING TO TARGET THE WHY ME SECTION */}
+            <Link
+              href="/hubspot#why-me"
+              className={`${s.secondaryBtn} no-underline inline-block text-center`}
+            >
+              See my work
+            </Link>
           </div>
 
           <div className={s.trustRow}>
@@ -57,6 +69,7 @@ export default function Hero() {
           </div>
         </div>
 
+        {/* Right graphic presentation column */}
         <div
           className={`${s.rightCol} ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} transition-all duration-500 ease-out`}
         >

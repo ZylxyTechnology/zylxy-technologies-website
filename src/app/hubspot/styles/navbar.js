@@ -34,5 +34,5 @@ export const navbarStyles = {
   megaCardDesc: "font-inter text-xs text-[#677489] leading-relaxed",
   actionWrapper: "flex items-center gap-4 z-20",
   primaryBtn:
-    "bg-[#FF7A59] hover:bg-[#E8673F] text-white font-inter font-bold text-xs sm:text-sm px-5 py-3 rounded-[6px] transition-all hover:-translate-y-px active:translate-y-0 cursor-pointer border-none shadow-xs",
+    "bg-[#FF7A59] hover:bg-[#E8673F] text-white font-inter font-bold text-xs sm:text-sm px-5 py-3 rounded-[6px] transition-all hover:-translate-y-px active:translate-y-0 cursor-pointer border-none shadow-xs no-underline",
 };

@@ -1,3 +1,4 @@
+import HubSpotConsultationForm from "@/app/hubspot/sections/HubSpot-ConsultationForm";
 import HubSpotPackagesOverview from "@/app/hubspot/sections/HubSpot-PackagesOverview";
 import HubSpotStatsBar from "@/app/hubspot/sections/HubSpot-StatsBar";
 import WhyMe from "@/app/hubspot/sections/HubSpot-WhyMe";
@@ -21,6 +22,7 @@ export default function HubSpotConsultantPage() {
       <WhyMe />
       <Testimonials />
       <FAQ />
+      <HubSpotConsultationForm />
       <HubspotFooter />
     </main>
   );

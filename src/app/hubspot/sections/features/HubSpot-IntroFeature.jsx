@@ -128,7 +128,7 @@ export default function HubSpotIntroFeature() {
           </div>
 
           <div className={s.btnRow}>
-            <Link href="/hubspot#faq" className={s.primaryBtn}>
+            <Link href="/hubspot#consultation" className={s.primaryBtn}>
               Book a Free Consultation
             </Link>
             <Link href="/hubspot#packages" className={s.secondaryBtn}>
