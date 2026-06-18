@@ -1,32 +1,38 @@
 export const packagesOverviewStyles = {
-  section: "w-full bg-[#FFF8F5] py-24 px-6 sm:px-8 border-b border-[#F0E8E3]",
-  container: "max-w-[1280px] mx-auto flex flex-col gap-16",
-  header: "text-center flex flex-col gap-3 max-w-[700px] mx-auto",
+  section:
+    "w-full bg-white py-24 px-6 sm:px-8 border-b border-[#F0E8E3] overflow-hidden",
+  container: "max-w-[1280px] mx-auto flex flex-col items-center",
+  header: "text-center max-w-[720px] mb-16 flex flex-col gap-3",
   eyebrow:
     "font-inter text-xs font-bold tracking-widest text-[#FF7A59] uppercase block",
   heading:
-    "font-lexend font-bold text-3xl sm:text-4xl lg:text-[40px] text-[#1B1F3A] tracking-tight",
+    "font-lexend font-bold text-3xl sm:text-4xl lg:text-[40px] text-[#1B1F3A] tracking-tight default-heading",
   subtext: "font-inter text-base text-[#677489] leading-relaxed font-medium",
-  grid: "grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-stretch",
-  card: "bg-white border border-[#F0E8E3] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#FEDDCC] hover:shadow-[0_16px_40px_rgba(255,122,89,0.06)] relative group",
-  cardActive: "border-[#FF7A59] shadow-[0_16px_40px_rgba(255,122,89,0.08)]",
+  grid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full items-stretch",
+  card: "bg-[#FFF8F5] p-6 rounded-xl border border-[#F0E8E3] shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#FEDDCC] group relative text-left",
+  cardActive:
+    "border-[#FF7A59] bg-white ring-4 ring-[#FF7A59]/5 shadow-lg lg:scale-[1.02]",
   popularBadge:
-    "absolute -top-3 left-8 bg-[#FF7A59] text-white font-inter text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-md",
-  cardHeader: "flex flex-col gap-4 items-start text-left mb-6",
+    "absolute -top-3 left-6 bg-[#FF7A59] text-white text-[9px] font-extrabold tracking-widest uppercase px-3 py-1 rounded-full shadow-sm shadow-[#FF7A59]/20 z-10",
+  cardHeader: "flex items-start gap-3.5 mb-4 text-left w-full",
+  iconBox:
+    "w-10 h-10 rounded-lg bg-white border border-[#F0E8E3] flex items-center justify-center text-[#FF7A59] group-hover:bg-[#FF7A59] group-hover:text-white transition-all duration-300 shrink-0 shadow-2xs",
+  iconBoxActive: "bg-[#FFF0EB] border-[#FEDDCC]",
+  badgeWrapper: "flex flex-col gap-0.5",
   packageBadge:
-    "font-inter text-[10px] font-extrabold tracking-widest uppercase px-2.5 py-1 rounded-md bg-[#FFF0EB] text-[#FF7A59]",
-  packageTitle: "font-lexend font-bold text-2xl text-[#1B1F3A]",
-  packageTagline:
-    "font-inter text-sm text-[#677489] leading-relaxed font-medium min-h-[60px]",
-  divider: "w-full h-px bg-[#F0E8E3] my-2",
-  metaRow: "flex flex-col gap-2 items-start text-left mb-8 w-full",
+    "font-inter text-[10px] font-extrabold tracking-widest text-[#FF7A59] uppercase block",
+  cardTitle: "font-lexend font-bold text-lg text-[#1B1F3A] tracking-tight",
+  tagline:
+    "font-inter text-xs text-[#677489] leading-relaxed font-medium min-h-[64px] text-left w-full mb-2",
+  divider: "w-full h-px bg-[#F0E8E3] my-4",
+  metaRow: "flex flex-col gap-1.5 text-left w-full mt-auto",
   metaLabel:
-    "font-inter text-[11px] font-bold text-[#677489] uppercase tracking-wider",
-  metaValue: "font-inter text-sm text-[#2F3E4E] font-medium leading-relaxed",
+    "font-inter text-[10px] font-extrabold text-[#677489] uppercase tracking-widest block",
+  bestFor: "font-inter text-xs text-[#2F3E4E] font-medium leading-relaxed",
   actionBtn:
-    "w-full py-3.5 px-4 rounded-xl font-inter font-bold text-sm text-center transition-all flex items-center justify-center gap-2 border cursor-pointer",
+    "w-full font-inter font-bold text-xs py-3.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 mt-6 no-underline border cursor-pointer",
   actionBtnNormal:
-    "bg-white border-[#FF7A59] text-[#FF7A59] hover:bg-[#FFF0EB]",
+    "bg-white border-[#F0E8E3] text-[#1B1F3A] hover:bg-[#FF7A59] hover:text-white hover:border-[#FF7A59]",
   actionBtnActive:
-    "bg-[#FF7A59] border-[#FF7A59] text-white hover:bg-[#E8673F] shadow-xs",
+    "bg-[#FF7A59] border-[#FF7A59] text-white hover:bg-[#E66B4E] hover:border-[#E66B4E] shadow-md shadow-[#FF7A59]/10",
 };

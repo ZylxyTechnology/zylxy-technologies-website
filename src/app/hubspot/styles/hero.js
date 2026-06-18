@@ -13,9 +13,9 @@ export const heroStyles = {
     "font-inter text-base sm:text-lg text-[#677489] leading-relaxed mb-8 max-w-[540px]",
   btnRow: "flex flex-row items-center gap-3 mb-6 flex-wrap",
   primaryBtn:
-    "bg-[#FF7A59] hover:bg-[#E8673F] text-white font-inter font-bold text-sm px-7 py-3.5 rounded-[10px] shadow-sm hover:shadow-md transition-all duration-200 active:translate-y-0 cursor-pointer border-none",
+    "bg-[#FF7A59] hover:bg-[#E8673F] text-white font-inter font-bold text-sm px-7 py-3.5 rounded-[10px] shadow-sm hover:shadow-md transition-all duration-200 active:translate-y-0 cursor-pointer border-none no-underline",
   secondaryBtn:
-    "border border-[#FF7A59] hover:bg-[#FFF0EB] text-[#FF7A59] font-inter font-bold text-sm px-7 py-3.5 rounded-[10px] transition-all duration-200 active:translate-y-0 bg-white cursor-pointer",
+    "border border-[#FF7A59] hover:bg-[#FFF0EB] text-[#FF7A59] font-inter font-bold text-sm px-7 py-3.5 rounded-[10px] transition-all duration-200 active:translate-y-0 bg-white cursor-pointer no-underline",
   trustRow: "flex flex-wrap items-center gap-3",
   trustItem:
     "font-inter text-xs font-semibold text-[#677489] flex items-center gap-1.5",

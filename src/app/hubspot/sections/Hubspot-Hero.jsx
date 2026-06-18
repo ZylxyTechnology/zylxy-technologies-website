@@ -49,7 +49,7 @@ export default function Hero() {
             >
               Get a free consultation
             </Link>
-            {/* UPDATED ANCHOR LINK ROUTING TO TARGET THE WHY ME SECTION */}
+            {/* RECTIFIED ROUTING TARGET: Moves browser layout straight to Why Me credentials */}
             <Link
               href="/hubspot#why-me"
               className={`${s.secondaryBtn} no-underline inline-block text-center`}
@@ -69,7 +69,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right graphic presentation column */}
         <div
           className={`${s.rightCol} ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} transition-all duration-500 ease-out`}
         >

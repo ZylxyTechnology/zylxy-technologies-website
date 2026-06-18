@@ -1,4 +1,3 @@
-import HubSpotConsultationForm from "@/app/hubspot/sections/HubSpot-ConsultationForm";
 import HubSpotPackagesOverview from "@/app/hubspot/sections/HubSpot-PackagesOverview";
 import HubSpotStatsBar from "@/app/hubspot/sections/HubSpot-StatsBar";
 import WhyMe from "@/app/hubspot/sections/HubSpot-WhyMe";
@@ -9,6 +8,7 @@ import HubSpotFeaturedProjects from "@/app/hubspot/sections/features/HubSpot-Fea
 import HubSpotIntroFeature from "@/app/hubspot/sections/features/HubSpot-IntroFeature";
 import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
 import HubspotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
+import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
 
 export default function HubSpotConsultantPage() {
   return (
@@ -22,7 +22,7 @@ export default function HubSpotConsultantPage() {
       <WhyMe />
       <Testimonials />
       <FAQ />
-      <HubSpotConsultationForm />
+      <UnifiedFormSection />
       <HubspotFooter />
     </main>
   );

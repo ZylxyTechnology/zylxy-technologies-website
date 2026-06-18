@@ -38,7 +38,7 @@ export default function WhyMe() {
                 </div>
                 <img
                   src={leader.companyLogo}
-                  alt="Zylxy Logo"
+                  alt="Company Logo"
                   className={s.logoFrame}
                 />
               </div>

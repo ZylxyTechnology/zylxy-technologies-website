@@ -2,49 +2,44 @@
 
 import { featuredProjectsStyles as s } from "@/app/hubspot/styles/featuredProjects";
 import {
-  CalendarDays,
-  ClipboardCheck,
-  DatabaseZap,
-  PieChart,
-  Workflow,
+  CheckSquare,
+  ClipboardList,
+  Database,
+  LineChart,
+  Zap,
 } from "lucide-react";
 
 export default function HubSpotFeaturedProjects() {
   const projects = [
     {
-      id: "academy-enrollment",
+      icon: <Zap className="w-4 h-4" />,
       title: "Academy Enrollment Automation",
       desc: "Automated application and enrollment processes using HubSpot workflows and custom objects.",
-      icon: <Workflow className="w-5 h-5 stroke-[2]" />,
-      tag: "Operations Hub",
+      tags: ["Operations Hub", "Workflows", "Custom Objects"],
     },
     {
-      id: "survey-management",
+      icon: <CheckSquare className="w-4 h-4" />,
       title: "Survey Management System",
       desc: "Built survey submission, follow-up, and reporting processes to improve data collection and visibility.",
-      icon: <ClipboardCheck className="w-5 h-5 stroke-[2]" />,
-      tag: "Data Operations",
+      tags: ["Data Operations", "Automation", "Feedback Loops"],
     },
     {
-      id: "event-registration",
-      title: "Event Registration Tracking",
+      icon: <ClipboardList className="w-4 h-4" />,
+      title: "Event Registration & Tracking",
       desc: "Created automated registration and attendance workflows that reduced manual effort and improved reporting.",
-      icon: <CalendarDays className="w-5 h-5 stroke-[2]" />,
-      tag: "Marketing Automation",
+      tags: ["Marketing Automation", "Events Channel", "CRM Optimization"],
     },
     {
-      id: "reporting-dashboards",
+      icon: <LineChart className="w-4 h-4" />,
       title: "Executive Reporting Dashboards",
       desc: "Developed dashboards that provide leadership teams with real-time program and operational metrics.",
-      icon: <PieChart className="w-5 h-5 stroke-[2]" />,
-      tag: "Analytics",
+      tags: ["Analytics", "Custom Dashboards", "Reporting Hub"],
     },
     {
-      id: "crm-cleanup",
+      icon: <Database className="w-4 h-4" />,
       title: "CRM Data Cleanup & Tuning",
       desc: "Improved data quality through duplicate management, property organization, and process optimization.",
-      icon: <DatabaseZap className="w-5 h-5 stroke-[2]" />,
-      tag: "CRM Architecture",
+      tags: ["CRM Architecture", "Data Hygiene", "Record Deduplication"],
     },
   ];
 
@@ -53,7 +48,7 @@ export default function HubSpotFeaturedProjects() {
       <div className={s.container}>
         <div className={s.header}>
           <span className={s.eyebrow}>PROVEN DEPLOYMENTS</span>
-          <h2 className={s.heading}>Featured Projects</h2>
+          <h2 className={s.heading}>Featured Operational Projects</h2>
           <p className={s.subtext}>
             Real-world technical solutions engineered to eliminate manual
             friction and maximize database efficiency for scale-ready
@@ -63,16 +58,23 @@ export default function HubSpotFeaturedProjects() {
 
         <div className={s.grid}>
           {projects.map((project, idx) => (
-            <div key={idx} id={project.id} className={s.card}>
+            <div key={idx} className={s.card}>
               <div className={s.cardContent}>
                 <div className={s.iconWrapper}>{project.icon}</div>
                 <h3 className={s.cardTitle}>{project.title}</h3>
                 <p className={s.cardDesc}>{project.desc}</p>
-                <div className={s.tagRow}>
-                  <span className={s.tag}>{project.tag}</span>
-                </div>
               </div>
-              <div className={s.baselineFlourish} />
+
+              <div className="w-full">
+                <div className={s.tagRow}>
+                  {project.tags.map((tag, tIdx) => (
+                    <span key={tIdx} className={s.tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className={s.baselineFlourish} />
+              </div>
             </div>
           ))}
         </div>

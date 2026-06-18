@@ -1,6 +1,4 @@
 import { packagesData } from "@/app/hubspot/data/packageData";
-import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
-import HubSpotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
 import { packageDetailStyles as s } from "@/app/hubspot/styles/packageDetail";
 import {
   Activity,
@@ -8,6 +6,7 @@ import {
   CheckCircle2,
   ChevronLeft,
   Clock,
+  Eye,
   HelpCircle,
   Kanban,
   Shield,
@@ -24,9 +23,7 @@ export default async function PackagePage({ params }) {
   }
 
   return (
-    <main className={s.main}>
-      <HubSpotNavbar />
-
+    <div className="w-full">
       <div className={s.backLinkWrapper}>
         <Link href="/hubspot" className={s.backLink}>
           <ChevronLeft className={s.backArrow} />
@@ -40,6 +37,23 @@ export default async function PackagePage({ params }) {
             <span className={s.packageBadge}>{packageDetail.badge}</span>
             <h1 className={s.mainTitle}>{packageDetail.title}</h1>
             <p className={s.overviewText}>{packageDetail.tagline}</p>
+          </div>
+
+          <div className={s.imageCard}>
+            <div className={s.imageHeaderRow}>
+              <h4 className={s.imageCardTitle}>
+                <Eye className="w-4 h-4 text-[#FF7A59]" />
+                Architecture Framework Blueprint
+              </h4>
+              <span className={s.imageCardBadge}>Live Portal Output</span>
+            </div>
+            <div className={s.imageFrame}>
+              <img
+                src={packageDetail.imagePath}
+                alt={`${packageDetail.title} Environment Preview`}
+                className={s.imageElement}
+              />
+            </div>
           </div>
 
           {packageDetail.isFlexibleEngagement ? (
@@ -123,23 +137,24 @@ export default async function PackagePage({ params }) {
 
             <div className={s.divider} />
 
-            <button className={s.ctaButton}>
+            <Link
+              href="/hubspot#consultation"
+              className={`${s.ctaButton} no-underline`}
+            >
               Book Free Consultation
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
 
           <div className={s.infoNotice}>
             <p className={s.infoNoticeText}>
               Need to modify or customize these specific operational outputs? We
               chart data architecture structures unique to your core operational
-              targets during your discovery assessment lifecycle call[cite: 21].
+              targets during your discovery assessment lifecycle call.
             </p>
           </div>
         </div>
       </div>
-
-      <HubSpotFooter />
-    </main>
+    </div>
   );
 }

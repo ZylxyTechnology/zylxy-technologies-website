@@ -1,5 +1,5 @@
 export const featuredProjectsStyles = {
-  section: "w-full bg-white py-24 px-6 sm:px-8 border-b border-[#F0E8E3]",
+  section: "w-full bg-[#FFF8F5] py-24 px-6 sm:px-8 border-b border-[#F0E8E3]",
   container: "max-w-[1280px] mx-auto flex flex-col gap-16",
   header: "text-center flex flex-col gap-3 max-w-[750px] mx-auto",
   eyebrow:

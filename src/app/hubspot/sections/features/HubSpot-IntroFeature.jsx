@@ -11,29 +11,25 @@ export default function HubSpotIntroFeature() {
     (p) => p.id === activePhase,
   );
 
-  // Computes the structural angle position of the workflow nodes
   const getRotationAngle = () => {
     if (activePhase === 1) return "rotate-0";
     if (activePhase === 2) return "-rotate-120";
     return "-rotate-240";
   };
 
-  // Computes the metric expansion scaling factor requested by your director
   const getScaleClass = () => {
-    if (activePhase === 1) return "scale-100"; // Baseline target size
-    if (activePhase === 2) return "scale-[1.08]"; // Moderate scale expansion
-    return "scale-[1.16]"; // Maximum layout visibility
+    if (activePhase === 1) return "scale-100";
+    if (activePhase === 2) return "scale-[1.08]";
+    return "scale-[1.16]";
   };
 
   return (
     <section className={s.section}>
       <div className={s.container}>
-        {/* Left Interactive Graphical Hub Card */}
         <div className={s.leftCol}>
           <div className={s.bgGridDecor} />
           <div className={s.radialGlowAccent} />
 
-          {/* Linked rotation and scale modifiers into a single layout container */}
           <div className={`${s.workflowWheelWrapper} ${getScaleClass()}`}>
             <div className={s.wheelCoreContent}>
               <span className={s.stepNum}>{currentPhase.num}</span>
@@ -78,7 +74,6 @@ export default function HubSpotIntroFeature() {
           </div>
         </div>
 
-        {/* Right Info Framework Column */}
         <div className={s.rightCol}>
           <h2 className={s.heading}>{introFeatureData.header.heading}</h2>
           <p className={s.subtext}>{introFeatureData.header.subtext}</p>

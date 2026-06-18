@@ -1,6 +1,6 @@
 import CaseStudiesSection from "@/components/sections/CaseStudies";
 import FaqSection from "@/components/sections/FAQ";
-import LeadGenSection from "@/components/sections/LeadGen";
+import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
 
 export default function ServiceLayout({ children }) {
   return (
@@ -8,7 +8,7 @@ export default function ServiceLayout({ children }) {
       {children}
       <CaseStudiesSection />
       <FaqSection />
-      <LeadGenSection />
+      <UnifiedFormSection />
     </>
   );
 }
