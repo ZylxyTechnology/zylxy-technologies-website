@@ -14,31 +14,63 @@ import {
   HelpCircle,
   Layers,
   LineChart,
-  Network,
+  Menu,
   Rocket,
   ShieldCheck,
   TrendingUp,
   UserCheck,
   Users,
+  X,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 export default function HubSpotNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setActiveSubmenu(null);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isOpen]);
+
+  const toggleSubmenu = (menuName) => {
+    setActiveSubmenu(activeSubmenu === menuName ? null : menuName);
+  };
+
   return (
     <nav className={s.nav}>
-      <div className={s.container}>
+      <div className={s.container} ref={dropdownRef}>
         <Link href="/hubspot" className={s.logoLink}>
           <div className={s.logoIconWrapper}>
-            <Network className="w-5 h-5 stroke-[2.5]" />
+            <Image
+              src="/logos/ZylxyLogo.png"
+              alt="Zylxy Technologies Corporate Logo"
+              width={22}
+              height={24}
+              className="object-contain select-none shrink-0 filter brightness-0 invert"
+              priority
+            />
             <div className={s.logoNodePill} />
           </div>
           <div className={s.textWrapper}>
             <span className={s.brandTitle}>HubSpot CRM</span>
-            <span className={s.brandSubtitle}>Consultant Specialist</span>
+            <span className={s.brandSubtitle}>CONSULTANT SPECIALIST</span>
           </div>
         </Link>
 
+        {/* Desktop Menu */}
         <div className={s.menuList}>
           <div className={s.menuItemWrapper}>
             <Link
@@ -354,14 +386,135 @@ export default function HubSpotNavbar() {
           </div>
         </div>
 
-        <div className={s.actionWrapper}>
-          <Link
-            href="/hubspot#consultation"
-            className={`${s.primaryBtn} no-underline text-center`}
+        {/* Desktop Call to Action & Mobile Controls Group */}
+        <div className="flex items-center gap-4 z-20">
+          <div className="hidden md:flex">
+            <Link
+              href="/hubspot#consultation"
+              className={`${s.primaryBtn} no-underline text-center`}
+            >
+              Book a Free Consultation
+            </Link>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex md:hidden flex-col justify-center items-center gap-1 w-8 h-8 bg-transparent border-none cursor-pointer focus:outline-none"
+            aria-label="Toggle Mobile Navigation Controls Menu"
           >
-            Book a Free Consultation
-          </Link>
+            {isOpen ? (
+              <X className="w-6 h-6 text-[#1B1F3A]" />
+            ) : (
+              <Menu className="w-6 h-6 text-[#1B1F3A]" />
+            )}
+          </button>
         </div>
+
+        {/* Clickable Responsive Mobile Dropdown Drawer Container */}
+        {isOpen && (
+          <div className="absolute top-20 left-0 right-0 bg-white border-b border-[#F0E8E3] shadow-xl p-6 z-50 flex flex-col gap-4 max-h-[calc(100vh-5rem)] overflow-y-auto md:hidden animate-[fadeIn_0.15s_ease-out]">
+            <Link
+              href="/hubspot#why-me"
+              onClick={() => setIsOpen(false)}
+              className="text-sm font-bold text-[#1B1F3A] hover:text-[#FF7A59] py-2.5 border-b border-[#F0E8E3] no-underline font-inter tracking-wide block"
+            >
+              About
+            </Link>
+
+            <div className="flex flex-col border-b border-[#F0E8E3]">
+              <button
+                onClick={() => toggleSubmenu("services")}
+                className="w-full flex items-center justify-between text-sm font-bold text-[#1B1F3A] hover:text-[#FF7A59] py-2.5 bg-transparent border-none text-left font-inter tracking-wide"
+              >
+                <span>Services</span>
+                <ChevronDown
+                  className={`w-4 h-4 opacity-70 transition-transform duration-200 ${activeSubmenu === "services" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {activeSubmenu === "services" && (
+                <div className="flex flex-col gap-3.5 pl-4 pt-2 pb-4 bg-[#FFF8F5]/60 rounded-lg mt-1 mb-2 animate-[fadeIn_0.2s_ease-out]">
+                  {nav.services.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs font-semibold text-[#677489] hover:text-[#FF7A59] no-underline font-inter"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/hubspot/packages/flexible"
+                    onClick={() => setIsOpen(false)}
+                    className="text-xs font-semibold text-[#677489] hover:text-[#FF7A59] no-underline font-inter"
+                  >
+                    Flexible Engagement Options
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col border-b border-[#F0E8E3]">
+              <button
+                onClick={() => toggleSubmenu("industries")}
+                className="w-full flex items-center justify-between text-sm font-bold text-[#1B1F3A] hover:text-[#FF7A59] py-2.5 bg-transparent border-none text-left font-inter tracking-wide"
+              >
+                <span>Industries</span>
+                <ChevronDown
+                  className={`w-4 h-4 opacity-70 transition-transform duration-200 ${activeSubmenu === "industries" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {activeSubmenu === "industries" && (
+                <div className="flex flex-col gap-3.5 pl-4 pt-2 pb-4 bg-[#FFF8F5]/60 rounded-lg mt-1 mb-2 animate-[fadeIn_0.2s_ease-out]">
+                  {nav.industries.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs font-semibold text-[#677489] hover:text-[#FF7A59] no-underline font-inter"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col border-b border-[#F0E8E3]">
+              <button
+                onClick={() => toggleSubmenu("projects")}
+                className="w-full flex items-center justify-between text-sm font-bold text-[#1B1F3A] hover:text-[#FF7A59] py-2.5 bg-transparent border-none text-left font-inter tracking-wide"
+              >
+                <span>Projects</span>
+                <ChevronDown
+                  className={`w-4 h-4 opacity-70 transition-transform duration-200 ${activeSubmenu === "projects" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {activeSubmenu === "projects" && (
+                <div className="flex flex-col gap-3.5 pl-4 pt-2 pb-4 bg-[#FFF8F5]/60 rounded-lg mt-1 mb-2 animate-[fadeIn_0.2s_ease-out]">
+                  {nav.projects.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs font-semibold text-[#677489] hover:text-[#FF7A59] no-underline font-inter"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/hubspot#consultation"
+              onClick={() => setIsOpen(false)}
+              className="w-full bg-[#FF7A59] hover:bg-[#E8673F] text-white font-inter font-bold text-sm py-3.5 rounded-[6px] text-center mt-2 no-underline shadow-xs"
+            >
+              Book a Free Consultation
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );

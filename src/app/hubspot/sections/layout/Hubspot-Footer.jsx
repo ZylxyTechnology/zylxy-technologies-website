@@ -2,7 +2,7 @@
 
 import { footerData } from "@/app/hubspot/data/footer";
 import { footerStyles as s } from "@/app/hubspot/styles/footer";
-import { Network } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HubSpotFooter() {
@@ -12,12 +12,18 @@ export default function HubSpotFooter() {
         <div className={s.leftCol}>
           <Link href="/hubspot" className={s.logoLink}>
             <div className={s.logoIconWrapper}>
-              <Network className="w-5 h-5 stroke-[2.5]" />
+              <Image
+                src="/logos/ZylxyLogo.png"
+                alt="Zylxy Technologies Corporate Logo"
+                width={22}
+                height={24}
+                className="object-contain select-none shrink-0 filter brightness-0 invert"
+              />
               <div className={s.logoNodePill} />
             </div>
             <div className={s.textWrapper}>
               <span className={s.brandTitle}>HubSpot CRM</span>
-              <span className={s.brandSubtitle}>Consultant Specialist</span>
+              <span className={s.brandSubtitle}>CONSULTANT SPECIALIST</span>
             </div>
           </Link>
           <p className={s.tagline}>{footerData.brand.tagline}</p>
