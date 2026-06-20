@@ -14,43 +14,53 @@ export async function POST(request) {
       subLevel,
       challengesToSolve,
       consentCommunications,
+      consentProcessing,
       recaptchaToken,
       isHubSpotFormContext,
     } = body;
 
+    // 1. Core Field Validation Guard
     if (!name || !email) {
       return NextResponse.json(
-        { success: false, error: "Name and Email are required." },
+        { success: false, error: "Name and Email are required fields." },
         { status: 400 },
       );
     }
 
-    if (!recaptchaToken) {
+    // 2. Security Validation Token Guard (Bypassed locally for development demo)
+    const isLocalDev =
+      process.env.NODE_ENV === "development" ||
+      request.headers.get("host").includes("localhost");
+
+    if (!recaptchaToken && !isLocalDev) {
       return NextResponse.json(
         { success: false, error: "Security validation token is missing." },
         { status: 400 },
       );
     }
 
-    const secretKey =
-      process.env.RECAPTCHA_SECRET_KEY ||
-      "6LdJOyYtAAAAADqePI9n4nEbrp0rnn6aDHFSAiPr";
-    const verifyResponse = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
-      { method: "POST" },
-    );
-
-    const verificationResult = await verifyResponse.json();
-    if (!verificationResult.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Cryptographic security verification failed.",
-        },
-        { status: 401 },
+    if (!isLocalDev) {
+      const secretKey =
+        process.env.RECAPTCHA_SECRET_KEY ||
+        "6LdJOyYtAAAAADqePI9n4nEbrp0rnn6aDHFSAiPr";
+      const verifyResponse = await fetch(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
+        { method: "POST" },
       );
+
+      const verificationResult = await verifyResponse.json();
+      if (!verificationResult.success) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Cryptographic security verification failed.",
+          },
+          { status: 401 },
+        );
+      }
     }
 
+    // 3. Setup HubSpot Targeting Context Configurations
     const portalId = "246492214";
     const formId = isHubSpotFormContext
       ? "65d2e621-d4ff-4616-8f31-2c22a59547e5"
@@ -61,6 +71,7 @@ export async function POST(request) {
         ? challengesToSolve.join("; ")
         : "";
 
+    // 4. Construct Structured Form API Schema Payload
     const hubspotPayload = {
       submittedAt: Date.now(),
       fields: [
@@ -80,6 +91,10 @@ export async function POST(request) {
           name: "consent_receive_communications",
           value: consentCommunications ? "true" : "false",
         },
+        {
+          name: "consent_store_process_data",
+          value: consentProcessing ? "true" : "false",
+        },
       ],
       context: {
         pageUri: request.headers.get("referer") || "https://zylxytech.com",
@@ -89,20 +104,28 @@ export async function POST(request) {
       },
     };
 
+    // 5. Secure Outbound API Transmission
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: {
-          "application/json": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(hubspotPayload),
       },
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "HubSpot API submission failure.");
+      const errorText = await response.text();
+      let parsedErrorMessage = "HubSpot API submission failure.";
+      try {
+        const errorData = JSON.parse(errorText);
+        parsedErrorMessage = errorData.message || parsedErrorMessage;
+      } catch (e) {
+        parsedErrorMessage = errorText || parsedErrorMessage;
+      }
+      throw new Error(parsedErrorMessage);
     }
 
     return NextResponse.json({

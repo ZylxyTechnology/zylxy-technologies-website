@@ -86,17 +86,16 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/#leadgen-section" className={navbarStyles.menuButton}>
+            <Link href="/#consultation" className={navbarStyles.menuButton}>
               Contact
             </Link>
           </div>
-
           <div className={navbarStyles.rightActionsGroup}>
             <Link href="/hubspot" className={navbarStyles.hubspotPill}>
               <span className={navbarStyles.hubspotPulseDot} />
               HubSpot CRM
             </Link>
-            <Link href="/#leadgen-section" className={navbarStyles.primaryBtn}>
+            <Link href="/#consultation" className={navbarStyles.primaryBtn}>
               Free Consultation
             </Link>
           </div>
@@ -150,7 +149,7 @@ export default function Navbar() {
             className={navbarStyles.hubspotMobilePill}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <span>HubSpot CRM</span>
+            <span>HubSpot CRM & Automation</span>
             <span className="w-2 h-2 rounded-full bg-[#FF7A59] shadow-[0_0_6px_#FF7A59]" />
           </Link>
 
@@ -172,14 +171,14 @@ export default function Navbar() {
             </Link>
           </div>
           <Link
-            href="/#leadgen-section"
+            href="/#consultation"
             className="text-sm font-medium text-white/80"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Contact
           </Link>
           <Link
-            href="/#leadgen-section"
+            href="/#consultation"
             className={`${navbarStyles.primaryBtn} text-center w-full block mt-2`}
             onClick={() => setIsMobileMenuOpen(false)}
           >

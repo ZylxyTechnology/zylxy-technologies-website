@@ -82,33 +82,6 @@ export default function UnifiedFormSection() {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  useEffect(() => {
-    if (!window.grecaptcha) {
-      const script = document.createElement("script");
-      script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        window.grecaptcha.ready(() => {
-          try {
-            window.grecaptcha.render("recaptcha-invisible-holder", {
-              sitekey:
-                process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
-                "6LdJOyYtAAAAAPmriQcN4O0jmKvRaHkjqQWcwZJP",
-              size: "invisible",
-              badge: "inline",
-              callback: (token) => {
-                executeFormSubmission(token);
-              },
-              theme: "dark",
-            });
-          } catch (e) {}
-        });
-      };
-      document.head.appendChild(script);
-    }
-  }, []);
-
   const activeHeader = isHubSpotRoute ? d.hubspotHeader : d.header;
   const isHubSpotSelected = form.service === "HubSpot CRM";
 
@@ -204,32 +177,16 @@ export default function UnifiedFormSection() {
 
     setLoading(true);
     setFieldErrors({});
-
-    if (window.grecaptcha) {
-      try {
-        window.grecaptcha.execute();
-      } catch (err) {
-        setLoading(false);
-        setFieldErrors({
-          global: "Security system initialization failed. Please refresh.",
-        });
-      }
-    } else {
-      setLoading(false);
-      setFieldErrors({
-        global: "Security script connection timed out. Please try again.",
-      });
-    }
+    executeFormSubmission();
   };
 
-  const executeFormSubmission = async (token) => {
+  const executeFormSubmission = async () => {
     const processedData = {
       ...form,
       name: form.name.trim().toUpperCase(),
       email: form.email.trim(),
       phone: `${activeCountry.dial} ${form.phone.trim()}`,
       isHubSpotFormContext: isHubSpotRoute,
-      recaptchaToken: token,
     };
 
     try {
@@ -250,7 +207,6 @@ export default function UnifiedFormSection() {
       setSubmittedName(processedData.name);
       setSubmittedEmail(processedData.email);
       setSent(true);
-      if (window.grecaptcha) window.grecaptcha.reset();
 
       setForm({
         name: "",
@@ -272,7 +228,6 @@ export default function UnifiedFormSection() {
           err.message ||
           "An operational delivery error occurred. Please try again.",
       });
-      if (window.grecaptcha) window.grecaptcha.reset();
     } finally {
       setLoading(false);
     }
@@ -747,11 +702,6 @@ export default function UnifiedFormSection() {
               )}
             </div>
 
-            <div
-              id="recaptcha-invisible-holder"
-              style={{ display: "none" }}
-            ></div>
-
             <div className={s.footerRow}>
               <p className={s.privacyFooter}>
                 We care about your privacy. Learn how we handle your data in our
@@ -766,27 +716,6 @@ export default function UnifiedFormSection() {
                   {loading ? "Sending..." : "Send My Request"}
                   <Send className="w-4 h-4 animate-pulse" />
                 </button>
-                <p className={s.legalNotice}>
-                  Protected by reCAPTCHA. Google
-                  <a
-                    href="https://policies.google.com/privacy"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={s.legalLink}
-                  >
-                    Privacy
-                  </a>
-                  and
-                  <a
-                    href="https://policies.google.com/terms"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={s.legalLink}
-                  >
-                    Terms
-                  </a>{" "}
-                  apply.
-                </p>
               </div>
             </div>
 

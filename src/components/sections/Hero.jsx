@@ -1,35 +1,8 @@
-"use client";
-
 import { heroData } from "@/data/heroData";
 import { heroStyles } from "@/styles/sections/hero";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Hero() {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleConsultClick = () => {
-    if (pathname !== "/") {
-      router.push("/#leadgen-section");
-    } else {
-      const elem = document.getElementById("leadgen-section");
-      if (elem) {
-        window.scrollTo({ top: elem.offsetTop - 85, behavior: "smooth" });
-      }
-    }
-  };
-
-  const handleExploreClick = () => {
-    if (pathname !== "/") {
-      router.push("/#services-section");
-    } else {
-      const elem = document.getElementById("services-section");
-      if (elem) {
-        window.scrollTo({ top: elem.offsetTop - 85, behavior: "smooth" });
-      }
-    }
-  };
-
   return (
     <section className={heroStyles.section}>
       <div className={heroStyles.atmosphereGlow} />
@@ -58,18 +31,18 @@ export default function Hero() {
           </p>
 
           <div className={heroStyles.btnGroup}>
-            <button
-              onClick={handleConsultClick}
-              className={heroStyles.primaryBtn}
+            <Link
+              href="/#consultation"
+              className={`${heroStyles.primaryBtn} no-underline inline-flex items-center justify-center text-center`}
             >
               {heroData.buttons.primary}
-            </button>
-            <button
-              onClick={handleExploreClick}
-              className={heroStyles.secondaryBtn}
+            </Link>
+            <Link
+              href="/#services-section"
+              className={`${heroStyles.secondaryBtn} no-underline inline-flex items-center justify-center text-center`}
             >
               {heroData.buttons.secondary}
-            </button>
+            </Link>
           </div>
 
           <div className={heroStyles.statsGrid}>

@@ -2,24 +2,11 @@
 
 import { servicesData } from "@/data/servicesData";
 import { servicesStyles } from "@/styles/sections/services";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState("all");
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleConsultClick = () => {
-    if (pathname !== "/") {
-      router.push("/#leadgen-section");
-    } else {
-      const elem = document.getElementById("leadgen-section");
-      if (elem) {
-        window.scrollTo({ top: elem.offsetTop - 85, behavior: "smooth" });
-      }
-    }
-  };
 
   const filteredServices =
     activeTab.toLowerCase().trim() === "all"
@@ -27,12 +14,6 @@ export default function ServicesPage() {
       : servicesData.services.filter(
           (s) => s.cat.toLowerCase().trim() === activeTab.toLowerCase().trim(),
         );
-
-  const handleSelectService = (service) => {
-    const serviceSlug =
-      service.id || service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    router.push(`/services/${serviceSlug}`);
-  };
 
   return (
     <section id="services-section" className={servicesStyles.section}>
@@ -82,22 +63,17 @@ export default function ServicesPage() {
 
         <div className={servicesStyles.grid}>
           {filteredServices.map((service) => (
-            <ServiceCard
-              key={service.id || service.title}
-              s={service}
-              onClick={() => handleSelectService(service)}
-            />
+            <ServiceCard key={service.id || service.title} s={service} />
           ))}
         </div>
 
         <div className={servicesStyles.btnRow}>
-          <button
-            type="button"
-            onClick={handleConsultClick}
-            className={servicesStyles.consultBtn}
+          <Link
+            href="/#consultation"
+            className={`${servicesStyles.consultBtn} no-underline inline-block text-center`}
           >
             Book a Free Consultation
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -127,9 +103,14 @@ function TabBtn({ label, count, active, onClick }) {
   );
 }
 
-function ServiceCard({ s, onClick }) {
+function ServiceCard({ s }) {
+  const serviceSlug = s.id || s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
   return (
-    <div onClick={onClick} className={servicesStyles.card}>
+    <Link
+      href={`/services/${serviceSlug}`}
+      className={`${servicesStyles.card} no-underline block`}
+    >
       <div className={servicesStyles.cardTopRow}>
         <div
           className={`${servicesStyles.iconBox} group-hover:bg-white`}
@@ -167,6 +148,6 @@ function ServiceCard({ s, onClick }) {
           </span>
         ))}
       </div>
-    </div>
+    </Link>
   );
 }
