@@ -7,6 +7,7 @@ export async function POST(request) {
       name,
       email,
       phone,
+      dialCode,
       service,
       message,
       orgName,
@@ -15,71 +16,100 @@ export async function POST(request) {
       challengesToSolve,
       consentCommunications,
       consentProcessing,
-      recaptchaToken,
+      honeyTrap,
       isHubSpotFormContext,
     } = body;
 
-    // 1. Core Field Validation Guard
-    if (!name || !email) {
-      return NextResponse.json(
-        { success: false, error: "Name and Email are required fields." },
-        { status: 400 },
-      );
+    if (honeyTrap !== "") {
+      return NextResponse.json({ success: true });
     }
 
-    // 2. Security Validation Token Guard (Bypassed locally for development demo)
-    const isLocalDev =
-      process.env.NODE_ENV === "development" ||
-      request.headers.get("host").includes("localhost");
-
-    if (!recaptchaToken && !isLocalDev) {
-      return NextResponse.json(
-        { success: false, error: "Security validation token is missing." },
-        { status: 400 },
-      );
+    const errors = {};
+    if (!name) {
+      errors.name =
+        "Please provide your full name to initialize the inquiry profile.";
+    } else if (name.length < 2) {
+      errors.name =
+        "Please enter a valid full name configuration (minimum 2 characters).";
     }
 
-    if (!isLocalDev) {
-      const secretKey =
-        process.env.RECAPTCHA_SECRET_KEY ||
-        "6LdJOyYtAAAAADqePI9n4nEbrp0rnn6aDHFSAiPr";
-      const verifyResponse = await fetch(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
-        { method: "POST" },
-      );
-
-      const verificationResult = await verifyResponse.json();
-      if (!verificationResult.success) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Cryptographic security verification failed.",
-          },
-          { status: 401 },
-        );
-      }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      errors.email =
+        "A valid email address is required to ensure secure communication routing.";
+    } else if (!emailRegex.test(email)) {
+      errors.email =
+        "Please provide a correctly formatted corporate or personal email address.";
     }
 
-    // 3. Setup HubSpot Targeting Context Configurations
+    if (!phone) {
+      errors.phone =
+        "An operational phone number is required to finalize your verification routing.";
+    } else if (phone.replace(/\D/g, "").length < 6) {
+      errors.phone =
+        "The provided phone parameter sequence is incomplete. Please check and try again.";
+    }
+
+    if (!service) {
+      errors.service =
+        "Please select an operational service track parameter from the dropdown selection.";
+    }
+
+    if (service === "HubSpot CRM" && !orgName) {
+      errors.orgName =
+        "Organization name identification is required for setting up HubSpot diagnostics.";
+    }
+
+    if (!consentCommunications) {
+      errors.consentCommunications =
+        "Please confirm your communication preferences by checking the box.";
+    }
+
+    if (!consentProcessing) {
+      errors.consentProcessing =
+        "Please check the box to confirm your consent to store and process personal data.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return NextResponse.json({ success: false, errors }, { status: 400 });
+    }
+
     const portalId = "246492214";
     const formId = isHubSpotFormContext
       ? "65d2e621-d4ff-4616-8f31-2c22a59547e5"
       : "22c7712e-9c35-4c26-9881-4abf481fa67c";
 
-    const formattedChallenges =
-      challengesToSolve && challengesToSolve.length > 0
-        ? challengesToSolve.join("; ")
-        : "";
+    const fullPhoneNumber = dialCode ? `${dialCode} ${phone}` : phone;
 
-    // 4. Construct Structured Form API Schema Payload
-    const hubspotPayload = {
-      submittedAt: Date.now(),
-      fields: [
-        { name: "firstname", value: name },
-        { name: "email", value: email },
-        { name: "phone", value: phone || "" },
-        { name: "service_needed", value: service || "" },
-        { name: "message", value: message || "" },
+    const serviceTranslationMap = {
+      "HubSpot CRM": "HubSpot",
+      "Software Solutions": "Software Solution",
+      "Digital Marketing": "Digital Marketing",
+      "App Development": "App Development",
+      "Web Development": "Web Development",
+      "IT Consulting": "IT Consulting",
+      "UI/UX & Branding": "UI/UX & Branding",
+      "Training & Courses": "Training & Courses",
+      Animations: "Animations",
+      "Not sure yet": "Not sure yet",
+    };
+    const mappedHubSpotService = serviceTranslationMap[service] || service;
+
+    const fields = [
+      { name: "firstname", value: name }, // FIX: Name splitting logic completely removed
+      { name: "email", value: email },
+      { name: "phone", value: fullPhoneNumber },
+      { name: "0-2/service", value: mappedHubSpotService },
+      { name: "message", value: message },
+    ];
+
+    if (isHubSpotFormContext || service === "HubSpot CRM") {
+      const formattedChallenges = Array.isArray(challengesToSolve)
+        ? challengesToSolve.join(";")
+        : (challengesToSolve || "").replace(/; /g, ";");
+
+      fields.push(
+        { name: "0-2/name", value: orgName || "" },
         { name: "company", value: orgName || "" },
         { name: "organization_type", value: orgType || "" },
         { name: "hubspot_subscription_level", value: subLevel || "" },
@@ -87,31 +117,31 @@ export async function POST(request) {
           name: "what_hubspot_challenges_are_you_trying_to_solve_",
           value: formattedChallenges,
         },
-        {
-          name: "consent_receive_communications",
-          value: consentCommunications ? "true" : "false",
-        },
-        {
-          name: "consent_store_process_data",
-          value: consentProcessing ? "true" : "false",
-        },
-      ],
+      );
+    }
+
+    const hubspotPayload = {
+      submittedAt: Date.now(),
+      fields,
       context: {
-        pageUri: request.headers.get("referer") || "https://zylxytech.com",
+        pageUri: "https://zylxytech.com",
         pageName: isHubSpotFormContext
           ? "HubSpot Consulting Intake Portal"
           : "Zylxy General Lead Intake",
       },
+      legalConsentOptions: {
+        consent: {
+          consentToProcess: consentProcessing,
+          text: "I agree to allow Zylxy Technologies to store and process my personal data.",
+        },
+      },
     };
 
-    // 5. Secure Outbound API Transmission
     const response = await fetch(
-      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(hubspotPayload),
       },
     );
@@ -121,21 +151,31 @@ export async function POST(request) {
       let parsedErrorMessage = "HubSpot API submission failure.";
       try {
         const errorData = JSON.parse(errorText);
-        parsedErrorMessage = errorData.message || parsedErrorMessage;
+        if (errorData.errors && errorData.errors.length > 0) {
+          parsedErrorMessage = errorData.errors
+            .map((err) => err.message)
+            .join(" | ");
+        } else {
+          parsedErrorMessage = errorData.message || parsedErrorMessage;
+        }
       } catch (e) {
         parsedErrorMessage = errorText || parsedErrorMessage;
       }
-      throw new Error(parsedErrorMessage);
+      return NextResponse.json(
+        { success: false, errors: { global: parsedErrorMessage } },
+        { status: 400 },
+      );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Lead safely synchronized to HubSpot data center",
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("HubSpot Centralized Logging Error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to submit lead to data center." },
+      {
+        success: false,
+        errors: {
+          global: "An operational delivery error occurred. Please try again.",
+        },
+      },
       { status: 500 },
     );
   }

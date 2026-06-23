@@ -1,5 +1,3 @@
-"use client";
-
 import { ANNOUNCEMENT_DATA } from "@/data/navigationData";
 import { announcementStyles } from "@/styles/navbar/navbar.dark";
 import { Mail, MessageCircle } from "lucide-react";

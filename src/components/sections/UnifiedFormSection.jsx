@@ -1,5 +1,6 @@
 "use client";
 
+import { submitLeadAction } from "@/actions/leadActions";
 import { unifiedLeadGenData as d } from "@/data/unifiedLeadGenData";
 import { unifiedFormStyles as s } from "@/styles/sections/unifiedForm";
 import { countries } from "countries-list";
@@ -18,7 +19,8 @@ import {
   User,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 
 const globalCountryList = Object.entries(countries)
   .map(([code, countryData]) => ({
@@ -28,37 +30,43 @@ const globalCountryList = Object.entries(countries)
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <div className={s.submitBtnWrapper}>
+      <button type="submit" disabled={pending} className={s.submitBtn}>
+        {pending ? "Sending..." : "Send My Request"}
+        <Send className="w-4 h-4 animate-pulse" />
+      </button>
+    </div>
+  );
+}
+
 export default function UnifiedFormSection() {
   const pathname = usePathname();
   const isHubSpotRoute = pathname?.startsWith("/hubspot");
-  const formRef = useRef(null);
   const dropdownRef = useRef(null);
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-    orgName: "",
-    orgType: d.organizationTypes[0],
-    subLevel: d.subscriptionLevels[0],
-    challengesToSolve: [],
-    consentCommunications: false,
-    consentProcessing: false,
-    honeyTrap: "",
+  // FIX: Added 'payload: {}' to initial state so we can track returned user data
+  const [state, formAction] = useActionState(submitLeadAction, {
+    success: false,
+    errors: {},
+    payload: {},
   });
+
+  const [selectedService, setSelectedService] = useState("");
+  const [orgType, setOrgType] = useState(d.organizationTypes[0]);
+  const [subLevel, setSubLevel] = useState(d.subscriptionLevels[0]);
+  const [challenges, setChallenges] = useState([]);
+  const [consentComm, setConsentComm] = useState(false);
+  const [consentProc, setConsentProc] = useState(false);
 
   const defaultCountry =
     globalCountryList.find((c) => c.code === "IN") || globalCountryList[0];
   const [activeCountry, setActiveCountry] = useState(defaultCountry);
   const [showCountries, setShowCountryDropdown] = useState(false);
-  const [countrySearch, setCountrySearch] = useState("");
-  const [sent, setSent] = useState(false);
-  const [submittedName, setSubmittedName] = useState("");
-  const [submittedEmail, setSubmittedEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState({});
+  const [countrySearch = "", setCountrySearch] = useState("");
 
   useEffect(() => {
     const defaultIndia = globalCountryList.find((c) => c.code === "IN");
@@ -67,7 +75,9 @@ export default function UnifiedFormSection() {
 
   useEffect(() => {
     if (isHubSpotRoute) {
-      setForm((prev) => ({ ...prev, service: "HubSpot CRM" }));
+      setSelectedService("HubSpot CRM");
+    } else {
+      setSelectedService("");
     }
   }, [isHubSpotRoute]);
 
@@ -83,154 +93,14 @@ export default function UnifiedFormSection() {
   }, []);
 
   const activeHeader = isHubSpotRoute ? d.hubspotHeader : d.header;
-  const isHubSpotSelected = form.service === "HubSpot CRM";
-
-  const handleChange = (key, val) => {
-    setForm((prev) => ({ ...prev, [key]: val }));
-    if (fieldErrors[key]) {
-      setFieldErrors((prev) => ({ ...prev, [key]: "" }));
-    }
-  };
+  const isHubSpotSelected = selectedService === "HubSpot CRM";
 
   const handleChallengeToggle = (label) => {
-    setForm((prev) => {
-      const current = prev.challengesToSolve;
-      const updated = current.includes(label)
-        ? current.filter((item) => item !== label)
-        : [...current, label];
-      return { ...prev, challengesToSolve: updated };
-    });
-  };
-
-  const handleValidation = () => {
-    const errors = {};
-    const cleanName = form.name.trim();
-    const cleanEmail = form.email.trim();
-    const cleanPhone = form.phone.trim();
-
-    if (!cleanName) {
-      errors.name =
-        "Please provide your full name to initialize the inquiry profile.";
-    } else if (cleanName.length < 2) {
-      errors.name =
-        "Please enter a valid full name configuration (minimum 2 characters).";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!cleanEmail) {
-      errors.email =
-        "A valid email address is required to ensure secure communication routing.";
-    } else if (!emailRegex.test(cleanEmail)) {
-      errors.email =
-        "Please provide a correctly formatted corporate or personal email address.";
-    }
-
-    const digits = cleanPhone.replace(/\D/g, "");
-    if (!cleanPhone) {
-      errors.phone =
-        "An operational phone number is required to finalize your verification routing.";
-    } else if (digits.length < 6) {
-      errors.phone =
-        "The provided phone parameter sequence is incomplete. Please check and try again.";
-    }
-
-    if (!form.service) {
-      errors.service =
-        "Please select an operational service track parameter from the dropdown selection.";
-    }
-
-    if (isHubSpotSelected) {
-      if (!form.orgName.trim()) {
-        errors.orgName =
-          "Organization name identification is required for setting up HubSpot diagnostics.";
-      }
-    }
-
-    if (!form.consentCommunications) {
-      errors.consentCommunications =
-        "Please confirm your communication preferences by checking the box.";
-    }
-
-    if (!form.consentProcessing) {
-      errors.consentProcessing =
-        "Please check the box to confirm your consent to store and process personal data.";
-    }
-
-    return errors;
-  };
-
-  const handleSubmitAttempt = (e) => {
-    e.preventDefault();
-
-    if (form.honeyTrap !== "") {
-      setSubmittedName(form.name.trim().toUpperCase());
-      setSubmittedEmail(form.email.trim());
-      setSent(true);
-      return;
-    }
-
-    const validationErrors = handleValidation();
-    if (Object.keys(validationErrors).length > 0) {
-      setFieldErrors(validationErrors);
-      return;
-    }
-
-    setLoading(true);
-    setFieldErrors({});
-    executeFormSubmission();
-  };
-
-  const executeFormSubmission = async () => {
-    const processedData = {
-      ...form,
-      name: form.name.trim().toUpperCase(),
-      email: form.email.trim(),
-      phone: `${activeCountry.dial} ${form.phone.trim()}`,
-      isHubSpotFormContext: isHubSpotRoute,
-    };
-
-    try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(processedData),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Submission failure.");
-      }
-
-      setSubmittedName(processedData.name);
-      setSubmittedEmail(processedData.email);
-      setSent(true);
-
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        service: isHubSpotRoute ? "HubSpot CRM" : "",
-        message: "",
-        orgName: "",
-        orgType: d.organizationTypes[0],
-        subLevel: d.subscriptionLevels[0],
-        challengesToSolve: [],
-        consentCommunications: false,
-        consentProcessing: false,
-        honeyTrap: "",
-      });
-    } catch (err) {
-      setFieldErrors({
-        global:
-          err.message ||
-          "An operational delivery error occurred. Please try again.",
-      });
-    } finally {
-      setLoading(false);
-    }
+    setChallenges((prev) =>
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
+        : [...prev, label],
+    );
   };
 
   const renderIcon = (type) => {
@@ -329,20 +199,36 @@ export default function UnifiedFormSection() {
           )}
         </div>
 
-        {!sent ? (
-          <form
-            ref={formRef}
-            onSubmit={handleSubmitAttempt}
-            className={s.formCard}
-          >
+        {!state?.success ? (
+          <form action={formAction} className={s.formCard}>
             <div className={s.formAccentBar} />
+
+            <input type="hidden" name="dialCode" value={activeCountry.dial} />
+            <input
+              type="hidden"
+              name="challengesToSolve"
+              value={challenges.join("; ")}
+            />
+            <input
+              type="hidden"
+              name="consentCommunications"
+              value={consentComm ? "true" : "false"}
+            />
+            <input
+              type="hidden"
+              name="consentProcessing"
+              value={consentProc ? "true" : "false"}
+            />
+            <input
+              type="hidden"
+              name="isHubSpotFormContext"
+              value={isHubSpotRoute ? "true" : "false"}
+            />
 
             <div style={{ display: "none" }} aria-hidden="true">
               <input
                 type="text"
-                name="validation_trap_honey"
-                value={form.honeyTrap}
-                onChange={(e) => handleChange("honeyTrap", e.target.value)}
+                name="honeyTrap"
                 tabIndex="-1"
                 autoComplete="off"
               />
@@ -350,59 +236,63 @@ export default function UnifiedFormSection() {
 
             <div className={s.grid}>
               <div className={s.inputGroup}>
-                <label className={fieldErrors.name ? s.labelError : s.label}>
+                <label className={state?.errors?.name ? s.labelError : s.label}>
                   Full Name *
                 </label>
                 <div className={s.inputWrapper}>
                   <User
-                    className={`${s.inputIcon} ${fieldErrors.name ? s.inputIconError : ""}`}
+                    className={`${s.inputIcon} ${state?.errors?.name ? s.inputIconError : ""}`}
                   />
                   <input
                     type="text"
-                    value={form.name}
-                    onChange={(e) => handleChange("name", e.target.value)}
+                    name="name"
+                    defaultValue={state?.payload?.name || ""}
                     placeholder="Your full name"
-                    className={`${s.input} ${fieldErrors.name ? s.inputErrorClass : ""}`}
+                    className={`${s.input} ${state?.errors?.name ? s.inputErrorClass : ""}`}
                   />
                 </div>
-                {fieldErrors.name && (
+                {state?.errors?.name && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {fieldErrors.name}
+                    {state.errors.name}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label className={fieldErrors.email ? s.labelError : s.label}>
+                <label
+                  className={state?.errors?.email ? s.labelError : s.label}
+                >
                   Email Address *
                 </label>
                 <div className={s.inputWrapper}>
                   <Mail
-                    className={`${s.inputIcon} ${fieldErrors.email ? s.inputIconError : ""}`}
+                    className={`${s.inputIcon} ${state?.errors?.email ? s.inputIconError : ""}`}
                   />
                   <input
                     type="text"
-                    value={form.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
+                    name="email"
+                    defaultValue={state?.payload?.email || ""}
                     placeholder="you@company.com"
-                    className={`${s.input} ${fieldErrors.email ? s.inputErrorClass : ""}`}
+                    className={`${s.input} ${state?.errors?.email ? s.inputErrorClass : ""}`}
                   />
                 </div>
-                {fieldErrors.email && (
+                {state?.errors?.email && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {fieldErrors.email}
+                    {state.errors.email}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label className={fieldErrors.phone ? s.labelError : s.label}>
+                <label
+                  className={state?.errors?.phone ? s.labelError : s.label}
+                >
                   Phone Number *
                 </label>
                 <div
-                  className={`${s.phoneContainer} ${fieldErrors.phone ? s.phoneContainerError : ""}`}
+                  className={`${s.phoneContainer} ${state?.errors?.phone ? s.phoneContainerError : ""}`}
                 >
                   <div className="relative h-full" ref={dropdownRef}>
                     <div
@@ -459,34 +349,39 @@ export default function UnifiedFormSection() {
                   </div>
                   <input
                     type="tel"
-                    value={form.phone}
-                    onChange={(e) => handleChange("phone", e.target.value)}
+                    name="phone"
+                    defaultValue={state?.payload?.phone || ""}
                     placeholder="95538 86216"
                     className={s.phoneInput}
                   />
                 </div>
-                {fieldErrors.phone && (
+                {state?.errors?.phone && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {fieldErrors.phone}
+                    {state.errors.phone}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label className={fieldErrors.service ? s.labelError : s.label}>
+                <label
+                  className={state?.errors?.service ? s.labelError : s.label}
+                >
                   Service Needed *
                 </label>
                 <div className={s.selectWrapper}>
                   <Briefcase
-                    className={`${s.inputIcon} ${fieldErrors.service ? s.inputIconError : ""}`}
+                    className={`${s.inputIcon} ${state?.errors?.service ? s.inputIconError : ""}`}
                   />
                   <select
-                    value={form.service}
-                    onChange={(e) => handleChange("service", e.target.value)}
-                    className={`${s.select} ${fieldErrors.service ? s.inputErrorClass : ""}`}
+                    name="service"
+                    value={selectedService}
+                    onChange={(e) => setSelectedService(e.target.value)}
+                    className={`${s.select} ${state?.errors?.service ? s.inputErrorClass : ""}`}
                     style={{
-                      color: form.service ? "#FFFFFF" : "rgba(255,255,255,0.3)",
+                      color: selectedService
+                        ? "#FFFFFF"
+                        : "rgba(255,255,255,0.3)",
                     }}
                   >
                     <option value="">Select a service...</option>
@@ -501,10 +396,10 @@ export default function UnifiedFormSection() {
                     ))}
                   </select>
                 </div>
-                {fieldErrors.service && (
+                {state?.errors?.service && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {fieldErrors.service}
+                    {state.errors.service}
                   </div>
                 )}
               </div>
@@ -515,28 +410,28 @@ export default function UnifiedFormSection() {
                 <div className={s.grid}>
                   <div className={s.inputGroup}>
                     <label
-                      className={fieldErrors.orgName ? s.labelError : s.label}
+                      className={
+                        state?.errors?.orgName ? s.labelError : s.label
+                      }
                     >
                       Organization Name *
                     </label>
                     <div className={s.inputWrapper}>
                       <Building2
-                        className={`${s.inputIcon} ${fieldErrors.orgName ? s.inputIconError : ""}`}
+                        className={`${s.inputIcon} ${state?.errors?.orgName ? s.inputIconError : ""}`}
                       />
                       <input
                         type="text"
-                        value={form.orgName}
-                        onChange={(e) =>
-                          handleChange("orgName", e.target.value)
-                        }
+                        name="orgName"
+                        defaultValue={state?.payload?.orgName || ""}
                         placeholder="MORTAR Initiatives"
-                        className={`${s.input} ${fieldErrors.orgName ? s.inputErrorClass : ""}`}
+                        className={`${s.input} ${state?.errors?.orgName ? s.inputErrorClass : ""}`}
                       />
                     </div>
-                    {fieldErrors.orgName && (
+                    {state?.errors?.orgName && (
                       <div className={s.errorText}>
                         <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {fieldErrors.orgName}
+                        {state.errors.orgName}
                       </div>
                     )}
                   </div>
@@ -546,10 +441,9 @@ export default function UnifiedFormSection() {
                     <div className={s.selectWrapper}>
                       <Building2 className={s.inputIcon} />
                       <select
-                        value={form.orgType}
-                        onChange={(e) =>
-                          handleChange("orgType", e.target.value)
-                        }
+                        name="orgType"
+                        value={orgType}
+                        onChange={(e) => setOrgType(e.target.value)}
                         className={s.select}
                       >
                         {d.organizationTypes.map((type) => (
@@ -573,8 +467,9 @@ export default function UnifiedFormSection() {
                   <div className={s.selectWrapper}>
                     <Briefcase className={s.inputIcon} />
                     <select
-                      value={form.subLevel}
-                      onChange={(e) => handleChange("subLevel", e.target.value)}
+                      name="subLevel"
+                      value={subLevel}
+                      onChange={(e) => setSubLevel(e.target.value)}
                       className={s.select}
                     >
                       {d.subscriptionLevels.map((level) => (
@@ -596,9 +491,7 @@ export default function UnifiedFormSection() {
                   </label>
                   <div className={s.challengesContainer}>
                     {d.hubspotChallenges.map((challenge) => {
-                      const isChecked = form.challengesToSolve.includes(
-                        challenge.label,
-                      );
+                      const isChecked = challenges.includes(challenge.label);
                       return (
                         <div
                           key={challenge.id}
@@ -630,9 +523,9 @@ export default function UnifiedFormSection() {
                 <div className={s.inputWrapper}>
                   <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#A3B1CC] pointer-events-none" />
                   <textarea
-                    value={form.message}
-                    onChange={(e) => handleChange("message", e.target.value)}
-                    placeholder="Describe your project, goals, specific system architecture targets or parameters..."
+                    name="message"
+                    defaultValue={state?.payload?.message || ""}
+                    placeholder="Describe your project, goals, specific system architecture targets..."
                     className={s.textarea}
                     style={{ paddingLeft: "44px" }}
                   />
@@ -643,20 +536,15 @@ export default function UnifiedFormSection() {
             <div className={s.complianceBlock}>
               <p className="text-[13px] font-inter text-[#A3B1CC] mb-1.5 opacity-90 leading-relaxed">
                 By checking the boxes below, you agree to receive communications
-                from Zylxy Technologies. You can unsubscribe anytime.
+                from Zylxy Technologies.
               </p>
               <div
                 className={s.complianceRow}
-                onClick={() =>
-                  handleChange(
-                    "consentCommunications",
-                    !form.consentCommunications,
-                  )
-                }
+                onClick={() => setConsentComm(!consentComm)}
               >
                 <input
                   type="checkbox"
-                  checked={form.consentCommunications}
+                  checked={consentComm}
                   readOnly
                   className={s.complianceInput}
                 />
@@ -665,27 +553,23 @@ export default function UnifiedFormSection() {
                   Technologies.
                 </span>
               </div>
-              {fieldErrors.consentCommunications && (
+              {state?.errors?.consentCommunications && (
                 <div className={s.errorText}>
                   <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {fieldErrors.consentCommunications}
+                  {state.errors.consentCommunications}
                 </div>
               )}
 
               <p className="text-[13px] font-inter text-[#A3B1CC] mt-4 mb-1.5 opacity-90 leading-relaxed">
-                To process your request, we need your permission to store and
-                process your personal data. Please check the box below to
-                confirm your consent:
+                Please check the box below to confirm your consent:
               </p>
               <div
                 className={s.complianceRow}
-                onClick={() =>
-                  handleChange("consentProcessing", !form.consentProcessing)
-                }
+                onClick={() => setConsentProc(!consentProc)}
               >
                 <input
                   type="checkbox"
-                  checked={form.consentProcessing}
+                  checked={consentProc}
                   readOnly
                   className={s.complianceInput}
                 />
@@ -694,10 +578,10 @@ export default function UnifiedFormSection() {
                   personal data. *
                 </span>
               </div>
-              {fieldErrors.consentProcessing && (
+              {state?.errors?.consentProcessing && (
                 <div className={s.errorText}>
                   <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {fieldErrors.consentProcessing}
+                  {state.errors.consentProcessing}
                 </div>
               )}
             </div>
@@ -707,22 +591,13 @@ export default function UnifiedFormSection() {
                 We care about your privacy. Learn how we handle your data in our
                 Privacy Policy.
               </p>
-              <div className={s.submitBtnWrapper}>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={s.submitBtn}
-                >
-                  {loading ? "Sending..." : "Send My Request"}
-                  <Send className="w-4 h-4 animate-pulse" />
-                </button>
-              </div>
+              <SubmitButton />
             </div>
 
-            {fieldErrors.global && (
+            {state?.errors?.global && (
               <div className={s.errorText}>
                 <ShieldAlert className="w-4 h-4 shrink-0" />
-                {fieldErrors.global}
+                {state.errors.global}
               </div>
             )}
           </form>
@@ -734,9 +609,9 @@ export default function UnifiedFormSection() {
             </div>
             <h3 className={s.successTitle}>We've received your request</h3>
             <p className={s.successText}>
-              Thank you, {submittedName}. Our operational diagnostic team has
-              safely indexed your project scope parameters and will reach out to{" "}
-              {submittedEmail} within 24 hours.
+              Thank you, {state.submittedName}. Our operational diagnostic team
+              has safely indexed your project scope parameters and will reach
+              out to {state.submittedEmail} within 24 hours.
             </p>
           </div>
         )}
