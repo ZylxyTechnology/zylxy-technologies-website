@@ -1,3 +1,4 @@
+import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import PageTransition from "@/components/ui/PageTransition";
 import { servicesData } from "@/data/servicesData";
 import { servicesStyles } from "@/styles/sections/services";
@@ -136,6 +137,11 @@ export default async function ServiceDetailPage({ params }) {
                 </div>
               </div>
             </div>
+            {service.projects && service.projects.length > 0 && (
+              <div className="px-8 lg:px-12 pb-8 lg:pb-12 bg-white">
+                <PortfolioShowcase projects={service.projects} />
+              </div>
+            )}
           </div>
         </div>
       </main>

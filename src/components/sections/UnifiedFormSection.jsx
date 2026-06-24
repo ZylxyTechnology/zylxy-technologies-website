@@ -48,15 +48,19 @@ export default function UnifiedFormSection() {
   const isHubSpotRoute = pathname?.startsWith("/hubspot");
   const dropdownRef = useRef(null);
 
-  // FIX: Added 'payload: {}' to initial state so we can track returned user data
   const [state, formAction] = useActionState(submitLeadAction, {
     success: false,
     errors: {},
     payload: {},
   });
 
+  // Dynamically inject "Other" into the organization types if it doesn't exist
+  const activeOrgTypes = d.organizationTypes.includes("Other")
+    ? d.organizationTypes
+    : [...d.organizationTypes, "Other"];
+
   const [selectedService, setSelectedService] = useState("");
-  const [orgType, setOrgType] = useState(d.organizationTypes[0]);
+  const [orgType, setOrgType] = useState(activeOrgTypes[0]);
   const [subLevel, setSubLevel] = useState(d.subscriptionLevels[0]);
   const [challenges, setChallenges] = useState([]);
   const [consentComm, setConsentComm] = useState(false);
@@ -403,63 +407,61 @@ export default function UnifiedFormSection() {
                   </div>
                 )}
               </div>
+
+              {/* Organization Fields Now In The Universal Grid */}
+              <div className={s.inputGroup}>
+                <label
+                  className={state?.errors?.orgName ? s.labelError : s.label}
+                >
+                  Organization Name{" "}
+                  {isHubSpotRoute || isHubSpotSelected ? "*" : ""}
+                </label>
+                <div className={s.inputWrapper}>
+                  <Building2
+                    className={`${s.inputIcon} ${state?.errors?.orgName ? s.inputIconError : ""}`}
+                  />
+                  <input
+                    type="text"
+                    name="orgName"
+                    defaultValue={state?.payload?.orgName || ""}
+                    placeholder="MORTAR Initiatives"
+                    className={`${s.input} ${state?.errors?.orgName ? s.inputErrorClass : ""}`}
+                  />
+                </div>
+                {state?.errors?.orgName && (
+                  <div className={s.errorText}>
+                    <ShieldAlert className="w-4 h-4 shrink-0" />
+                    {state.errors.orgName}
+                  </div>
+                )}
+              </div>
+
+              <div className={s.inputGroup}>
+                <label className={s.label}>Organization Type</label>
+                <div className={s.selectWrapper}>
+                  <Building2 className={s.inputIcon} />
+                  <select
+                    name="orgType"
+                    value={orgType}
+                    onChange={(e) => setOrgType(e.target.value)}
+                    className={s.select}
+                  >
+                    {activeOrgTypes.map((type) => (
+                      <option
+                        key={type}
+                        value={type}
+                        className="bg-[#1B1F3A] text-white"
+                      >
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
 
             {isHubSpotSelected && (
               <div className={s.disclosureContainer}>
-                <div className={s.grid}>
-                  <div className={s.inputGroup}>
-                    <label
-                      className={
-                        state?.errors?.orgName ? s.labelError : s.label
-                      }
-                    >
-                      Organization Name *
-                    </label>
-                    <div className={s.inputWrapper}>
-                      <Building2
-                        className={`${s.inputIcon} ${state?.errors?.orgName ? s.inputIconError : ""}`}
-                      />
-                      <input
-                        type="text"
-                        name="orgName"
-                        defaultValue={state?.payload?.orgName || ""}
-                        placeholder="MORTAR Initiatives"
-                        className={`${s.input} ${state?.errors?.orgName ? s.inputErrorClass : ""}`}
-                      />
-                    </div>
-                    {state?.errors?.orgName && (
-                      <div className={s.errorText}>
-                        <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {state.errors.orgName}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className={s.inputGroup}>
-                    <label className={s.label}>Organization Type</label>
-                    <div className={s.selectWrapper}>
-                      <Building2 className={s.inputIcon} />
-                      <select
-                        name="orgType"
-                        value={orgType}
-                        onChange={(e) => setOrgType(e.target.value)}
-                        className={s.select}
-                      >
-                        {d.organizationTypes.map((type) => (
-                          <option
-                            key={type}
-                            value={type}
-                            className="bg-[#1B1F3A] text-white"
-                          >
-                            {type}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
                 <div className={s.inputGroup}>
                   <label className={s.label}>
                     HubSpot Subscription Level *

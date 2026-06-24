@@ -83,4 +83,25 @@ export const servicesStyles = {
   processText: "text-[13px] font-inter text-slate-600 font-medium",
   detailFooterActions:
     "mt-10 pt-8 border-t border-slate-100 flex flex-wrap items-center gap-4",
+
+  // NEW PORTFOLIO SHOWCASE STYLES
+  portfolioSection: "mt-16 pt-12 border-t border-slate-200",
+  portfolioHeader:
+    "font-syne font-extrabold text-[28px] text-[#050E21] mb-8 leading-tight tracking-[-0.02em]",
+  portfolioGrid: "grid grid-cols-1 md:grid-cols-2 gap-8",
+  portfolioCard:
+    "group flex flex-col bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-700 ease-out transform translate-y-12 opacity-0",
+  portfolioCardVisible:
+    "translate-y-0 opacity-100 hover:-translate-y-2 hover:shadow-[0_20px_40px_-12px_rgba(37,99,235,0.12)] hover:border-[#BFDBFE]",
+  browserHeader:
+    "flex items-center gap-2 px-4 py-3 bg-[#F8FAFC] border-b border-slate-100",
+  browserDot: "w-2.5 h-2.5 rounded-full opacity-80",
+  iframeContainer: "relative w-full pt-[65%] bg-slate-50 overflow-hidden",
+  iframe:
+    "absolute top-0 left-0 w-full h-full object-cover pointer-events-none group-hover:pointer-events-auto transition-opacity",
+  portfolioMeta:
+    "p-5 flex items-center justify-between border-t border-slate-50 bg-white",
+  portfolioTitle: "font-syne font-bold text-[16px] text-[#050E21]",
+  portfolioLink:
+    "text-[13px] font-semibold font-inter text-[#2563EB] flex items-center gap-1.5 transition-colors hover:text-[#1D4ED8]",
 };

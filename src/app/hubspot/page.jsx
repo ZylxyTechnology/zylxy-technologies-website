@@ -9,21 +9,24 @@ import HubSpotIntroFeature from "@/app/hubspot/sections/features/HubSpot-IntroFe
 import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
 import HubspotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
 import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
+import NoiseReveal from "@/components/ui/NoiseReveal"; // <-- Your new wrapper!
 
 export default function HubSpotConsultantPage() {
   return (
-    <main className="w-full bg-white overflow-x-clip min-h-screen selection:bg-[#FF7A59]/20">
-      <HubSpotNavbar />
-      <Hero />
-      <HubSpotStatsBar />
-      <HubSpotIntroFeature />
-      <HubSpotFeaturedProjects />
-      <HubSpotPackagesOverview />
-      <WhyMe />
-      <Testimonials />
-      <FAQ />
-      <UnifiedFormSection />
-      <HubspotFooter />
-    </main>
+    <NoiseReveal>
+      <main className="w-full bg-white overflow-x-clip min-h-screen selection:bg-[#FF7A59]/20">
+        <HubSpotNavbar />
+        <Hero />
+        <HubSpotStatsBar />
+        <HubSpotIntroFeature />
+        <HubSpotFeaturedProjects />
+        <HubSpotPackagesOverview />
+        <WhyMe />
+        <Testimonials />
+        <FAQ />
+        <UnifiedFormSection />
+        <HubspotFooter />
+      </main>
+    </NoiseReveal>
   );
 }

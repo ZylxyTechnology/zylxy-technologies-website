@@ -47,9 +47,25 @@ export async function submitLeadAction(prevState, formData) {
       errors.email = "Please provide a correctly formatted email address.";
     }
 
+    // FIX: Strict Phone Validation implementation
+    const cleanPhone = payload.phone.replace(/\D/g, ""); // Strip out any spaces or dashes
+
     if (!payload.phone) {
       errors.phone =
         "An operational phone number is required to finalize your verification routing.";
+    } else if (payload.dialCode === "+91") {
+      // Indian Context Validation
+      if (cleanPhone.length !== 10) {
+        errors.phone = "Indian phone numbers must be exactly 10 digits long.";
+      } else if (!/^[6789]/.test(cleanPhone)) {
+        errors.phone =
+          "Valid Indian mobile numbers must start with 6, 7, 8, or 9.";
+      }
+    } else {
+      // Standard International Validation Fallback
+      if (cleanPhone.length < 6 || cleanPhone.length > 15) {
+        errors.phone = "Please enter a valid phone number configuration.";
+      }
     }
 
     if (!payload.service) {
@@ -98,23 +114,41 @@ export async function submitLeadAction(prevState, formData) {
     const mappedHubSpotService =
       serviceTranslationMap[payload.service] || payload.service;
 
+    const orgTypeTranslationMap = {
+      "Nonprofit Organization": "Nonprofit",
+      "Small Business": "Small Business",
+      "Educational Organization": "Educational Institution",
+      "Workforce Development Program": "Workforce Development Program",
+      "Accelerator / Incubator": "Accelerator / Incubator",
+      "Community Organization": "Community Organization",
+      "Professional Service Firm": "Professional Services",
+      Other: "Other",
+    };
+    const mappedOrgType =
+      orgTypeTranslationMap[payload.orgType] || payload.orgType;
+
     const fields = [
-      { name: "firstname", value: payload.name }, // FIX: The entire name string is now mapped exactly as typed
+      { name: "full_name", value: payload.name },
+      { name: "firstname", value: payload.name },
       { name: "email", value: payload.email },
       { name: "phone", value: fullPhoneNumber },
       { name: "0-2/service", value: mappedHubSpotService },
+      { name: "0-2/name", value: payload.orgName },
+      { name: "company", value: payload.orgName },
+      { name: "0-2/industry_type", value: mappedOrgType },
       { name: "message", value: payload.message },
     ];
 
     if (payload.isHubSpotFormContext || payload.service === "HubSpot CRM") {
+      const formattedChallenges = Array.isArray(payload.challengesToSolve)
+        ? payload.challengesToSolve.join(";")
+        : (payload.challengesToSolve || "").replace(/; /g, ";");
+
       fields.push(
-        { name: "0-2/name", value: payload.orgName },
-        { name: "company", value: payload.orgName },
-        { name: "0-2/industry_type", value: payload.orgType },
         { name: "0-2/hubspot_subscription_level", value: payload.subLevel },
         {
           name: "0-2/what_hubspot_challenges_are_you_trying_to_solve",
-          value: payload.challengesToSolve,
+          value: formattedChallenges,
         },
       );
     }

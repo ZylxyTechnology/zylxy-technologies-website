@@ -42,12 +42,25 @@ export async function POST(request) {
         "Please provide a correctly formatted corporate or personal email address.";
     }
 
+    // FIX: Strict Phone Validation implementation
+    const cleanPhone = (phone || "").replace(/\D/g, "");
+
     if (!phone) {
       errors.phone =
         "An operational phone number is required to finalize your verification routing.";
-    } else if (phone.replace(/\D/g, "").length < 6) {
-      errors.phone =
-        "The provided phone parameter sequence is incomplete. Please check and try again.";
+    } else if (dialCode === "+91") {
+      // Indian Context Validation
+      if (cleanPhone.length !== 10) {
+        errors.phone = "Indian phone numbers must be exactly 10 digits long.";
+      } else if (!/^[6789]/.test(cleanPhone)) {
+        errors.phone =
+          "Valid Indian mobile numbers must start with 6, 7, 8, or 9.";
+      }
+    } else {
+      // Standard International Validation Fallback
+      if (cleanPhone.length < 6 || cleanPhone.length > 15) {
+        errors.phone = "Please enter a valid phone number configuration.";
+      }
     }
 
     if (!service) {
@@ -95,11 +108,27 @@ export async function POST(request) {
     };
     const mappedHubSpotService = serviceTranslationMap[service] || service;
 
+    const orgTypeTranslationMap = {
+      "Nonprofit Organization": "Nonprofit",
+      "Small Business": "Small Business",
+      "Educational Organization": "Educational Institution",
+      "Workforce Development Program": "Workforce Development Program",
+      "Accelerator / Incubator": "Accelerator / Incubator",
+      "Community Organization": "Community Organization",
+      "Professional Service Firm": "Professional Services",
+      Other: "Other",
+    };
+    const mappedOrgType = orgTypeTranslationMap[orgType] || orgType;
+
     const fields = [
-      { name: "firstname", value: name }, // FIX: Name splitting logic completely removed
+      { name: "full_name", value: name },
+      { name: "firstname", value: name },
       { name: "email", value: email },
       { name: "phone", value: fullPhoneNumber },
       { name: "0-2/service", value: mappedHubSpotService },
+      { name: "0-2/name", value: orgName || "" },
+      { name: "company", value: orgName || "" },
+      { name: "0-2/industry_type", value: mappedOrgType },
       { name: "message", value: message },
     ];
 
@@ -109,9 +138,6 @@ export async function POST(request) {
         : (challengesToSolve || "").replace(/; /g, ";");
 
       fields.push(
-        { name: "0-2/name", value: orgName || "" },
-        { name: "company", value: orgName || "" },
-        { name: "organization_type", value: orgType || "" },
         { name: "hubspot_subscription_level", value: subLevel || "" },
         {
           name: "what_hubspot_challenges_are_you_trying_to_solve_",
