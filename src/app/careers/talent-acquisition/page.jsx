@@ -1,7 +1,7 @@
 "use client";
 
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
-import { talentAcquisitionData } from "@/data/talent-acquisition";
+import { talentAcquisitionData } from "@/data/sections/talent-acquisition";
 import { talentAcquisitionStyles } from "@/styles/talent-acquisition";
 import { useState } from "react";
 

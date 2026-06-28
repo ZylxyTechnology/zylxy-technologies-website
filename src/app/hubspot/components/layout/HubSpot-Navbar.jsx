@@ -1,0 +1,172 @@
+"use client";
+
+import { navigationMenuLinks as nav } from "@/app/hubspot/data/layout/navigation";
+import { navbarStyles as s } from "@/app/hubspot/styles/navbar";
+import { ChevronDown, Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+
+export default function HubSpotNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setActiveSubmenu(null);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isOpen]);
+
+  const toggleSubmenu = (menuId) => {
+    setActiveSubmenu(activeSubmenu === menuId ? null : menuId);
+  };
+
+  return (
+    <nav className={s.nav}>
+      <div className={s.container} ref={dropdownRef}>
+        <Link href="/" className={s.logoLink}>
+          <div className={s.logoIconWrapper}>
+            <Image
+              src="/logos/ZylxyLogo.png"
+              alt="Zylxy Technologies Corporate Logo"
+              width={24}
+              height={24}
+              className="object-contain select-none shrink-0"
+              priority
+            />
+          </div>
+          <div className={s.textWrapper}>
+            <span className={s.brandTitle}>HubSpot CRM</span>
+            <span className={s.brandSubtitle}>CONSULTANT SPECIALIST</span>
+          </div>
+        </Link>
+
+        <div className={s.menuList}>
+          {nav.mainNav.map((link) => (
+            <div key={link.name} className={s.menuItemWrapper}>
+              <Link href={link.href} className={s.simpleLink}>
+                {link.name}
+              </Link>
+            </div>
+          ))}
+
+          {nav.dropdowns.map((dropdown) => (
+            <div key={dropdown.id} className={s.menuItemWrapper}>
+              <button className={s.menuButton}>
+                {dropdown.label} <ChevronDown className={s.chevron} />
+              </button>
+
+              <div className={s.megaMenu}>
+                <div className={s.megaLeftCol}>
+                  <h4 className={s.megaLeftTitle}>
+                    {dropdown.label} Solutions
+                  </h4>
+                  <p className={s.megaLeftDesc}>{dropdown.desc}</p>
+                </div>
+                <div className={s.megaGrid}>
+                  {dropdown.items.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link key={idx} href={item.href} className={s.megaCard}>
+                        <div className={s.megaCardIcon}>
+                          <Icon className={s.megaCardIconInner} />
+                        </div>
+                        <div className={s.megaCardContent}>
+                          <h5 className={s.megaCardTitle}>{item.title}</h5>
+                          <p className={s.megaCardDesc}>{item.desc}</p>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className={s.desktopActionGroup}>
+          <div className={s.actionWrapper}>
+            <Link href="/hubspot#consultation" className={s.primaryBtn}>
+              Book a Free Consultation
+            </Link>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={s.mobileMenuBtn}
+            aria-label="Toggle Mobile Navigation"
+          >
+            {isOpen ? (
+              <X className={s.mobileMenuIcon} />
+            ) : (
+              <Menu className={s.mobileMenuIcon} />
+            )}
+          </button>
+        </div>
+
+        {isOpen && (
+          <div className={s.mobileMenuOverlay}>
+            <div className={s.mobileMenuContainer}>
+              {nav.mainNav.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={s.mobileNavLink}
+                >
+                  {link.name}
+                </Link>
+              ))}
+
+              {nav.dropdowns.map((dropdown) => (
+                <div key={dropdown.id} className={s.mobileDropdownWrapper}>
+                  <button
+                    onClick={() => toggleSubmenu(dropdown.id)}
+                    className={s.mobileDropdownBtn}
+                  >
+                    <span>{dropdown.label}</span>
+                    <ChevronDown
+                      className={`${s.mobileChevron} ${
+                        activeSubmenu === dropdown.id ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {activeSubmenu === dropdown.id && (
+                    <div className={s.mobileSubmenuContainer}>
+                      {dropdown.items.map((item, idx) => (
+                        <Link
+                          key={idx}
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={s.mobileSubLink}
+                        >
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <Link
+                href="/hubspot#consultation"
+                onClick={() => setIsOpen(false)}
+                className={s.mobileCtaBtn}
+              >
+                Book a Free Consultation
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+}

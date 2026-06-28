@@ -1,7 +1,7 @@
-import WhyMe from "@/app/hubspot/sections/HubSpot-WhyMe";
-import FAQ from "@/app/hubspot/sections/Hubspot-faq";
-import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
-import HubSpotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
+import HubSpotNavbar from "@/app/hubspot/components/layout/HubSpot-Navbar";
+import HubSpotFooter from "@/app/hubspot/components/layout/Hubspot-Footer";
+import WhyMe from "@/app/hubspot/components/sections/HubSpot-WhyMe";
+import FAQ from "@/app/hubspot/components/sections/Hubspot-faq";
 import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
 
 export default function PackagesLayout({ children }) {

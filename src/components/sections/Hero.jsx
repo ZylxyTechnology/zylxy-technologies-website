@@ -1,4 +1,4 @@
-import { heroData } from "@/data/heroData";
+import { heroData } from "@/data/sections/heroData";
 import { heroStyles } from "@/styles/sections/hero";
 import Link from "next/link";
 

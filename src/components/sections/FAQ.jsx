@@ -1,6 +1,6 @@
 "use client";
 
-import { faqData } from "@/data/faqData";
+import { faqData } from "@/data/sections/faqData";
 import { faqStyles } from "@/styles/sections/faq";
 import { useState } from "react";
 

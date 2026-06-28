@@ -1,6 +1,6 @@
 "use client";
 
-import { navbarStyles } from "@/styles/navbar/navbar.dark";
+import { navbarStyles } from "@/styles/layout/navbar.dark";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";

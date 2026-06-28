@@ -1,6 +1,6 @@
 "use client";
 
-import { testimonialsData } from "@/data/testimonialsData";
+import { testimonialsData } from "@/data/sections/testimonialsData";
 import { testimonialsStyles } from "@/styles/sections/testimonials";
 import { useEffect, useRef, useState } from "react";
 

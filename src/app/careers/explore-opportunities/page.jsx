@@ -1,7 +1,7 @@
 "use client";
 
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
-import { exploreOpportunitiesData } from "@/data/explore-opportunities";
+import { exploreOpportunitiesData } from "@/data/sections/explore-opportunities";
 import { exploreOpportunitiesStyles } from "@/styles/explore-opportunities";
 import { useRef, useState } from "react";
 

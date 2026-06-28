@@ -1,7 +1,7 @@
 "use client";
 
-import { footerData } from "@/data/footerData";
-import { footerStyles } from "@/styles/sections/footer";
+import { footerData } from "@/data/layout/footerData";
+import { footerStyles } from "@/styles/layout/footer";
 
 export default function FooterSection() {
   return (

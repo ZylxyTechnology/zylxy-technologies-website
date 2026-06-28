@@ -1,6 +1,6 @@
 "use client";
 
-import { caseStudiesData } from "@/data/caseStudiesData";
+import { caseStudiesData } from "@/data/sections/caseStudiesData";
 import { caseStudiesStyles as s } from "@/styles/sections/caseStudies";
 import { useEffect, useRef, useState } from "react";
 

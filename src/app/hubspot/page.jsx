@@ -1,15 +1,15 @@
-import HubSpotPackagesOverview from "@/app/hubspot/sections/HubSpot-PackagesOverview";
-import HubSpotStatsBar from "@/app/hubspot/sections/HubSpot-StatsBar";
-import WhyMe from "@/app/hubspot/sections/HubSpot-WhyMe";
-import Hero from "@/app/hubspot/sections/Hubspot-Hero";
-import Testimonials from "@/app/hubspot/sections/Hubspot-Testimonials";
-import FAQ from "@/app/hubspot/sections/Hubspot-faq";
-import HubSpotFeaturedProjects from "@/app/hubspot/sections/features/HubSpot-FeaturedProjects";
-import HubSpotIntroFeature from "@/app/hubspot/sections/features/HubSpot-IntroFeature";
-import HubSpotNavbar from "@/app/hubspot/sections/layout/HubSpot-Navbar";
-import HubspotFooter from "@/app/hubspot/sections/layout/Hubspot-Footer";
-import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
-import NoiseReveal from "@/components/ui/NoiseReveal"; // <-- Your new wrapper!
+import HubSpotFeaturedProjects from "@/app/hubspot/components/features/HubSpot-FeaturedProjects";
+import HubSpotIntroFeature from "@/app/hubspot/components/features/HubSpot-IntroFeature";
+import ConsultationForm from "@/app/hubspot/components/forms/consultationForm";
+import HubSpotNavbar from "@/app/hubspot/components/layout/HubSpot-Navbar";
+import HubspotFooter from "@/app/hubspot/components/layout/Hubspot-Footer";
+import HubSpotStatsBar from "@/app/hubspot/components/sections/HubSpot-StatsBar";
+import WhyMe from "@/app/hubspot/components/sections/HubSpot-WhyMe";
+import Hero from "@/app/hubspot/components/sections/Hubspot-Hero";
+import Testimonials from "@/app/hubspot/components/sections/Hubspot-Testimonials";
+import FAQ from "@/app/hubspot/components/sections/Hubspot-faq";
+import HubSpotPackagesOverview from "@/app/hubspot/packages/HubSpot-PackagesOverview";
+import NoiseReveal from "@/components/ui/NoiseReveal";
 
 export default function HubSpotConsultantPage() {
   return (
@@ -24,7 +24,7 @@ export default function HubSpotConsultantPage() {
         <WhyMe />
         <Testimonials />
         <FAQ />
-        <UnifiedFormSection />
+        <ConsultationForm />
         <HubspotFooter />
       </main>
     </NoiseReveal>

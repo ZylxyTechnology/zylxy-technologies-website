@@ -1,7 +1,7 @@
 "use client";
 
-import { NAVBAR_DATA } from "@/data/navigationData";
-import { mobileMenuStyles } from "@/styles/navbar/navbar.mobile";
+import { NAVBAR_DATA } from "@/data/layout/navigationData";
+import { mobileMenuStyles } from "@/styles/layout/navbar.mobile";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 

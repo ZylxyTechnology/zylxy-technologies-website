@@ -1,6 +1,6 @@
 "use client";
 
-import { clientsData } from "@/data/clientsData";
+import { clientsData } from "@/data/sections/clientsData";
 import { clientsStyles } from "@/styles/sections/clients";
 
 export default function ClientsSection() {

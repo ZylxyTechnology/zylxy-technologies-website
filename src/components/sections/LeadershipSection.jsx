@@ -1,4 +1,4 @@
-import { leadershipData } from "@/data/leadershipData";
+import { leadershipData } from "@/data/sections/leadershipData";
 import { leadershipStyles } from "@/styles/sections/leadership";
 
 export default function LeadershipSection() {

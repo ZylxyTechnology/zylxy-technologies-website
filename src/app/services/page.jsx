@@ -1,6 +1,6 @@
 "use client";
 
-import { servicesData } from "@/data/servicesData";
+import { servicesData } from "@/data/sections/servicesData";
 import { servicesStyles } from "@/styles/sections/services";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { industriesData } from "@/data/industriesData";
+import { industriesData } from "@/data/sections/industriesData";
 import { industriesStyles } from "@/styles/sections/industries";
 
 export default function IndustriesSection() {
