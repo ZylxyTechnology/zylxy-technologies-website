@@ -1,7 +1,7 @@
 "use client";
 
 import { footerData } from "@/app/hubspot/data/layout/footer";
-import { footerStyles as s } from "@/app/hubspot/styles/footer";
+import { footerStyles as s } from "@/app/hubspot/styles/layout/footer";
 import Image from "next/image";
 import Link from "next/link";
 

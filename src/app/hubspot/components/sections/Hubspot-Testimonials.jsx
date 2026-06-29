@@ -1,7 +1,7 @@
 "use client";
 
 import { testimonialsData } from "@/app/hubspot/data/sections/testimonials";
-import { testimonialsStyles as s } from "@/app/hubspot/styles/testimonials";
+import { testimonialsStyles as s } from "@/app/hubspot/styles/sections/testimonials";
 
 export default function Testimonials() {
   return (

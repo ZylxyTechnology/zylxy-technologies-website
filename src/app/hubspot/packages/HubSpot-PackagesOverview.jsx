@@ -1,7 +1,7 @@
 "use client";
 
 import { packagesData } from "@/app/hubspot/data/packages/packageData";
-import { packagesOverviewStyles as s } from "@/app/hubspot/styles/packagesOverview";
+import { packagesOverviewStyles as s } from "@/app/hubspot/styles/packages/packagesOverview";
 import {
   ArrowRight,
   Layers,

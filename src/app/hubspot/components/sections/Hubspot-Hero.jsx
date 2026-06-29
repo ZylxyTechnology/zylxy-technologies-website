@@ -1,7 +1,7 @@
 "use client";
 
 import { heroData as hero } from "@/app/hubspot/data/sections/heroData";
-import { heroStyles as s } from "@/app/hubspot/styles/hero";
+import { heroStyles as s } from "@/app/hubspot/styles/sections/hero";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

@@ -1,8 +1,8 @@
+import ConsultationForm from "@/app/hubspot/components/forms/consultationForm";
 import HubSpotNavbar from "@/app/hubspot/components/layout/HubSpot-Navbar";
 import HubSpotFooter from "@/app/hubspot/components/layout/Hubspot-Footer";
 import WhyMe from "@/app/hubspot/components/sections/HubSpot-WhyMe";
 import FAQ from "@/app/hubspot/components/sections/Hubspot-faq";
-import UnifiedFormSection from "@/components/sections/UnifiedFormSection";
 
 export default function PackagesLayout({ children }) {
   return (
@@ -11,7 +11,7 @@ export default function PackagesLayout({ children }) {
       <div className="flex-grow">{children}</div>
       <WhyMe />
       <FAQ />
-      <UnifiedFormSection />
+      <ConsultationForm />
       <HubSpotFooter />
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { introFeatureData } from "@/app/hubspot/data/features/introFeatures";
-import { introFeatureStyles as s } from "@/app/hubspot/styles/introFeature";
+import { introFeatureStyles as s } from "@/app/hubspot/styles/features/introFeature";
 import Link from "next/link";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
-import { packagesData } from "@/app/hubspot/data/packageData";
-import { packageDetailStyles as s } from "@/app/hubspot/styles/packageDetail";
+import { packagesData } from "@/app/hubspot/data/packages/packageData";
+import { packageDetailStyles as s } from "@/app/hubspot/styles/packages/packageDetail";
 import {
   Activity,
   ArrowRight,

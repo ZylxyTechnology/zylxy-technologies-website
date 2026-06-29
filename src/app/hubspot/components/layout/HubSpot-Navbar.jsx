@@ -1,7 +1,7 @@
 "use client";
 
 import { navigationMenuLinks as nav } from "@/app/hubspot/data/layout/navigation";
-import { navbarStyles as s } from "@/app/hubspot/styles/navbar";
+import { navbarStyles as s } from "@/app/hubspot/styles/layout/navbar";
 import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

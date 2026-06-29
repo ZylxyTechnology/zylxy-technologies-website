@@ -93,5 +93,17 @@ export const consultationFormData = {
       url: "https://www.linkedin.com/company/zylxy/",
       type: "linkedin",
     },
+    {
+      label: "Facebook",
+      value: "Zylxy Technologies",
+      url: "https://www.facebook.com/zylxy/",
+      type: "facebook",
+    },
+    {
+      label: "Behance",
+      value: "zylxytechnologies",
+      url: "https://www.behance.net/zylxytechnologies",
+      type: "behance",
+    },
   ],
 };

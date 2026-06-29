@@ -1,5 +1,5 @@
 import { statsData as stats } from "@/app/hubspot/data/sections/statsData";
-import { statsBarStyles as s } from "@/app/hubspot/styles/statsBar";
+import { statsBarStyles as s } from "@/app/hubspot/styles/sections/statsBar";
 
 export default function HubSpotStatsBar() {
   return (

@@ -128,7 +128,7 @@ export default async function ServiceDetailPage({ params }) {
 
                 <div className={servicesStyles.detailFooterActions}>
                   <Link
-                    href="/#consultation"
+                    href="/#contact"
                     className={servicesStyles.consultBtn}
                     style={{ display: "inline-block", textAlign: "center" }}
                   >

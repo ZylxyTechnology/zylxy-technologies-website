@@ -1,7 +1,7 @@
 "use client";
 
 import { whyMeData } from "@/app/hubspot/data/sections/why-me";
-import { whyMeStyles as s } from "@/app/hubspot/styles/whyMe";
+import { whyMeStyles as s } from "@/app/hubspot/styles/sections/whyMe";
 import { Users } from "lucide-react";
 
 export default function WhyMe() {

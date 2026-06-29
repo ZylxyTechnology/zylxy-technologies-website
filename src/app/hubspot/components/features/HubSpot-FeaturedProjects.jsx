@@ -1,7 +1,7 @@
 "use client";
 
 import { featuredProjectsData as data } from "@/app/hubspot/data/features/FeaturedProjects";
-import { featuredProjectsStyles as s } from "@/app/hubspot/styles/featuredProjects";
+import { featuredProjectsStyles as s } from "@/app/hubspot/styles/features/featuredProjects";
 
 export default function HubSpotFeaturedProjects() {
   return (
