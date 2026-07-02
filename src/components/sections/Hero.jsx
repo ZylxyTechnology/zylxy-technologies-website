@@ -32,7 +32,7 @@ export default function Hero() {
 
           <div className={heroStyles.btnGroup}>
             <Link
-              href="/#consultation"
+              href="/#LeadGen"
               className={`${heroStyles.primaryBtn} no-underline inline-flex items-center justify-center text-center`}
             >
               {heroData.buttons.primary}

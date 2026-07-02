@@ -86,7 +86,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/#consultation" className={navbarStyles.menuButton}>
+            <Link href="/#LeadGen" className={navbarStyles.menuButton}>
               Contact
             </Link>
           </div>
@@ -95,7 +95,7 @@ export default function Navbar() {
               <span className={navbarStyles.hubspotPulseDot} />
               HubSpot CRM
             </Link>
-            <Link href="/#consultation" className={navbarStyles.primaryBtn}>
+            <Link href="/#LeadGen" className={navbarStyles.primaryBtn}>
               Free Consultation
             </Link>
           </div>
@@ -171,14 +171,14 @@ export default function Navbar() {
             </Link>
           </div>
           <Link
-            href="/#consultation"
+            href="/#LeadGen"
             className="text-sm font-medium text-white/80"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Contact
           </Link>
           <Link
-            href="/#consultation"
+            href="/#LeadGen"
             className={`${navbarStyles.primaryBtn} text-center w-full block mt-2`}
             onClick={() => setIsMobileMenuOpen(false)}
           >

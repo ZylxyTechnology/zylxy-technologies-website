@@ -6,55 +6,138 @@ Official corporate website for Zylxy Technologies built using Next.js and modern
 
 ## Tech Stack
 
-* Next.js
-* React
-* JavaScript
-* Tailwind CSS
-* PostCSS
-* ESLint
+- Next.js
+- React
+- JavaScript
+- Tailwind CSS
+- PostCSS
+- ESLint
 
 ---
 
 ## Features
 
-* Modern responsive UI
-* Dynamic routing with App Router
-* Service detail pages
-* Case studies section
-* Training modules
-* Reusable component architecture
-* Modular styling system
-* SEO-friendly structure
-* Scalable frontend architecture
+- Modern responsive UI
+- Dynamic routing with App Router
+- Service detail pages
+- Case studies section
+- Training modules
+- Career opportunities pages
+- HubSpot consulting section
+- Reusable component architecture
+- Modular styling system
+- SEO-friendly structure
+- Scalable frontend architecture
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```bash
-.
-├── .github/
-├── .next/
-├── node_modules/
-├── out/
+zylxytechnology-zylxy-technologies-website/
+├── README.md
+├── AGENTS.md
+├── CLAUDE.md
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── favicon_io/
+│   └── site.webmanifest
 ├── public/
+│   └── favicons/
+│       └── site.webmanifest
 ├── src/
+│   ├── actions/
+│   │   └── leadActions.js
 │   ├── app/
-│   │   ├── api/
-│   │   │   └── lead/
-│   │   │       └── route.js
-│   │   ├── services/
-│   │   │   └── [slug]/
-│   │   │       ├── page.jsx
-│   │   │       └── page.jsx
-│   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.js
 │   │   ├── not-found.jsx
-│   │   └── page.js
+│   │   ├── page.js
+│   │   ├── api/
+│   │   │   ├── lead/
+│   │   │   │   └── route.js
+│   │   │   └── talent/
+│   │   │       └── route.js
+│   │   ├── careers/
+│   │   │   ├── explore-opportunities/
+│   │   │   │   └── page.jsx
+│   │   │   └── talent-acquisition/
+│   │   │       └── page.jsx
+│   │   ├── context/
+│   │   │   └── TalentEcosystemContext.jsx
+│   │   ├── hubspot/
+│   │   │   ├── layout.jsx
+│   │   │   ├── page.jsx
+│   │   │   ├── components/
+│   │   │   │   ├── features/
+│   │   │   │   │   ├── HubSpot-FeaturedProjects.jsx
+│   │   │   │   │   └── HubSpot-IntroFeature.jsx
+│   │   │   │   ├── forms/
+│   │   │   │   │   └── consultationForm.jsx
+│   │   │   │   ├── layout/
+│   │   │   │   │   ├── Hubspot-Footer.jsx
+│   │   │   │   │   └── HubSpot-Navbar.jsx
+│   │   │   │   └── sections/
+│   │   │   │       ├── Hubspot-faq.jsx
+│   │   │   │       ├── Hubspot-Hero.jsx
+│   │   │   │       ├── HubSpot-StatsBar.jsx
+│   │   │   │       ├── Hubspot-Testimonials.jsx
+│   │   │   │       └── HubSpot-WhyMe.jsx
+│   │   │   ├── data/
+│   │   │   │   ├── features/
+│   │   │   │   │   ├── FeaturedProjects.js
+│   │   │   │   │   └── introFeatures.js
+│   │   │   │   ├── forms/
+│   │   │   │   │   └── consultationFormData.js
+│   │   │   │   ├── layout/
+│   │   │   │   │   ├── footer.js
+│   │   │   │   │   └── navigation.js
+│   │   │   │   ├── packages/
+│   │   │   │   │   └── packageData.js
+│   │   │   │   └── sections/
+│   │   │   │       ├── consultation.js
+│   │   │   │       ├── faq.js
+│   │   │   │       ├── heroData.js
+│   │   │   │       ├── Hubspot-Data.js
+│   │   │   │       ├── statsData.js
+│   │   │   │       ├── testimonials.js
+│   │   │   │       └── why-me.js
+│   │   │   ├── packages/
+│   │   │   │   ├── HubSpot-PackagesOverview.jsx
+│   │   │   │   ├── layout.jsx
+│   │   │   │   └── [slug]/
+│   │   │   │       └── page.jsx
+│   │   │   └── styles/
+│   │   │       ├── features/
+│   │   │       │   ├── featuredProjects.js
+│   │   │       │   └── introFeature.js
+│   │   │       ├── forms/
+│   │   │       │   └── consultationFormStyles.js
+│   │   │       ├── layout/
+│   │   │       │   ├── footer.js
+│   │   │       │   └── navbar.js
+│   │   │       ├── packages/
+│   │   │       │   ├── packageDetail.js
+│   │   │       │   └── packagesOverview.js
+│   │   │       └── sections/
+│   │   │           ├── challenges.js
+│   │   │           ├── faq.js
+│   │   │           ├── hero.js
+│   │   │           ├── statsBar.js
+│   │   │           ├── testimonials.js
+│   │   │           └── whyMe.js
+│   │   └── services/
+│   │       ├── page.jsx
+│   │       └── [slug]/
+│   │           ├── layout.jsx
+│   │           └── page.jsx
 │   ├── components/
+│   │   ├── forms/
+│   │   │   └── LeadForm.jsx
 │   │   ├── layout/
-│   │   │   ├── Announcement.jsx
+│   │   │   ├── AnnouncementBar.jsx
 │   │   │   ├── MobileMenu.jsx
 │   │   │   └── Navbar.jsx
 │   │   ├── sections/
@@ -65,61 +148,65 @@ Official corporate website for Zylxy Technologies built using Next.js and modern
 │   │   │   ├── Hero.jsx
 │   │   │   ├── IndustriesSection.jsx
 │   │   │   ├── LeadershipSection.jsx
-│   │   │   ├── LeadGen.jsx
+│   │   │   ├── PortfolioShowcase.jsx
 │   │   │   └── Testimonials.jsx
 │   │   └── ui/
+│   │       ├── NoiseReveal.jsx
+│   │       ├── PageTransition.jsx
+│   │       ├── SmoothScrollLink.jsx
+│   │       └── Spinner.jsx
 │   ├── data/
-│   │   ├── caseStudiesData.js
-│   │   ├── clientsData.js
-│   │   ├── faqData.js
-│   │   ├── footerData.js
-│   │   ├── heroData.js
-│   │   ├── industriesData.js
-│   │   ├── leadershipData.js
-│   │   ├── leadGenData.js
-│   │   ├── navigationData.js
-│   │   ├── seoData.js
-│   │   ├── servicesData.js
-│   │   └── testimonialsData.js
+│   │   ├── forms/
+│   │   │   └── LeadFormData.js
+│   │   ├── layout/
+│   │   │   ├── footerData.js
+│   │   │   └── navigationData.js
+│   │   └── sections/
+│   │       ├── caseStudiesData.js
+│   │       ├── clientsData.js
+│   │       ├── explore-opportunities.js
+│   │       ├── faqData.js
+│   │       ├── heroData.js
+│   │       ├── industriesData.js
+│   │       ├── leadershipData.js
+│   │       ├── seoData.js
+│   │       ├── servicesData.js
+│   │       ├── talent-acquisition.js
+│   │       └── testimonialsData.js
 │   ├── lib/
 │   │   ├── metadata.js
 │   │   ├── routes.js
 │   │   ├── seo.js
 │   │   └── siteConfig.js
 │   ├── styles/
-│   │   ├── navbar/
-│   │   │   ├── navbar.dark.js
-│   │   │   ├── navbar.mega.js
-│   │   │   └── navbar.mobile.js
-│   │   ├── sections/
-│   │   │   ├── caseStudies.js
-│   │   │   ├── clients.js
-│   │   │   ├── faq.js
+│   │   ├── animations.css
+│   │   ├── explore-opportunities.js
+│   │   ├── talent-acquisition.js
+│   │   ├── forms/
+│   │   │   └── leadFormStyles.js
+│   │   ├── layout/
 │   │   │   ├── footer.js
-│   │   │   ├── hero.js
-│   │   │   ├── industries.js
-│   │   │   ├── leadership.js
-│   │   │   ├── leadGen.js
-│   │   │   ├── services.js
-│   │   │   └── testimonials.js
-│   │   └── animations.css
+│   │   │   ├── navbar.dark.js
+│   │   │   └── navbar.mobile.js
+│   │   └── sections/
+│   │       ├── caseStudies.js
+│   │       ├── clients.js
+│   │       ├── faq.js
+│   │       ├── hero.js
+│   │       ├── industries.js
+│   │       ├── leadership.js
+│   │       ├── services.js
+│   │       └── testimonials.js
 │   └── utils/
 │       └── cn.js
-├── .env.local
-├── .gitignore
-├── AGENTS.md
-├── CLAUDE.md
-├── jsconfig.json
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-└── README.md
+└── .github/
+    └── workflows/
+        └── nextjs.yml
 ```
 
 ---
 
-# Installation
+## Installation
 
 Clone the repository:
 
@@ -147,7 +234,7 @@ npm run dev
 
 ---
 
-# Build for Production
+## Build for Production
 
 ```bash
 npm run build
@@ -155,7 +242,7 @@ npm run build
 
 ---
 
-# Start Production Server
+## Start Production Server
 
 ```bash
 npm start
@@ -163,7 +250,7 @@ npm start
 
 ---
 
-# Git Workflow
+## Git Workflow
 
 Check changes:
 
@@ -191,7 +278,7 @@ git push origin main
 
 ---
 
-# Recommended .gitignore
+## Recommended .gitignore
 
 ```gitignore
 node_modules
@@ -203,15 +290,15 @@ build
 
 ---
 
-# Deployment
+## Deployment
 
 Recommended deployment platforms:
 
-* Vercel
-* Netlify
+- Vercel
+- Netlify
 
 ---
 
-# Author
+## Author
 
 Zylxy Technologies

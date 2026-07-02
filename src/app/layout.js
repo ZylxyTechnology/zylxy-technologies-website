@@ -1,8 +1,8 @@
 "use client";
 
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
+import FooterSection from "@/components/layout/FooterSection";
 import Navbar from "@/components/layout/Navbar";
-import FooterSection from "@/components/sections/FooterSection";
 import "@/styles/animations.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { usePathname } from "next/navigation";
@@ -36,8 +36,7 @@ export default function RootLayout({ children }) {
           {!isHubSpotRoute && <AnnouncementBar />}
           {!isHubSpotRoute && <Navbar />}
 
-          <div className="flex-grow w-full">{children}</div>
-
+          <div className="grow w-full">{children}</div>
           {!isHubSpotRoute && <FooterSection />}
         </TalentEcosystemProvider>
       </body>

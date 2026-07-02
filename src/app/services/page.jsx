@@ -69,7 +69,7 @@ export default function ServicesPage() {
 
         <div className={servicesStyles.btnRow}>
           <Link
-            href="/#consultation"
+            href="/#LeadGen"
             className={`${servicesStyles.consultBtn} no-underline inline-block text-center`}
           >
             Book a Free Consultation

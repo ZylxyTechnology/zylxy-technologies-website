@@ -125,7 +125,7 @@ export default function LeadForm() {
   );
 
   return (
-    <section id="contact" className={s.section}>
+    <section id="LeadGen" className={s.section}>
       <div className={s.backgroundEffects} />
       <div className={s.radialGlow} />
 
@@ -275,7 +275,7 @@ export default function LeadForm() {
                                   setCountrySearch("");
                                 }}
                               >
-                                <span className="truncate max-w-[140px]">
+                                <span className="truncate max-w-35">
                                   {country.name}
                                 </span>
                                 <span className="shrink-0 opacity-80">
