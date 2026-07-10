@@ -15,20 +15,20 @@ export const navbarStyles = {
   innerWrapper:
     "max-w-7xl mx-auto w-full flex items-center justify-between relative h-full",
   logoSection:
-    "flex items-center gap-3.5 cursor-pointer shrink-0 no-underline group/logo",
+    "flex items-center gap-3 cursor-pointer shrink-0 no-underline group/logo",
   logoBox:
-    "w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#0F2251] to-[#050E21] flex items-center justify-center border border-white/10 shadow-[0_4px_20px_rgba(37,99,235,0.15)] shrink-0 transition-all duration-300 group-hover/logo:border-blue-500/30 group-hover/logo:shadow-[0_4px_25px_rgba(37,99,235,0.3)]",
+    "w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-[#0F2251] to-[#050E21] flex items-center justify-center border border-white/10 shadow-[0_4px_20px_rgba(37,99,235,0.15)] shrink-0 transition-all duration-300 group-hover/logo:border-blue-500/30 group-hover/logo:shadow-[0_4px_25px_rgba(37,99,235,0.3)]",
   logoImage:
     "w-full h-full object-contain block scale-95 transition-transform duration-300 group-hover/logo:scale-100",
   textContainer: "flex flex-col justify-center gap-0.5",
   brandTitle:
-    "font-sans font-extrabold text-2xl text-white tracking-tight leading-none transition-colors duration-200 group-hover/logo:text-[#60A5FA]",
+    "font-sans font-extrabold text-xl text-white tracking-tight leading-none transition-colors duration-200 group-hover/logo:text-[#60A5FA]",
   brandSubtitle:
-    "font-sans text-[11px] font-bold text-white/40 tracking-[0.12em] uppercase leading-none transition-colors duration-200 group-hover/logo:text-white/60",
+    "font-sans text-[10px] font-bold text-white/40 tracking-[0.12em] uppercase leading-none transition-colors duration-200 group-hover/logo:text-white/60",
   menuList: "hidden md:flex items-center gap-1.5 h-full static",
   menuItemWrapper: "h-full flex items-center group/nav static",
   menuButton:
-    "px-4 py-2 text-sm font-medium text-white/60 font-sans hover:text-[#60A5FA] hover:bg-blue-600/12 transition-all rounded-md flex items-center gap-1 cursor-pointer no-underline select-none",
+    "px-4 py-2 text-sm font-medium text-white/60 font-sans hover:text-white hover:bg-white/5 transition-all rounded-md flex items-center gap-1 cursor-pointer no-underline select-none",
   rightActionsGroup: "hidden md:flex items-center gap-4.5",
   hubspotPill:
     "px-4 py-1.5 text-xs font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 hover:border-[#FF7A59]/40 hover:bg-[#FF7A59]/20 transition-all rounded-full flex items-center gap-2 font-sans shadow-[0_0_15px_rgba(255,122,89,0.05)] select-none shrink-0 no-underline",
@@ -44,11 +44,11 @@ export const navbarStyles = {
   industriesGrid: "grid grid-cols-4 gap-6",
   pillarCol: "flex flex-col gap-3",
   pillarHeading:
-    "text-[11px] font-bold text-[#2563EB] uppercase tracking-wider font-inter border-b border-white/5 pb-2 mb-1",
+    "text-[11px] font-bold text-[#2563EB] uppercase tracking-wider font-inter border-b border-white/5 pb-2 mb-1.5",
   subServiceLink:
-    "flex items-center gap-2.5 py-1 text-xs text-white/60 font-medium font-sans no-underline hover:text-white transition-colors duration-200 group/link",
+    "flex items-center gap-3.5 p-2 rounded-xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 no-underline group/link w-full",
   iconWrapper:
-    "w-6.5 h-6.5 rounded-md bg-white/5 flex items-center justify-center text-white/40 group-hover/link:bg-[#2563EB] group-hover/link:text-white transition-colors duration-200 shrink-0",
+    "w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 group-hover/link:bg-[#2563EB] group-hover/link:text-white group-hover/link:border-[#2563EB] transition-all duration-300 shrink-0 shadow-sm",
   industryCard:
     "flex gap-3.5 p-3 rounded-lg bg-transparent border border-transparent hover:bg-white/[0.02] hover:border-white/5 transition-all duration-200 no-underline group/ind",
   industryIcon:

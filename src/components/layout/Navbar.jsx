@@ -24,8 +24,8 @@ export default function Navbar() {
               <Image
                 src="/logos/ZylxyLogo.png"
                 alt={NAVBAR_DATA.logoAlt}
-                width={46}
-                height={42}
+                width={34}
+                height={34}
                 className={n.logoImage}
                 priority
               />
@@ -64,9 +64,11 @@ export default function Navbar() {
                                   className={n.subServiceLink}
                                 >
                                   <div className={n.iconWrapper}>
-                                    <SubIcon className="w-3.5 h-3.5 stroke-[1.5]" />
+                                    <SubIcon className="w-5 h-5 stroke-[1.5]" />
                                   </div>
-                                  <span>{subItem.name}</span>
+                                  <span className="text-[13.5px] font-semibold tracking-tight">
+                                    {subItem.name}
+                                  </span>
                                 </Link>
                               );
                             })}
