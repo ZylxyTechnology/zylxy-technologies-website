@@ -1,8 +1,8 @@
 "use client";
 
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
-import { talentAcquisitionData } from "@/data/sections/talent-acquisition";
-import { talentAcquisitionStyles } from "@/styles/talent-acquisition";
+import { talentAcquisitionData } from "@/data/services/recruitment-services/talent-acquisition/talent-acquisitionData";
+import { talentAcquisitionStyles } from "@/styles/services/recruitment-services/talent-acquisition/talent-acquisition";
 import { useState } from "react";
 
 export default function TalentAcquisitionPage() {

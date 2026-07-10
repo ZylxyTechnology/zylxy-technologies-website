@@ -1,191 +1,239 @@
 "use client";
 
-import { navbarStyles } from "@/styles/layout/navbar.dark";
+import { NAVBAR_DATA } from "@/data/layout/navigationData";
+import { navbarStyles as n } from "@/styles/layout/navbar.dark";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
+
+  const toggleMobileDropdown = (label) => {
+    setActiveMobileDropdown(activeMobileDropdown === label ? null : label);
+  };
 
   return (
-    <nav className="w-full bg-[#050e21] sticky top-0 z-50">
-      <div className={navbarStyles.navContainer}>
-        <div className={navbarStyles.innerWrapper}>
-          <Link href="/" className={navbarStyles.logoSection}>
-            <div className={navbarStyles.logoBox}>
+    <nav className="w-full sticky top-0 z-50 flex flex-col bg-[#050E21]">
+      <div className={n.navContainer}>
+        <div className={n.innerWrapper}>
+          <Link href="/" className={n.logoSection}>
+            <div className={n.logoBox}>
               <Image
                 src="/logos/ZylxyLogo.png"
-                alt="Zylxy Logo"
-                width={34}
-                height={34}
-                className={navbarStyles.logoImage}
+                alt={NAVBAR_DATA.logoAlt}
+                width={46}
+                height={42}
+                className={n.logoImage}
                 priority
               />
             </div>
-            <div className={navbarStyles.textContainer}>
-              <span className={navbarStyles.brandTitle}>Zylxy</span>
-              <span className={navbarStyles.brandSubtitle}>Technologies</span>
+            <div className={n.textContainer}>
+              <span className={n.brandTitle}>{NAVBAR_DATA.brandName}</span>
+              <span className={n.brandSubtitle}>
+                {NAVBAR_DATA.brandSubtitle}
+              </span>
             </div>
           </Link>
 
-          <div className={navbarStyles.menuList}>
-            <Link href="/" className={navbarStyles.menuButton}>
-              Home
-            </Link>
+          <div className={n.menuList}>
+            {NAVBAR_DATA.menuItems.map((item, idx) => {
+              if (item.isMegaMenu && item.pillars) {
+                return (
+                  <div key={idx} className={n.menuItemWrapper}>
+                    <div className={n.menuButton}>
+                      {item.label}
+                      <ChevronDown className="w-3.5 h-3.5 opacity-50" />
+                    </div>
+                    <div className={n.megaMenuWrapper}>
+                      <div className={n.servicesGrid}>
+                        {item.pillars.map((pillar, pIdx) => (
+                          <div key={pIdx} className={n.pillarCol}>
+                            <h4 className={n.pillarHeading}>{pillar.title}</h4>
+                            {pillar.items.map((subItem, sIdx) => {
+                              const SubIcon = subItem.icon;
+                              return (
+                                <Link
+                                  key={sIdx}
+                                  href={
+                                    subItem.customRoute ||
+                                    `/services/${subItem.slug}`
+                                  }
+                                  className={n.subServiceLink}
+                                >
+                                  <div className={n.iconWrapper}>
+                                    <SubIcon className="w-3.5 h-3.5 stroke-[1.5]" />
+                                  </div>
+                                  <span>{subItem.name}</span>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
-            <Link href="/#services-section" className={navbarStyles.menuButton}>
-              Services
-            </Link>
+              if (item.isMegaMenu && item.industries) {
+                return (
+                  <div key={idx} className={n.menuItemWrapper}>
+                    <div className={n.menuButton}>
+                      {item.label}
+                      <ChevronDown className="w-3.5 h-3.5 opacity-50" />
+                    </div>
+                    <div className={n.megaMenuWrapper}>
+                      <div className={n.industriesGrid}>
+                        {item.industries.map((ind, iIdx) => {
+                          const IndIcon = ind.icon;
+                          return (
+                            <Link
+                              key={iIdx}
+                              href="/#LeadGen"
+                              className={n.industryCard}
+                            >
+                              <div className={n.industryIcon}>
+                                <IndIcon className="w-4.5 h-4.5 stroke-[1.5]" />
+                              </div>
+                              <div className={n.industryMeta}>
+                                <h4 className={n.industryTitle}>{ind.name}</h4>
+                                <p className={n.industryDesc}>{ind.desc}</p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
-            <div className="relative group">
-              <button
-                className={`${navbarStyles.menuButton} flex items-center gap-1.5`}
-              >
-                Careers
-                <svg
-                  className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[280px] bg-[#0b1635] rounded-lg shadow-xl opacity-0 pointer-events-none translate-y-2 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-300 ease-out border border-white/10 overflow-hidden">
-                <div className="py-2">
-                  <Link
-                    href="/careers/explore-opportunities"
-                    className="block px-5 py-3 hover:bg-blue-600/10 transition-colors"
-                  >
-                    <span className="block text-sm font-bold text-white">
-                      Explore Opportunities
-                    </span>
-                    <span className="block text-xs text-white/50 mt-1">
-                      For Students & Candidates
-                    </span>
-                  </Link>
-                  <div className="h-px w-full bg-white/5" />
-                  <Link
-                    href="/careers/talent-acquisition"
-                    className="block px-5 py-3 hover:bg-blue-600/10 transition-colors"
-                  >
-                    <span className="block text-sm font-bold text-white">
-                      Talent Acquisition Solutions
-                    </span>
-                    <span className="block text-xs text-white/50 mt-1">
-                      For Recruiters & Employers
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <Link href="/#LeadGen" className={navbarStyles.menuButton}>
-              Contact
-            </Link>
+              return (
+                <Link key={idx} href={item.href} className={n.menuButton}>
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
-          <div className={navbarStyles.rightActionsGroup}>
-            <Link href="/hubspot" className={navbarStyles.hubspotPill}>
-              <span className={navbarStyles.hubspotPulseDot} />
-              HubSpot CRM
-            </Link>
-            <Link href="/#LeadGen" className={navbarStyles.primaryBtn}>
-              Free Consultation
-            </Link>
+
+          <div className={n.rightActionsGroup}>
+            {NAVBAR_DATA.buttons.map((btn, idx) => (
+              <Link
+                key={idx}
+                href={btn.href}
+                className={
+                  btn.variant === "hubspot" ? n.hubspotPill : n.primaryBtn
+                }
+              >
+                {btn.variant === "hubspot" && (
+                  <div className={n.hubspotPulseDot} />
+                )}
+                <span>{btn.label}</span>
+              </Link>
+            ))}
           </div>
 
           <button
-            className="md:hidden text-white p-2"
+            className={n.mobileMenuBtn}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={
-                  isMobileMenuOpen
-                    ? "M6 18L18 6M6 6l12 12"
-                    : "M4 6h16M4 12h16M4 18h16"
-                }
-              />
-            </svg>
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5 text-white" />
+            ) : (
+              <Menu className="w-5 h-5 text-white" />
+            )}
           </button>
         </div>
       </div>
 
-      <div
-        className={`md:hidden bg-[#050e21] border-white/5 px-8 flex flex-col overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-[500px] py-4 border-t opacity-100" : "max-h-0 py-0 opacity-0"}`}
-      >
-        <div className="flex flex-col gap-4">
-          <Link
-            href="/"
-            className="text-sm font-medium text-white/80"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            href="/#services-section"
-            className="text-sm font-medium text-white/80"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Services
-          </Link>
+      {isMobileMenuOpen && (
+        <div className={n.mobileMenuOverlay}>
+          <div className={n.mobileMenuContainer}>
+            {NAVBAR_DATA.menuItems.map((item, idx) => {
+              if (item.isMegaMenu) {
+                const isDropdownOpen = activeMobileDropdown === item.label;
+                return (
+                  <div key={idx} className={n.mobileDropdownWrapper}>
+                    <button
+                      onClick={() => toggleMobileDropdown(item.label)}
+                      className={n.mobileDropdownBtn}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {isDropdownOpen && (
+                      <div className={n.mobileSubList}>
+                        {item.pillars &&
+                          item.pillars
+                            .flatMap((p) => p.items)
+                            .map((sub, sIdx) => (
+                              <Link
+                                key={sIdx}
+                                href={
+                                  sub.customRoute || `/services/${sub.slug}`
+                                }
+                                className={n.mobileSubLink}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {sub.name}
+                              </Link>
+                            ))}
+                        {item.industries &&
+                          item.industries.map((ind, iIdx) => (
+                            <Link
+                              key={iIdx}
+                              href="/#LeadGen"
+                              className={n.mobileSubLink}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {ind.name}
+                            </Link>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
 
-          <Link
-            href="/hubspot"
-            className={navbarStyles.hubspotMobilePill}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <span>HubSpot CRM & Automation</span>
-            <span className="w-2 h-2 rounded-full bg-[#FF7A59] shadow-[0_0_6px_#FF7A59]" />
-          </Link>
+              return (
+                <Link
+                  key={idx}
+                  href={item.href}
+                  className={n.mobileLink}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
 
-          <div className="flex flex-col gap-2.5">
-            <span className="text-sm font-bold text-white">Careers</span>
-            <Link
-              href="/careers/explore-opportunities"
-              className="text-xs text-white/60 pl-3 border-l border-blue-500 block"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Explore Opportunities
-            </Link>
-            <Link
-              href="/careers/talent-acquisition"
-              className="text-xs text-white/60 pl-3 border-l border-blue-500 block"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Talent Acquisition Solutions
-            </Link>
+            <div className="flex flex-col gap-3 mt-4">
+              {NAVBAR_DATA.buttons.map((btn, idx) => (
+                <Link
+                  key={idx}
+                  href={btn.href}
+                  className={
+                    btn.variant === "hubspot"
+                      ? n.hubspotMobilePill
+                      : `${n.primaryBtn} text-center py-3 w-full`
+                  }
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span>{btn.label}</span>
+                  {btn.variant === "hubspot" && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A59] shadow-[0_0_6px_#FF7A59]" />
+                  )}
+                </Link>
+              ))}
+            </div>
           </div>
-          <Link
-            href="/#LeadGen"
-            className="text-sm font-medium text-white/80"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Contact
-          </Link>
-          <Link
-            href="/#LeadGen"
-            className={`${navbarStyles.primaryBtn} text-center w-full block mt-2`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Free Consultation
-          </Link>
         </div>
-      </div>
+      )}
     </nav>
   );
 }

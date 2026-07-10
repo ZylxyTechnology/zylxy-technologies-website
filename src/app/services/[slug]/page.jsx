@@ -1,7 +1,7 @@
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import PageTransition from "@/components/ui/PageTransition";
-import { servicesData } from "@/data/sections/servicesData";
-import { servicesStyles } from "@/styles/sections/services";
+import { servicesData } from "@/data/services/servicesData";
+import { servicesStyles } from "@/styles/services/services";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -128,7 +128,7 @@ export default async function ServiceDetailPage({ params }) {
 
                 <div className={servicesStyles.detailFooterActions}>
                   <Link
-                    href="/#LeadGen"
+                    href="/#consultation"
                     className={servicesStyles.consultBtn}
                     style={{ display: "inline-block", textAlign: "center" }}
                   >
@@ -137,6 +137,7 @@ export default async function ServiceDetailPage({ params }) {
                 </div>
               </div>
             </div>
+
             {service.projects && service.projects.length > 0 && (
               <div className="px-8 lg:px-12 pb-8 lg:pb-12 bg-white">
                 <PortfolioShowcase projects={service.projects} />

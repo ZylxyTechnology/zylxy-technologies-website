@@ -1,3 +1,4 @@
+import { webProjects } from "@/data/services/software-development/web/web-projects";
 import {
   Bot,
   Briefcase,
@@ -40,19 +41,26 @@ export const servicesData = {
       icon: Globe,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
-      tags: ["React", "Next.js", "Node.js"],
+      image: "/assets/services/webDevelopment.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
+      tags: ["React", "Next.js", "Node.js", "E-commerce"],
       features: [
-        "Custom Architecture",
-        "API Integration",
-        "Responsive Design",
-        "Performance Optimization",
+        "Corporate & business websites",
+        "E-commerce & Shopify / WooCommerce stores",
+        "Marketing landing pages & conversion funnels",
+        "WordPress, Webflow & headless CMS builds",
+        "Custom React / Next.js stacks",
+        "Core Web Vitals & speed optimisation",
       ],
       process: [
-        "Discovery & Planning",
-        "UI/UX Design",
-        "Frontend/Backend Engineering",
-        "Testing & Deployment",
+        "Discovery & brief",
+        "Wireframes & design mockups",
+        "Development & CMS setup",
+        "QA, speed testing & review",
+        "Launch & 30-day support",
       ],
+      projects: webProjects,
     },
     {
       id: "mobile-application-development",
@@ -64,19 +72,26 @@ export const servicesData = {
       icon: Smartphone,
       accent: "#8B5CF6",
       accentBg: "#F5F3FF",
+      image: "/assets/services/appDevelopment.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800",
       tags: ["React Native", "iOS", "Android"],
       features: [
-        "Cross-Platform",
-        "Native Performance",
-        "App Store Deployment",
-        "Offline Support",
+        "Native iOS & Android development",
+        "Cross-platform Flutter & React Native apps",
+        "UI/UX design & interactive prototypes",
+        "REST / GraphQL API integration",
+        "App Store & Play Store submission",
+        "Push notifications & analytics",
       ],
       process: [
-        "Prototyping",
-        "Core Development",
-        "QA Automation",
-        "Launch & Monitoring",
+        "Product scoping & wireframes",
+        "UI/UX design & prototype",
+        "Frontend & backend development",
+        "Device testing & QA",
+        "Store submission & post-launch",
       ],
+      projects: [],
     },
     {
       id: "custom-software-development",
@@ -88,19 +103,26 @@ export const servicesData = {
       icon: Cpu,
       accent: "#059669",
       accentBg: "#ECFDF5",
-      tags: ["Enterprise", "SaaS", "Internal Tools"],
+      image: "/assets/services/softwareSolutions.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=800",
+      tags: ["SaaS", "CRM", "ERP", "Automation"],
       features: [
-        "Workflow Automation",
-        "Legacy Migration",
-        "Scalable Databases",
-        "Custom Dashboards",
+        "Custom SaaS platform development",
+        "CRM & ERP system builds",
+        "Internal dashboards & admin portals",
+        "Third-party API & webhook integrations",
+        "Process automation & workflow engines",
+        "Cloud deployment (AWS, GCP, Azure)",
       ],
       process: [
-        "Requirements Gathering",
-        "System Architecture",
-        "Agile Sprints",
-        "Ongoing Support",
+        "Requirements & system design",
+        "Architecture planning",
+        "Iterative sprint development",
+        "UAT & load testing",
+        "Deployment & training",
       ],
+      projects: [],
     },
     {
       id: "ui-ux-design",
@@ -112,19 +134,26 @@ export const servicesData = {
       icon: Layout,
       accent: "#DB2777",
       accentBg: "#FDF2F8",
-      tags: ["Figma", "Wireframing", "User Research"],
+      image: "/assets/services/uiUxBranding.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1561070791-26c113006238?q=80&w=800",
+      tags: ["Branding", "UI/UX", "Identity"],
       features: [
-        "User Journey Mapping",
-        "Interactive Prototypes",
-        "Design Systems",
-        "Usability Testing",
+        "Logo & visual identity design",
+        "Brand guidelines & style systems",
+        "UI/UX design for web & mobile",
+        "Figma design systems & component libraries",
+        "Social media creative templates",
+        "Pitch decks & presentation design",
       ],
       process: [
-        "Research",
-        "Wireframing",
-        "High-Fidelity UI",
-        "Developer Handoff",
+        "Brand discovery & moodboards",
+        "Concept development",
+        "Design & revisions",
+        "Final asset delivery",
+        "Brand guidelines handoff",
       ],
+      projects: [],
     },
     {
       id: "brand-creative-design",
@@ -136,6 +165,9 @@ export const servicesData = {
       icon: Palette,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
+      image: "/assets/services/uiUxBranding.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800",
       tags: ["Identity", "Graphics", "Guidelines"],
       features: [
         "Logo Design",
@@ -149,6 +181,7 @@ export const servicesData = {
         "Refinement",
         "Asset Delivery",
       ],
+      projects: [],
     },
     {
       id: "application-support",
@@ -160,6 +193,9 @@ export const servicesData = {
       icon: Wrench,
       accent: "#475569",
       accentBg: "#F1F5F9",
+      image: "/assets/services/itConsulting.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800",
       tags: ["DevOps", "Updates", "Security"],
       features: [
         "24/7 Monitoring",
@@ -173,6 +209,7 @@ export const servicesData = {
         "Continuous Monitoring",
         "Monthly Reporting",
       ],
+      projects: [],
     },
     {
       id: "ai-engineering-automation",
@@ -184,6 +221,9 @@ export const servicesData = {
       icon: Bot,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
+      image: "/assets/services/softwareSolutions.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=800",
       tags: ["Machine Learning", "Workflow", "LLMs"],
       features: [
         "Process Automation",
@@ -197,6 +237,7 @@ export const servicesData = {
         "Integration",
         "Testing & Tuning",
       ],
+      projects: [],
     },
     {
       id: "hubspot-crm-implementation",
@@ -209,6 +250,9 @@ export const servicesData = {
       icon: Workflow,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
+      image: "/assets/services/digitalMarketing.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1552581234-2612b75d8953?q=80&w=800",
       tags: ["Sales Hub", "Marketing Hub", "Operations"],
       features: [
         "Data Migration",
@@ -222,17 +266,22 @@ export const servicesData = {
         "Implementation",
         "Handoff Training",
       ],
+      projects: [],
     },
     {
       id: "talent-acquisition",
       category: "Recruitment",
       title: "Talent Acquisition",
+      customRoute: "/careers/talent-acquisition",
       desc: "End-to-end recruitment services connecting you with top-tier technical and executive talent.",
       detailDesc:
         "We bridge the gap between great companies and exceptional talent, utilizing data-driven sourcing to find the perfect fit for your technical and operational roles.",
       icon: Target,
       accent: "#059669",
       accentBg: "#ECFDF5",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=800",
       tags: ["Tech Hiring", "Executive Search", "Screening"],
       features: [
         "Candidate Sourcing",
@@ -246,17 +295,22 @@ export const servicesData = {
         "Interviewing",
         "Placement",
       ],
+      projects: [],
     },
     {
       id: "career-services",
       category: "Recruitment",
       title: "Career Services",
+      customRoute: "/careers/explore-opportunities",
       desc: "Professional resume building, interview preparation, and profile optimization.",
       detailDesc:
         "Empowering professionals to take the next step in their careers with optimized resumes, LinkedIn profiles, and targeted interview coaching.",
       icon: TrendingUp,
       accent: "#8B5CF6",
       accentBg: "#F5F3FF",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800",
       tags: ["Resume Building", "Coaching", "LinkedIn"],
       features: [
         "ATS Optimization",
@@ -270,6 +324,7 @@ export const servicesData = {
         "Coaching Sessions",
         "Application Strategy",
       ],
+      projects: [],
     },
     {
       id: "corporate-training",
@@ -281,6 +336,9 @@ export const servicesData = {
       icon: Building2,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
       tags: ["Upskilling", "Workshops", "Tech Stack"],
       features: [
         "Custom Curriculum",
@@ -294,6 +352,7 @@ export const servicesData = {
         "Training Delivery",
         "Assessment",
       ],
+      projects: [],
     },
     {
       id: "academic-partnerships",
@@ -305,6 +364,9 @@ export const servicesData = {
       icon: GraduationCap,
       accent: "#DB2777",
       accentBg: "#FDF2F8",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800",
       tags: ["Colleges", "Seminars", "Bootcamps"],
       features: [
         "Guest Lectures",
@@ -318,6 +380,7 @@ export const servicesData = {
         "Student Training",
         "Final Evaluation",
       ],
+      projects: [],
     },
     {
       id: "internship-programs",
@@ -329,6 +392,9 @@ export const servicesData = {
       icon: Laptop,
       accent: "#059669",
       accentBg: "#ECFDF5",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800",
       tags: ["Live Projects", "Mentorship", "Hands-on"],
       features: [
         "Real-world Tasks",
@@ -342,6 +408,7 @@ export const servicesData = {
         "Project Assignment",
         "Final Review",
       ],
+      projects: [],
     },
     {
       id: "placement-assistance",
@@ -353,6 +420,9 @@ export const servicesData = {
       icon: Briefcase,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
+      image: "/assets/services/trainingCourses.jpg",
+      fallbackImage:
+        "https://images.unsplash.com/photo-1521791055366-0d553872115f?q=80&w=800",
       tags: ["Job Drives", "Interviews", "Hiring Partners"],
       features: [
         "Partner Network",
@@ -366,6 +436,7 @@ export const servicesData = {
         "Interview Scheduling",
         "Placement",
       ],
+      projects: [],
     },
   ],
 };

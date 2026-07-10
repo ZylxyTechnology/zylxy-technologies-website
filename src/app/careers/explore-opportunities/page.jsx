@@ -1,8 +1,8 @@
 "use client";
 
 import { useTalentEcosystem } from "@/app/context/TalentEcosystemContext";
-import { exploreOpportunitiesData } from "@/data/sections/explore-opportunities";
-import { exploreOpportunitiesStyles } from "@/styles/explore-opportunities";
+import { exploreOpportunitiesData } from "@/data/services/recruitment-services/career-services/explore-opportunitiesData";
+import { exploreOpportunitiesStyles } from "@/styles/services/recruitment-services/career-services/explore-opportunities";
 import { useRef, useState } from "react";
 
 export default function ExploreOpportunitiesPage() {

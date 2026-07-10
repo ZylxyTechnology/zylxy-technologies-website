@@ -11,26 +11,63 @@ export const announcementStyles = {
 
 export const navbarStyles = {
   navContainer:
-    "bg-[#050E21] border-b border-white/5 px-8 h-15 flex items-center justify-between gap-4 sticky top-0 z-50",
-  innerWrapper: "max-w-7xl mx-auto w-full flex items-center justify-between",
-  logoSection: "flex items-center gap-2.5 cursor-pointer shrink-0",
+    "bg-[#050E21] border-b border-white/5 px-8 h-20 flex items-center justify-between sticky top-0 z-50 w-full",
+  innerWrapper:
+    "max-w-7xl mx-auto w-full flex items-center justify-between relative h-full",
+  logoSection:
+    "flex items-center gap-3.5 cursor-pointer shrink-0 no-underline group/logo",
   logoBox:
-    "w-8.5 h-8.5 rounded-lg overflow-hidden bg-[#0F2251] flex items-center justify-center shadow-[0_0_12px_rgba(37,99,235,0.25)] shrink-0",
-  logoImage: "w-full h-full object-contain block",
-  textContainer: "flex flex-col line-height-1",
-  brandTitle: "font-sans font-extrabold text-lg text-white tracking-tight",
+    "w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#0F2251] to-[#050E21] flex items-center justify-center border border-white/10 shadow-[0_4px_20px_rgba(37,99,235,0.15)] shrink-0 transition-all duration-300 group-hover/logo:border-blue-500/30 group-hover/logo:shadow-[0_4px_25px_rgba(37,99,235,0.3)]",
+  logoImage:
+    "w-full h-full object-contain block scale-95 transition-transform duration-300 group-hover/logo:scale-100",
+  textContainer: "flex flex-col justify-center gap-0.5",
+  brandTitle:
+    "font-sans font-extrabold text-2xl text-white tracking-tight leading-none transition-colors duration-200 group-hover/logo:text-[#60A5FA]",
   brandSubtitle:
-    "font-sans text-[10px] font-medium text-white/40 tracking-wider",
-  menuList: "hidden md:flex items-center gap-1.5",
+    "font-sans text-[11px] font-bold text-white/40 tracking-[0.12em] uppercase leading-none transition-colors duration-200 group-hover/logo:text-white/60",
+  menuList: "hidden md:flex items-center gap-1.5 h-full static",
+  menuItemWrapper: "h-full flex items-center group/nav static",
   menuButton:
-    "px-3.5 py-1.5 text-sm font-medium text-white/60 font-sans hover:text-[#60A5FA] hover:bg-blue-600/12 transition-all rounded-md",
+    "px-4 py-2 text-sm font-medium text-white/60 font-sans hover:text-[#60A5FA] hover:bg-blue-600/12 transition-all rounded-md flex items-center gap-1 cursor-pointer no-underline select-none",
   rightActionsGroup: "hidden md:flex items-center gap-4.5",
   hubspotPill:
-    "px-4 py-1.5 text-xs font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 hover:border-[#FF7A59]/40 hover:bg-[#FF7A59]/20 transition-all rounded-full flex items-center gap-2 font-sans shadow-[0_0_15px_rgba(255,122,89,0.05)] select-none shrink-0",
+    "px-4 py-1.5 text-xs font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 hover:border-[#FF7A59]/40 hover:bg-[#FF7A59]/20 transition-all rounded-full flex items-center gap-2 font-sans shadow-[0_0_15px_rgba(255,122,89,0.05)] select-none shrink-0 no-underline",
   hubspotPulseDot:
     "w-1.5 h-1.5 rounded-full bg-[#FF7A59] shadow-[0_0_8px_#FF7A59] animate-pulse",
   hubspotMobilePill:
     "text-sm font-bold text-[#FF7A59] bg-[#FF7A59]/10 border border-[#FF7A59]/20 px-3 py-2 rounded-lg flex items-center justify-between w-full mt-1",
   primaryBtn:
-    "px-5 py-2 text-xs bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5",
+    "px-5 py-2 text-xs bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 no-underline",
+  megaMenuWrapper:
+    "absolute top-full left-0 right-0 w-full bg-[#071330] border border-white/10 rounded-b-xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-200 ease-out z-50",
+  servicesGrid: "grid grid-cols-4 gap-8",
+  industriesGrid: "grid grid-cols-4 gap-6",
+  pillarCol: "flex flex-col gap-3",
+  pillarHeading:
+    "text-[11px] font-bold text-[#2563EB] uppercase tracking-wider font-inter border-b border-white/5 pb-2 mb-1",
+  subServiceLink:
+    "flex items-center gap-2.5 py-1 text-xs text-white/60 font-medium font-sans no-underline hover:text-white transition-colors duration-200 group/link",
+  iconWrapper:
+    "w-6.5 h-6.5 rounded-md bg-white/5 flex items-center justify-center text-white/40 group-hover/link:bg-[#2563EB] group-hover/link:text-white transition-colors duration-200 shrink-0",
+  industryCard:
+    "flex gap-3.5 p-3 rounded-lg bg-transparent border border-transparent hover:bg-white/[0.02] hover:border-white/5 transition-all duration-200 no-underline group/ind",
+  industryIcon:
+    "w-8.5 h-8.5 rounded-lg bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center text-[#2563EB] shrink-0 transition-colors duration-200 group-hover/ind:bg-[#2563EB] group-hover/ind:text-white",
+  industryMeta: "flex flex-col gap-0.5",
+  industryTitle:
+    "text-[13px] font-bold text-white/80 font-sans tracking-tight group-hover/ind:text-[#2563EB] transition-colors duration-200",
+  industryDesc: "text-[11.5px] text-white/40 font-inter leading-relaxed",
+  mobileMenuBtn:
+    "md:hidden flex flex-col justify-center items-center gap-1 w-8 h-8 bg-transparent border-none cursor-pointer focus:outline-none z-20 hover:scale-105 transition-transform",
+  mobileMenuOverlay:
+    "absolute top-full left-0 right-0 bg-[#050E21] border-b border-white/10 shadow-xl p-6 z-50 flex flex-col gap-4 max-h-[calc(100vh-4rem)] overflow-y-auto md:hidden",
+  mobileMenuContainer: "flex flex-col gap-4",
+  mobileLink:
+    "text-sm font-bold text-white hover:text-[#2563EB] py-2.5 border-b border-white/5 no-underline font-sans tracking-wide block w-full text-left bg-transparent border-none outline-none cursor-pointer",
+  mobileDropdownWrapper: "flex flex-col border-b border-white/5",
+  mobileDropdownBtn:
+    "w-full flex items-center justify-between text-sm font-bold text-white hover:text-[#2563EB] py-2.5 bg-transparent border-none text-left font-sans tracking-wide cursor-pointer outline-none",
+  mobileSubList: "flex flex-col gap-2 pl-4 pb-3 pt-1",
+  mobileSubLink:
+    "text-xs text-white/50 hover:text-white py-1.5 no-underline font-medium block font-sans",
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import PageTransition from "@/components/ui/PageTransition";
-import { servicesData } from "@/data/sections/servicesData";
-import { servicesStyles as s } from "@/styles/sections/services";
+import { servicesData } from "@/data/services/servicesData";
+import { servicesStyles as s } from "@/styles/services/services";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -62,10 +62,9 @@ export default function ServicesPage() {
 
               <h1 className={s.mainHeading}>
                 {activeTab === "All"
-                  ? "All Services"
+                  ? header.mainHeading
                   : categories.find((c) => c.id === activeTab)?.label}
               </h1>
-
               <p className={s.subHeading}>{header.subHeading}</p>
             </div>
 

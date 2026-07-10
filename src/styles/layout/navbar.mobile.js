@@ -1,5 +1,5 @@
 export const mobileMenuStyles = {
-  hamburgerWrapper: "block lg:hidden z-[60]",
+  hamburgerWrapper: "hidden lg:hidden z-[60]",
   hamburgerBtn:
     "flex flex-col justify-center items-center gap-[5px] w-8 h-8 cursor-pointer relative bg-transparent border-none",
   line: "w-6 h-[2px] bg-white rounded-full transition-all duration-300 ease-in-out",

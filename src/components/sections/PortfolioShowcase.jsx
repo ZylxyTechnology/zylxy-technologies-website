@@ -1,6 +1,6 @@
 "use client";
 
-import { servicesStyles as s } from "@/styles/sections/services";
+import { servicesStyles as s } from "@/styles/services/services";
 import { ExternalLink } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
