@@ -16,6 +16,7 @@
     "react": "19.2.4",
     "react-country-state-city": "^1.1.13",
     "react-dom": "19.2.4",
+    "react-select-country-list": "^2.2.3",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {

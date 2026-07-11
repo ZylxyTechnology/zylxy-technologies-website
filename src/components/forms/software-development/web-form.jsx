@@ -1,6 +1,6 @@
 "use client";
 
-import { submitWebLeadAction } from "@/actions/webFormAction";
+import { submitWebLeadAction } from "@/actions/software-development/webFormAction";
 import { webFormData as d } from "@/data/forms/software-development/web-form";
 import { webFormStyles as s } from "@/styles/forms/software-development/web-form";
 import {

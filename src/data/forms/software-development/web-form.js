@@ -5,6 +5,19 @@ export const webFormData = {
     subHeading:
       "Initialize high-performance Next.js architectures, complex SaaS engines, and fluid digital conversion environments customized to your organizational scale.",
   },
+  webTargets: [
+    "Corporate Website",
+    "Business Website",
+    "E-Commerce Website",
+    "Web Portal",
+    "Customer Portal",
+    "Employee Portal",
+    "Marketplace",
+    "SaaS Application",
+    "Landing Page",
+    "Website Redesign",
+    "Not Sure / Need Consultation",
+  ],
   organizationTypes: [
     "Small Business",
     "Professional Service Firm",

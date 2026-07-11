@@ -10,14 +10,9 @@ export async function submitLeadAction(prevState, formData) {
     message: formData.get("message")?.toString().trim() || "",
     orgName: formData.get("orgName")?.toString().trim() || "",
     orgType: formData.get("orgType")?.toString() || "",
-    subLevel: formData.get("subLevel")?.toString() || "",
-    challengesToSolve: (
-      formData.get("challengesToSolve")?.toString() || ""
-    ).replace(/; /g, ";"),
     consentCommunications: formData.get("consentCommunications") === "true",
     consentProcessing: formData.get("consentProcessing") === "true",
     honeyTrap: formData.get("honeyTrap")?.toString() || "",
-    isHubSpotFormContext: formData.get("isHubSpotFormContext") === "true",
   };
 
   try {
@@ -47,38 +42,17 @@ export async function submitLeadAction(prevState, formData) {
       errors.email = "Please provide a correctly formatted email address.";
     }
 
-    // FIX: Strict Phone Validation implementation
-    const cleanPhone = payload.phone.replace(/\D/g, ""); // Strip out any spaces or dashes
-
+    const cleanPhone = payload.phone.replace(/\D/g, "");
     if (!payload.phone) {
       errors.phone =
         "An operational phone number is required to finalize your verification routing.";
-    } else if (payload.dialCode === "+91") {
-      // Indian Context Validation
-      if (cleanPhone.length !== 10) {
-        errors.phone = "Indian phone numbers must be exactly 10 digits long.";
-      } else if (!/^[6789]/.test(cleanPhone)) {
-        errors.phone =
-          "Valid Indian mobile numbers must start with 6, 7, 8, or 9.";
-      }
-    } else {
-      // Standard International Validation Fallback
-      if (cleanPhone.length < 6 || cleanPhone.length > 15) {
-        errors.phone = "Please enter a valid phone number configuration.";
-      }
+    } else if (cleanPhone.length < 6 || cleanPhone.length > 15) {
+      errors.phone = "Please enter a valid phone number configuration.";
     }
 
     if (!payload.service) {
       errors.service =
         "Please select an operational service track parameter from the dropdown selection.";
-    }
-
-    if (
-      (payload.isHubSpotFormContext || payload.service === "HubSpot CRM") &&
-      !payload.orgName
-    ) {
-      errors.orgName =
-        "Organization name identification is required for setting up HubSpot diagnostics.";
     }
 
     if (!payload.consentProcessing) {
@@ -90,35 +64,16 @@ export async function submitLeadAction(prevState, formData) {
       return { success: false, errors, payload };
     }
 
-    const portalId = process.env.HUBSPOT_PORTAL_ID || "246492214";
-    const formId = payload.isHubSpotFormContext
-      ? process.env.HUBSPOT_HUBSPOT_FORM_ID ||
-        "65d2e621-d4ff-4616-8f31-2c22a59547e5"
-      : process.env.HUBSPOT_GENERAL_FORM_ID ||
-        "22c7712e-9c35-4c26-9881-4abf481fa67c";
-
+    const portalId = "246492214";
+    const formId = "22c7712e-9c35-4c26-9881-4abf481fa67c";
     const fullPhoneNumber = `${payload.dialCode} ${payload.phone}`;
-
-    const serviceTranslationMap = {
-      "HubSpot CRM": "HubSpot",
-      "Software Solutions": "Software Solution",
-      "Digital Marketing": "Digital Marketing",
-      "App Development": "App Development",
-      "Web Development": "Web Development",
-      "IT Consulting": "IT Consulting",
-      "UI/UX & Branding": "UI/UX & Branding",
-      "Training & Courses": "Training & Courses",
-      Animations: "Animations",
-      "Not sure yet": "Not sure yet",
-    };
-    const mappedHubSpotService =
-      serviceTranslationMap[payload.service] || payload.service;
 
     const orgTypeTranslationMap = {
       "Nonprofit Organization": "Nonprofit",
       "Small Business": "Small Business",
       "Educational Organization": "Educational Institution",
-      "Workforce Development Program": "Workforce Development Program",
+      "Workforce Development Organization":
+        "Workforce Development Organization",
       "Accelerator / Incubator": "Accelerator / Incubator",
       "Community Organization": "Community Organization",
       "Professional Service Firm": "Professional Services",
@@ -132,35 +87,19 @@ export async function submitLeadAction(prevState, formData) {
       { name: "firstname", value: payload.name },
       { name: "email", value: payload.email },
       { name: "phone", value: fullPhoneNumber },
-      { name: "0-2/service", value: mappedHubSpotService },
-      { name: "0-2/name", value: payload.orgName },
-      { name: "company", value: payload.orgName },
+      { name: "0-2/service", value: payload.service },
+      { name: "0-2/name", value: payload.orgName || "" },
+      { name: "company", value: payload.orgName || "" },
       { name: "0-2/industry_type", value: mappedOrgType },
       { name: "message", value: payload.message },
     ];
-
-    if (payload.isHubSpotFormContext || payload.service === "HubSpot CRM") {
-      const formattedChallenges = Array.isArray(payload.challengesToSolve)
-        ? payload.challengesToSolve.join(";")
-        : (payload.challengesToSolve || "").replace(/; /g, ";");
-
-      fields.push(
-        { name: "0-2/hubspot_subscription_level", value: payload.subLevel },
-        {
-          name: "0-2/what_hubspot_challenges_are_you_trying_to_solve",
-          value: formattedChallenges,
-        },
-      );
-    }
 
     const hubspotPayload = {
       submittedAt: Date.now(),
       fields,
       context: {
         pageUri: "https://zylxytech.com",
-        pageName: payload.isHubSpotFormContext
-          ? "HubSpot Consulting Intake Portal"
-          : "Zylxy General Lead Intake",
+        pageName: "Zylxy General Lead Intake Canvas",
       },
       legalConsentOptions: {
         consent: {
@@ -180,23 +119,9 @@ export async function submitLeadAction(prevState, formData) {
     );
 
     if (!response.ok) {
-      const errorText = await response.text();
-      let parsedErrorMessage = "HubSpot API submission failure.";
-      try {
-        const errorData = JSON.parse(errorText);
-        if (errorData.errors && errorData.errors.length > 0) {
-          parsedErrorMessage = errorData.errors
-            .map((err) => err.message)
-            .join(" | ");
-        } else {
-          parsedErrorMessage = errorData.message || parsedErrorMessage;
-        }
-      } catch (e) {
-        parsedErrorMessage = errorText || parsedErrorMessage;
-      }
       return {
         success: false,
-        errors: { global: parsedErrorMessage },
+        errors: { global: "HubSpot interface synchronization rejection." },
         payload,
       };
     }
@@ -210,9 +135,7 @@ export async function submitLeadAction(prevState, formData) {
   } catch (error) {
     return {
       success: false,
-      errors: {
-        global: "An operational delivery error occurred. Please try again.",
-      },
+      errors: { global: "Internal data channel pipeline execution failure." },
       payload,
     };
   }

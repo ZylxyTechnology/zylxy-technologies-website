@@ -1,3 +1,6 @@
+import MobileApplicationForm from "@/components/forms/software-development/mobile-form";
+import WebApplicationForm from "@/components/forms/software-development/web-form";
+import ZylxyLeadGenForm from "@/components/forms/ZylxyLeadGenForm";
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import PageTransition from "@/components/ui/PageTransition";
 import { servicesData } from "@/data/services/servicesData";
@@ -23,6 +26,16 @@ export default async function ServiceDetailPage({ params }) {
     notFound();
   }
 
+  const renderContextualForm = () => {
+    if (slug === "web-application-development") {
+      return <WebApplicationForm />;
+    }
+    if (slug === "mobile-application-development") {
+      return <MobileApplicationForm />;
+    }
+    return <ZylxyLeadGenForm />;
+  };
+
   return (
     <PageTransition>
       <main className={servicesStyles.detailPageWrapper}>
@@ -41,7 +54,7 @@ export default async function ServiceDetailPage({ params }) {
             <div className={servicesStyles.detailGrid}>
               <div className={servicesStyles.detailMedia}>
                 <img
-                  src={service.image || "/api/placeholder/800/600"}
+                  src={service.image || service.fallbackImage}
                   alt={service.title}
                   className={servicesStyles.detailImg}
                 />
@@ -125,24 +138,16 @@ export default async function ServiceDetailPage({ params }) {
                     ))}
                   </div>
                 </div>
-
-                <div className={servicesStyles.detailFooterActions}>
-                  <Link
-                    href="/#consultation"
-                    className={servicesStyles.consultBtn}
-                    style={{ display: "inline-block", textAlign: "center" }}
-                  >
-                    Book a Free Consultation
-                  </Link>
-                </div>
               </div>
             </div>
 
             {service.projects && service.projects.length > 0 && (
-              <div className="px-8 lg:px-12 pb-8 lg:pb-12 bg-white">
+              <div className="px-8 lg:px-12 pb-8 lg:pb-12 bg-white border-b border-slate-100">
                 <PortfolioShowcase projects={service.projects} />
               </div>
             )}
+
+            <div className="w-full bg-[#1B1F3A]">{renderContextualForm()}</div>
           </div>
         </div>
       </main>

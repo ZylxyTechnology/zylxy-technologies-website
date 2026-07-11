@@ -1,6 +1,6 @@
 "use client";
 
-import { submitMobileLeadAction } from "@/actions/mobileFormAction";
+import { submitMobileLeadAction } from "@/actions/software-development/mobileFormAction";
 import { mobileFormData as d } from "@/data/forms/software-development/mobile-form";
 import { mobileFormStyles as s } from "@/styles/forms/software-development/mobile-form";
 import {
