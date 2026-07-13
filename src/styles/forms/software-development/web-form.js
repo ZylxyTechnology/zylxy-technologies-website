@@ -62,6 +62,8 @@ export const webFormStyles = {
     "text-xs font-inter text-[#A3B1CC] leading-relaxed transition-colors duration-200",
   errorText:
     "text-[#FF6B6B] text-xs font-inter mt-1.5 flex items-center gap-1.5",
+  recaptchaWrapper:
+    "mt-4 flex justify-start scale-90 origin-left sm:scale-100 min-h-[78px]",
   footerRow:
     "mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
   privacyFooter:

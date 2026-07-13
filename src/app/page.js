@@ -1,4 +1,4 @@
-import LeadForm from "@/components/forms/LeadForm";
+import LeadForm from "@/components/forms/ZylxyLeadGenForm.jsx";
 import ClientsSection from "@/components/sections/ClientsSection";
 import FaqSection from "@/components/sections/FAQ";
 import Hero from "@/components/sections/Hero";

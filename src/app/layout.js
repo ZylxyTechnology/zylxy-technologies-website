@@ -6,7 +6,6 @@ import Navbar from "@/components/layout/Navbar";
 import "@/styles/animations.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { usePathname } from "next/navigation";
-import { TalentEcosystemProvider } from "./context/TalentEcosystemContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,14 +30,12 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#050e21]">
-        <TalentEcosystemProvider>
-          {/* Conditionally suppress mainland global frames entirely on HubSpot views */}
-          {!isHubSpotRoute && <AnnouncementBar />}
-          {!isHubSpotRoute && <Navbar />}
+        {/* Conditionally suppress mainland global frames entirely on HubSpot views */}
+        {!isHubSpotRoute && <AnnouncementBar />}
+        {!isHubSpotRoute && <Navbar />}
 
-          <div className="grow w-full">{children}</div>
-          {!isHubSpotRoute && <FooterSection />}
-        </TalentEcosystemProvider>
+        <div className="grow w-full">{children}</div>
+        {!isHubSpotRoute && <FooterSection />}
       </body>
     </html>
   );

@@ -1,6 +1,3 @@
-import MobileApplicationForm from "@/components/forms/software-development/mobile-form";
-import WebApplicationForm from "@/components/forms/software-development/web-form";
-import ZylxyLeadGenForm from "@/components/forms/ZylxyLeadGenForm";
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import PageTransition from "@/components/ui/PageTransition";
 import { servicesData } from "@/data/services/servicesData";
@@ -25,16 +22,6 @@ export default async function ServiceDetailPage({ params }) {
   if (!service) {
     notFound();
   }
-
-  const renderContextualForm = () => {
-    if (slug === "web-application-development") {
-      return <WebApplicationForm />;
-    }
-    if (slug === "mobile-application-development") {
-      return <MobileApplicationForm />;
-    }
-    return <ZylxyLeadGenForm />;
-  };
 
   return (
     <PageTransition>
@@ -146,8 +133,6 @@ export default async function ServiceDetailPage({ params }) {
                 <PortfolioShowcase projects={service.projects} />
               </div>
             )}
-
-            <div className="w-full bg-[#1B1F3A]">{renderContextualForm()}</div>
           </div>
         </div>
       </main>

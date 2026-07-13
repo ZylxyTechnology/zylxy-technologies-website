@@ -1,17 +1,20 @@
 "use server";
 
 export async function submitWebLeadAction(prevState, formData) {
+  const selectedAppsArray = formData.getAll("selectedApps");
   const payload = {
     name: formData.get("name")?.toString().trim() || "",
     email: formData.get("email")?.toString().trim() || "",
     phone: formData.get("phone")?.toString().trim() || "",
-    countryCode: formData.get("countryCode")?.toString().trim() || "",
+    dialCode: formData.get("dialCode")?.toString().trim() || "",
     message: formData.get("message")?.toString().trim() || "",
     orgName: formData.get("orgName")?.toString().trim() || "",
     orgType: formData.get("orgType")?.toString() || "",
+    selectedApps: selectedAppsArray.map((item) => item.toString()),
     consentCommunications: formData.get("consentCommunications") === "true",
     consentProcessing: formData.get("consentProcessing") === "true",
     honeyTrap: formData.get("honeyTrap")?.toString() || "",
+    captchaToken: formData.get("captchaToken")?.toString() || "",
   };
 
   try {
@@ -45,8 +48,20 @@ export async function submitWebLeadAction(prevState, formData) {
     if (!payload.phone) {
       errors.phone =
         "An operational phone number is required to finalize verification routing.";
+    } else if (payload.dialCode === "+91") {
+      if (cleanPhone.length !== 10) {
+        errors.phone = "Indian phone numbers must be exactly 10 digits long.";
+      } else if (!/^[6789]/.test(cleanPhone)) {
+        errors.phone =
+          "Valid Indian mobile numbers must start with 6, 7, 8, or 9.";
+      }
     } else if (cleanPhone.length < 6 || cleanPhone.length > 15) {
       errors.phone = "Please enter a valid phone number configuration.";
+    }
+
+    if (payload.selectedApps.length === 0) {
+      errors.selectedApps =
+        "Please select at least one required service target.";
     }
 
     if (!payload.consentCommunications) {
@@ -59,23 +74,40 @@ export async function submitWebLeadAction(prevState, formData) {
         "Please check the box to confirm your consent to store and process data.";
     }
 
+    if (!payload.captchaToken) {
+      errors.captcha = "Please complete the reCAPTCHA verification.";
+    } else {
+      const captchaVerify = await fetch(
+        "https://www.google.com/recaptcha/api/siteverify",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            secret: process.env.RECAPTCHA_SECRET_KEY,
+            response: payload.captchaToken,
+          }),
+        },
+      );
+      const captchaResult = await captchaVerify.json();
+      if (!captchaResult.success) {
+        errors.captcha = "reCAPTCHA verification failed. Please try again.";
+      }
+    }
+
     if (Object.keys(errors).length > 0) {
-      return {
-        success: false,
-        errors,
-        payload,
-      };
+      return { success: false, errors, payload };
     }
 
     const portalId = "246492214";
     const formId = "fa676301-adb5-42b5-b947-1a50fe3b2eb6";
+    const fullPhoneNumber = `${payload.dialCode} ${payload.phone}`;
 
     const fields = [
       { name: "full_name", value: payload.name },
       { name: "firstname", value: payload.name },
       { name: "email", value: payload.email },
-      { name: "phone", value: payload.phone },
-      { name: "0-2/service", value: "Web Development" },
+      { name: "phone", value: fullPhoneNumber },
+      { name: "0-2/service", value: payload.selectedApps.join(";") },
       { name: "0-2/name", value: payload.orgName || "" },
       { name: "company", value: payload.orgName || "" },
       { name: "0-2/industry_type", value: payload.orgType || "" },
@@ -107,9 +139,10 @@ export async function submitWebLeadAction(prevState, formData) {
     );
 
     if (!response.ok) {
+      const errorText = await response.text();
       return {
         success: false,
-        errors: { global: "HubSpot data grid alignment failure." },
+        errors: { global: "HubSpot data grid alignment failure: " + errorText },
         payload,
       };
     }

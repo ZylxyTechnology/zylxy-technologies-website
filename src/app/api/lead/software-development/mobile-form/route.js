@@ -7,7 +7,7 @@ export async function POST(request) {
       name,
       email,
       phone,
-      countryCode,
+      dialCode,
       message,
       orgName,
       orgType,
@@ -17,46 +17,33 @@ export async function POST(request) {
       honeyTrap,
     } = body;
 
-    if (honeyTrap !== "") {
-      return NextResponse.json({ success: true });
-    }
+    if (honeyTrap !== "") return NextResponse.json({ success: true });
 
     const errors = {};
-    if (!name || name.trim().length < 2) {
-      errors.name = "Invalid name configuration parameters.";
-    }
-
+    if (!name || name.trim().length < 2)
+      errors.name = "Full name configuration is required.";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      errors.email = "Invalid communication email configuration.";
-    }
-
-    if (!phone || phone.replace(/\D/g, "").length < 6) {
+    if (!email || !emailRegex.test(email))
+      errors.email = "A valid corporate communication email is required.";
+    if (!phone || phone.replace(/\D/g, "").length < 6)
       errors.phone = "Invalid operational telephone verification sequence.";
-    }
+    if (!selectedApps || selectedApps.length === 0)
+      errors.selectedApps = "Service selection required.";
+    if (!consentProcessing)
+      errors.consentProcessing = "Consent mandate missing.";
 
-    if (!selectedApps || selectedApps.length === 0) {
-      errors.selectedApps =
-        "Select at least one development variant parameter.";
-    }
-
-    if (!consentProcessing) {
-      errors.consentProcessing =
-        "Consent processing mandate verification missing.";
-    }
-
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0)
       return NextResponse.json({ success: false, errors }, { status: 400 });
-    }
 
     const portalId = "246492214";
-    const formId = "860a5b9b-c9f7-4737-ac08-bb68ad3d21d0";
+    const formId = "fa676301-adb5-42b5-b947-1a50fe3b2eb6";
+    const fullPhoneNumber = `${dialCode} ${phone}`;
 
     const fields = [
       { name: "full_name", value: name },
       { name: "firstname", value: name },
       { name: "email", value: email },
-      { name: "phone", value: phone },
+      { name: "phone", value: fullPhoneNumber },
       { name: "0-2/service", value: selectedApps.join(";") },
       { name: "0-2/name", value: orgName || "" },
       { name: "company", value: orgName || "" },
@@ -68,9 +55,8 @@ export async function POST(request) {
       submittedAt: Date.now(),
       fields,
       context: {
-        pageUri:
-          "https://zylxytech.com/services/mobile-application-development",
-        pageName: "Mobile Application Development Intake Portal",
+        pageUri: "https://zylxytech.com/services/web-application-development",
+        pageName: "Web Application Development Intake Portal",
       },
       legalConsentOptions: {
         consent: {
@@ -90,10 +76,11 @@ export async function POST(request) {
     );
 
     if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
       return NextResponse.json(
         {
           success: false,
-          errors: { global: "HubSub submissions engine tracking failure." },
+          errors: { global: errorData.message || "HubSpot integration error." },
         },
         { status: 400 },
       );
@@ -102,10 +89,7 @@ export async function POST(request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
-      {
-        success: false,
-        errors: { global: "Internal communication layout boundary exception." },
-      },
+      { success: false, errors: { global: "Pipeline execution failure." } },
       { status: 500 },
     );
   }
