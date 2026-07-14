@@ -7,10 +7,9 @@ export const formRegistry = {
   "mobile-application-development": dynamic(
     () => import("@/components/forms/software-development/mobile-form"),
   ),
-  //   "custom-software-development": dynamic(
-  //     () =>
-  //       import("@/components/forms/software-development/custom-software-form"),
-  //   ),
+  "custom-software-development": dynamic(
+    () => import("@/components/forms/software-development/custom-software.jsx"),
+  ),
   //   "ui-ux-design-prototyping": dynamic(
   //     () => import("@/components/forms/software-development/ui-ux-form"),
   //   ),

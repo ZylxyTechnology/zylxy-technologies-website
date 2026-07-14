@@ -4,7 +4,8 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const {
-      name,
+      firstName,
+      lastName,
       email,
       phone,
       dialCode,
@@ -17,70 +18,91 @@ export async function POST(request) {
       honeyTrap,
     } = body;
 
-    if (honeyTrap !== "") return NextResponse.json({ success: true });
+    if (honeyTrap !== "") {
+      return NextResponse.json({ success: true });
+    }
 
     const errors = {};
-    if (!name || name.trim().length < 2)
-      errors.name = "Full name configuration is required.";
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email))
-      errors.email = "A valid corporate communication email is required.";
-    if (!phone || phone.replace(/\D/g, "").length < 6)
-      errors.phone = "Invalid operational telephone verification sequence.";
+    if (!firstName || firstName.trim().length < 2)
+      errors.firstName = "First name is required.";
+    if (!lastName || lastName.trim().length < 2)
+      errors.lastName = "Last name is required.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      errors.email = "Valid email is required.";
+    if (!phone) errors.phone = "Phone number is required.";
+    if (!orgName || orgName.trim().length < 1)
+      errors.orgName = "Organization name is required.";
+    if (!orgType || orgType.trim().length < 1)
+      errors.orgType = "Organization type is required.";
     if (!selectedApps || selectedApps.length === 0)
-      errors.selectedApps = "Service selection required.";
+      errors.selectedApps = "Select at least one option.";
     if (!consentProcessing)
-      errors.consentProcessing = "Consent mandate missing.";
+      errors.consentProcessing = "Processing consent mandatory.";
 
-    if (Object.keys(errors).length > 0)
+    if (Object.keys(errors).length > 0) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
+    }
 
     const portalId = "246492214";
-    const formId = "fa676301-adb5-42b5-b947-1a50fe3b2eb6";
-    const fullPhoneNumber = `${dialCode} ${phone}`;
+    const formId = "860a5b9b-c9f7-4737-ac08-bb68ad3d21d0";
+    const cleanPhone = phone.replace(/\D/g, "");
+    const prefix =
+      dialCode && !dialCode.startsWith("+") && dialCode !== "IN"
+        ? `+${dialCode}`
+        : dialCode === "IN"
+          ? "+91"
+          : dialCode;
+    const fullPhoneNumber = prefix ? `${prefix} ${cleanPhone}` : cleanPhone;
 
     const fields = [
-      { name: "full_name", value: name },
-      { name: "firstname", value: name },
-      { name: "email", value: email },
-      { name: "phone", value: fullPhoneNumber },
-      { name: "0-2/service", value: selectedApps.join(";") },
-      { name: "0-2/name", value: orgName || "" },
-      { name: "company", value: orgName || "" },
-      { name: "0-2/industry_type", value: orgType || "" },
-      { name: "message", value: message || "" },
+      { objectTypeId: "0-1", name: "firstname", value: firstName },
+      { objectTypeId: "0-1", name: "lastname", value: lastName },
+      {
+        objectTypeId: "0-1",
+        name: "full_name",
+        value: `${firstName} ${lastName}`.trim(),
+      },
+      { objectTypeId: "0-1", name: "email", value: email },
+      { objectTypeId: "0-1", name: "phone", value: fullPhoneNumber },
+      {
+        objectTypeId: "0-1",
+        name: "software_development",
+        value: selectedApps.join(";"),
+      },
+      { objectTypeId: "0-1", name: "message", value: message || "" },
+      { objectTypeId: "0-2", name: "name", value: orgName },
+      { objectTypeId: "0-2", name: "industry_type", value: orgType },
     ];
 
-    const hubspotPayload = {
-      submittedAt: Date.now(),
-      fields,
-      context: {
-        pageUri: "https://zylxytech.com/services/web-application-development",
-        pageName: "Web Application Development Intake Portal",
-      },
-      legalConsentOptions: {
-        consent: {
-          consentToProcess: consentProcessing,
-          text: "I agree to allow Zylxy Technologies to store and process my personal data.",
-        },
-      },
-    };
-
     const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(hubspotPayload),
+        body: JSON.stringify({
+          submittedAt: Date.now(),
+          fields,
+          context: {
+            pageUri:
+              "https://zylxytech.com/services/mobile-application-development",
+            pageName: "Mobile Application Development Intake Portal",
+          },
+          legalConsentOptions: {
+            consent: {
+              consentToProcess: consentProcessing,
+              text: "I agree to allow Zylxy Technologies to store and process my personal data.",
+            },
+          },
+        }),
       },
     );
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorText = await response.text();
       return NextResponse.json(
         {
           success: false,
-          errors: { global: errorData.message || "HubSpot integration error." },
+          errors: { global: "HubSpot interface rejection: " + errorText },
         },
         { status: 400 },
       );
@@ -89,7 +111,7 @@ export async function POST(request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
-      { success: false, errors: { global: "Pipeline execution failure." } },
+      { success: false, errors: { global: "Internal pipeline link failure." } },
       { status: 500 },
     );
   }

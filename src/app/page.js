@@ -4,6 +4,7 @@ import FaqSection from "@/components/sections/FAQ";
 import Hero from "@/components/sections/Hero";
 import LeadershipSection from "@/components/sections/LeadershipSection";
 import TestimonialsSection from "@/components/sections/Testimonials";
+import { FormProvider } from "@/context/FormContext";
 import ServicesPage from "./services/page";
 
 export default function Home() {
@@ -11,7 +12,9 @@ export default function Home() {
     <main>
       <Hero />
       <ClientsSection />
-      <ServicesPage />
+      <FormProvider>
+        <ServicesPage />
+      </FormProvider>
       <LeadershipSection />
       <TestimonialsSection />
       <FaqSection />

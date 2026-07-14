@@ -1,9 +1,9 @@
 export const webFormData = {
   header: {
-    pillText: "Project Scope Intake",
+    pillText: "Web Infrastructure Generation",
     mainHeading: "Launch Your Web Application.",
     subHeading:
-      "Initialize high-performance Next.js architectures, complex SaaS engines, and fluid digital conversion environments customized to your organizational scale.",
+      "Initialize high-performance architecture frameworks, complex cloud applications, and fluid enterprise engine panels tailored to your organizational scale.",
   },
   webTargets: [
     "Corporate Website",

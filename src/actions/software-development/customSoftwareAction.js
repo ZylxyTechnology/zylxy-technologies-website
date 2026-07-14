@@ -1,6 +1,6 @@
 "use server";
 
-export async function submitWebLeadAction(prevState, formData) {
+export async function submitCustomSoftwareAction(prevState, formData) {
   const selectedAppsArray = formData.getAll("selectedApps");
   const payload = {
     firstName: formData.get("firstName")?.toString().trim() || "",
@@ -46,13 +46,10 @@ export async function submitWebLeadAction(prevState, formData) {
       }
     }
 
-    if (!payload.orgName) {
+    if (!payload.orgName)
       errors.orgName = "Please provide your organization name.";
-    }
-
-    if (!payload.orgType) {
+    if (!payload.orgType)
       errors.orgType = "Please select your organization type.";
-    }
 
     if (payload.selectedApps.length === 0) {
       errors.selectedApps =
@@ -69,7 +66,7 @@ export async function submitWebLeadAction(prevState, formData) {
     }
 
     const portalId = "246492214";
-    const formId = "fa676301-adb5-42b5-b947-1a50fe3b2eb6";
+    const formId = "3ed33d5e-007c-411d-a3ac-980af9dfd858";
     const fullPhoneNumber = `${payload.dialCode} ${payload.phone}`;
 
     const fields = [
@@ -93,7 +90,7 @@ export async function submitWebLeadAction(prevState, formData) {
     ];
 
     const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -102,8 +99,8 @@ export async function submitWebLeadAction(prevState, formData) {
           fields,
           context: {
             pageUri:
-              "https://zylxytech.com/services/web-application-development",
-            pageName: "Web Application Development Intake Portal",
+              "https://zylxytech.com/services/custom-software-development",
+            pageName: "Custom Software Development Intake Portal",
           },
           legalConsentOptions: {
             consent: {
@@ -133,7 +130,9 @@ export async function submitWebLeadAction(prevState, formData) {
   } catch (error) {
     return {
       success: false,
-      errors: { global: "Server network tracking sequence fault." },
+      errors: {
+        global: "Server infrastructure network tracking sequence fault.",
+      },
       payload,
     };
   }

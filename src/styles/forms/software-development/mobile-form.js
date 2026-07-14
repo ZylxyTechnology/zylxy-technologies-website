@@ -12,9 +12,9 @@ export const mobileFormStyles = {
   pillText:
     "text-xs font-bold font-inter text-[#FF7A59] tracking-[0.15em] uppercase",
   mainHeading:
-    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-tight max-w-2xl",
+    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-tight",
   subHeading:
-    "text-sm sm:text-base text-[#A3B1CC] font-inter leading-relaxed max-w-[620px] mx-auto",
+    "text-sm sm:text-base text-[#A3B1CC] font-inter leading-relaxed max-w-[540px] mx-auto",
   formCard:
     "bg-white/[0.03] border border-white/10 rounded-2xl p-6 sm:p-10 backdrop-blur-md shadow-2xl relative overflow-hidden",
   formAccentBar:
@@ -76,11 +76,11 @@ export const mobileFormStyles = {
   errorText:
     "text-[#FF6B6B] text-xs font-inter mt-1.5 flex items-center gap-1.5",
   footerRow:
-    "mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
+    "mt-4 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
   privacyFooter:
     "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-left font-medium tracking-wide",
   submitBtnWrapper:
-    "flex flex-col items-center sm:items-end gap-2.5 shrink-0 w-full sm:w-auto",
+    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto",
   submitBtn:
     "w-full sm:w-auto px-8 py-3.5 bg-[#FF7A59] text-white text-sm font-bold font-inter rounded-lg transition-all duration-200 hover:bg-[#E66B4E] hover:-translate-y-px active:translate-y-0 shadow-lg shadow-[#FF7A59]/10 hover:shadow-[#FF7A59]/20 cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
   successCard:

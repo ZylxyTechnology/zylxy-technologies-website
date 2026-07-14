@@ -1,6 +1,6 @@
 "use client";
 
-import { submitMobileLeadAction } from "@/actions/software-development/mobileFormAction";
+import { useFormContext } from "@/context/FormContext";
 import { mobileFormData as d } from "@/data/forms/software-development/mobile-form";
 import { mobileFormStyles as s } from "@/styles/forms/software-development/mobile-form";
 import {
@@ -14,47 +14,77 @@ import {
   ShieldAlert,
   User,
 } from "lucide-react";
-import { useActionState, useEffect, useMemo, useRef, useState } from "react";
-import countryList from "react-select-country-list";
 
 export default function MobileApplicationForm() {
-  const dropdownRef = useRef(null);
-  const countryOptions = useMemo(() => countryList().getData(), []);
+  const {
+    formData,
+    selectedCountry,
+    setSelectedCountry,
+    showCountries,
+    setShowCountryDropdown,
+    countrySearch,
+    setCountrySearch,
+    activeTargets,
+    consentComm,
+    setConsentComm,
+    consentProc,
+    setConsentProc,
+    errors,
+    setErrors,
+    isPending,
+    setIsPending,
+    isSuccess,
+    setIsSuccess,
+    countryOptions,
+    dropdownRef,
+    formRef,
+    stateRef,
+    handleInputChange,
+    handleTargetToggle,
+  } = useFormContext();
 
-  const [state, formAction, isPending] = useActionState(
-    submitMobileLeadAction,
-    {
-      success: false,
-      errors: {},
-      payload: {},
-    },
-  );
+  const performSubmit = async () => {
+    const current = stateRef.current;
+    const payload = {
+      ...current.formData,
+      dialCode: current.selectedCountry.value,
+      selectedApps: current.activeTargets,
+      consentCommunications: current.consentComm,
+      consentProcessing: current.consentProc,
+      honeyTrap: formRef.current?.honeyTrap?.value || "",
+    };
 
-  const [selectedCountry, setSelectedCountry] = useState({
-    value: "IN",
-    label: "India",
-  });
-  const [showCountries, setShowCountryDropdown] = useState(false);
-  const [countrySearch, setCountrySearch] = useState("");
-  const [activeApps, setActiveApps] = useState([]);
-  const [consentComm, setConsentComm] = useState(false);
-  const [consentProc, setConsentProc] = useState(false);
+    try {
+      const response = await fetch(
+        "/api/lead/software-development/mobile-form",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
-  useEffect(() => {
-    function handleOutsideClick(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowCountryDropdown(false);
-        setCountrySearch("");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        setErrors(
+          result.errors || { global: "Data sync grid pipeline error loop." },
+        );
+      } else {
+        setIsSuccess(true);
       }
+    } catch (err) {
+      setErrors({ global: "Data containment interface connection timeout." });
+    } finally {
+      setIsPending(false);
     }
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  };
 
-  const handleAppToggle = (app) => {
-    setActiveApps((prev) =>
-      prev.includes(app) ? prev.filter((item) => item !== app) : [...prev, app],
-    );
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setIsPending(true);
+    setErrors({});
+    performSubmit();
   };
 
   const filteredCountries = countryOptions.filter(
@@ -78,25 +108,13 @@ export default function MobileApplicationForm() {
           <p className={s.subHeading}>{d.header.subHeading}</p>
         </div>
 
-        {!state?.success ? (
-          <form action={formAction} className={s.formCard}>
+        {!isSuccess ? (
+          <form
+            ref={formRef}
+            onSubmit={handleFormSubmit}
+            className={s.formCard}
+          >
             <div className={s.formAccentBar} />
-
-            <input
-              type="hidden"
-              name="countryCode"
-              value={selectedCountry.value}
-            />
-            <input
-              type="hidden"
-              name="consentCommunications"
-              value={consentComm ? "true" : "false"}
-            />
-            <input
-              type="hidden"
-              name="consentProcessing"
-              value={consentProc ? "true" : "false"}
-            />
 
             <div style={{ display: "none" }} aria-hidden="true">
               <input
@@ -109,63 +127,86 @@ export default function MobileApplicationForm() {
 
             <div className={s.grid}>
               <div className={s.inputGroup}>
-                <label className={state?.errors?.name ? s.labelError : s.label}>
-                  Full Name *
+                <label className={errors.firstName ? s.labelError : s.label}>
+                  First Name *
                 </label>
                 <div className={s.inputWrapper}>
                   <User
-                    className={`${s.inputIcon} ${state?.errors?.name ? s.inputIconError : ""}`}
+                    className={`${s.inputIcon} ${errors.firstName ? s.inputIconError : ""}`}
                   />
                   <input
                     type="text"
-                    name="name"
-                    defaultValue={state?.payload?.name || ""}
-                    placeholder="Your full name"
-                    className={`${s.input} ${state?.errors?.name ? s.inputErrorClass : ""}`}
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    placeholder="Your first name"
+                    className={`${s.input} ${errors.firstName ? s.inputErrorClass : ""}`}
                   />
                 </div>
-                {state?.errors?.name && (
+                {errors.firstName && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {state.errors.name}
+                    {errors.firstName}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label
-                  className={state?.errors?.email ? s.labelError : s.label}
-                >
+                <label className={errors.lastName ? s.labelError : s.label}>
+                  Last Name *
+                </label>
+                <div className={s.inputWrapper}>
+                  <User
+                    className={`${s.inputIcon} ${errors.lastName ? s.inputIconError : ""}`}
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Your last name"
+                    className={`${s.input} ${errors.lastName ? s.inputErrorClass : ""}`}
+                  />
+                </div>
+                {errors.lastName && (
+                  <div className={s.errorText}>
+                    <ShieldAlert className="w-4 h-4 shrink-0" />
+                    {errors.lastName}
+                  </div>
+                )}
+              </div>
+
+              <div className={s.inputGroup}>
+                <label className={errors.email ? s.labelError : s.label}>
                   Email Address *
                 </label>
                 <div className={s.inputWrapper}>
                   <Mail
-                    className={`${s.inputIcon} ${state?.errors?.email ? s.inputIconError : ""}`}
+                    className={`${s.inputIcon} ${errors.email ? s.inputIconError : ""}`}
                   />
                   <input
                     type="text"
                     name="email"
-                    defaultValue={state?.payload?.email || ""}
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="you@company.com"
-                    className={`${s.input} ${state?.errors?.email ? s.inputErrorClass : ""}`}
+                    className={`${s.input} ${errors.email ? s.inputErrorClass : ""}`}
                   />
                 </div>
-                {state?.errors?.email && (
+                {errors.email && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {state.errors.email}
+                    {errors.email}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label
-                  className={state?.errors?.phone ? s.labelError : s.label}
-                >
+                <label className={errors.phone ? s.labelError : s.label}>
                   Phone Number *
                 </label>
                 <div
-                  className={`${s.phoneContainer} ${state?.errors?.phone ? s.phoneContainerError : ""}`}
+                  className={`${s.phoneContainer} ${errors.phone ? s.phoneContainerError : ""}`}
                 >
                   <div className="relative h-full" ref={dropdownRef}>
                     <div
@@ -210,7 +251,7 @@ export default function MobileApplicationForm() {
                             ))
                           ) : (
                             <div className="text-[11px] text-white/30 text-center py-4">
-                              No results
+                              No locations aligned
                             </div>
                           )}
                         </div>
@@ -220,45 +261,55 @@ export default function MobileApplicationForm() {
                   <input
                     type="tel"
                     name="phone"
-                    defaultValue={state?.payload?.phone || ""}
+                    value={formData.phone}
+                    onChange={handleInputChange}
                     placeholder="Verification contact sequence"
                     className={s.phoneInput}
                   />
                 </div>
-                {state?.errors?.phone && (
+                {errors.phone && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {state.errors.phone}
+                    {errors.phone}
                   </div>
                 )}
               </div>
 
               <div className={s.inputGroup}>
-                <label className={s.label}>Organization Name</label>
+                <label className={errors.orgName ? s.labelError : s.label}>
+                  Organization Name *
+                </label>
                 <div className={s.inputWrapper}>
-                  <Building2 className={s.inputIcon} />
+                  <Building2
+                    className={`${s.inputIcon} ${errors.orgName ? s.inputIconError : ""}`}
+                  />
                   <input
                     type="text"
                     name="orgName"
-                    defaultValue={state?.payload?.orgName || ""}
+                    value={formData.orgName}
+                    onChange={handleInputChange}
                     placeholder="Your Company"
-                    className={s.input}
+                    className={`${s.input} ${errors.orgName ? s.inputErrorClass : ""}`}
                   />
                 </div>
+                {errors.orgName && (
+                  <div className={s.errorText}>
+                    <ShieldAlert className="w-4 h-4 shrink-0" />
+                    {errors.orgName}
+                  </div>
+                )}
               </div>
 
-              <div
-                className={s.inputGroup}
-                style={{ gridColumn: "span 2 / span 2" }}
-              >
-                <label className={s.label}>Organization Type</label>
+              <div className={s.inputGroup}>
+                <label className={errors.orgType ? s.labelError : s.label}>
+                  Organization Type *
+                </label>
                 <div className={s.selectWrapper}>
                   <select
                     name="orgType"
-                    defaultValue={
-                      state?.payload?.orgType || d.organizationTypes[0]
-                    }
-                    className={s.select}
+                    value={formData.orgType}
+                    onChange={handleInputChange}
+                    className={`${s.select} ${errors.orgType ? s.inputErrorClass : ""}`}
                   >
                     {d.organizationTypes.map((type) => (
                       <option
@@ -271,31 +322,33 @@ export default function MobileApplicationForm() {
                     ))}
                   </select>
                 </div>
+                {errors.orgType && (
+                  <div className={s.errorText}>
+                    <ShieldAlert className="w-4 h-4 shrink-0" />
+                    {errors.orgType}
+                  </div>
+                )}
               </div>
             </div>
 
             <div className={s.disclosureContainer}>
               <div className={s.inputGroup}>
-                <label
-                  className={
-                    state?.errors?.selectedApps ? s.labelError : s.label
-                  }
-                >
+                <label className={errors.selectedApps ? s.labelError : s.label}>
                   Select the Services You Need *
                 </label>
                 <div className={s.challengesContainer}>
-                  {d.appTargets.map((app) => {
-                    const isChecked = activeApps.includes(app);
+                  {d.mobileTargets.map((target) => {
+                    const isChecked = activeTargets.includes(target);
                     return (
                       <div
-                        key={app}
+                        key={target}
                         className={`${s.challengeRow} ${isChecked ? s.challengeRowActive : ""}`}
-                        onClick={() => handleAppToggle(app)}
+                        onClick={() => handleTargetToggle(target)}
                       >
                         <input
                           type="checkbox"
                           name="selectedApps"
-                          value={app}
+                          value={target}
                           checked={isChecked}
                           readOnly
                           className={s.challengeCheckbox}
@@ -303,16 +356,16 @@ export default function MobileApplicationForm() {
                         <span
                           className={`${s.challengeLabel} ${isChecked ? s.challengeLabelActive : ""}`}
                         >
-                          {app}
+                          {target}
                         </span>
                       </div>
                     );
                   })}
                 </div>
-                {state?.errors?.selectedApps && (
+                {errors.selectedApps && (
                   <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
-                    {state.errors.selectedApps}
+                    {errors.selectedApps}
                   </div>
                 )}
               </div>
@@ -325,8 +378,9 @@ export default function MobileApplicationForm() {
                   <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#A3B1CC] pointer-events-none" />
                   <textarea
                     name="message"
-                    defaultValue={state?.payload?.message || ""}
-                    placeholder="Describe your project, use cases, target store platforms, and expected ecosystem integration boundaries..."
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Describe your architecture requirements, goals, timeline parameters, and project scopes..."
                     className={s.textarea}
                     style={{ paddingLeft: "44px" }}
                   />
@@ -350,10 +404,10 @@ export default function MobileApplicationForm() {
                   Technologies.
                 </span>
               </div>
-              {state?.errors?.consentCommunications && (
+              {errors.consentCommunications && (
                 <div className={s.errorText}>
                   <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {state.errors.consentCommunications}
+                  {errors.consentCommunications}
                 </div>
               )}
 
@@ -372,17 +426,25 @@ export default function MobileApplicationForm() {
                   contact field parameters. *
                 </span>
               </div>
-              {state?.errors?.consentProcessing && (
+              {errors.consentProcessing && (
                 <div className={s.errorText}>
                   <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {state.errors.consentProcessing}
+                  {errors.consentProcessing}
                 </div>
               )}
             </div>
 
+            {errors.global && (
+              <div className={s.errorText}>
+                <ShieldAlert className="w-4 h-4 shrink-0" />
+                {errors.global}
+              </div>
+            )}
+
             <div className={s.footerRow}>
               <p className={s.privacyFooter}>
-                Data ingestion pipeline follows strict privacy protocols.
+                Data ingestion pipeline follows strict privacy protocols. Lead
+                generation sync matches CRM data containment criteria.
               </p>
               <div className={s.submitBtnWrapper}>
                 <button
@@ -390,18 +452,11 @@ export default function MobileApplicationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Send Request"}
+                  {isPending ? "Syncing Grid..." : "Transmit Request"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>
             </div>
-
-            {state?.errors?.global && (
-              <div className={s.errorText}>
-                <ShieldAlert className="w-4 h-4 shrink-0" />
-                {state.errors.global}
-              </div>
-            )}
           </form>
         ) : (
           <div className={s.successCard}>
@@ -411,9 +466,9 @@ export default function MobileApplicationForm() {
             </div>
             <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
             <p className={s.successText}>
-              Thank you, {state.submittedName}. Our mobile engineering layer has
-              safely indexed your application parameters and will open
-              communication tracks at {state.submittedEmail} within 24 hours.
+              Thanks, {formData.firstName} {formData.lastName} — we've got your
+              request. Our team is reviewing your project details now and will
+              reach out to {formData.email} within 24 hours.
             </p>
           </div>
         )}

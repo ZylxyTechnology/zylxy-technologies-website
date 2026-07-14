@@ -1,5 +1,6 @@
 "use client";
 
+import { useFormContext } from "@/context/FormContext";
 import { webFormData as d } from "@/data/forms/software-development/web-form";
 import { webFormStyles as s } from "@/styles/forms/software-development/web-form";
 import {
@@ -13,59 +14,34 @@ import {
   ShieldAlert,
   User,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import countryList from "react-select-country-list";
 
 export default function WebApplicationForm() {
-  const dropdownRef = useRef(null);
-  const formRef = useRef(null);
-  const stateRef = useRef({});
-  const countryOptions = useMemo(() => countryList().getData(), []);
-
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    orgName: "",
-    orgType: d.organizationTypes[0],
-    message: "",
-  });
-
-  const [selectedCountry, setSelectedCountry] = useState({
-    value: "IN",
-    label: "India",
-  });
-  const [showCountries, setShowCountryDropdown] = useState(false);
-  const [countrySearch, setCountrySearch] = useState("");
-  const [activeTargets, setActiveTargets] = useState([]);
-  const [consentComm, setConsentComm] = useState(false);
-  const [consentProc, setConsentProc] = useState(false);
-
-  const [errors, setErrors] = useState({});
-  const [isPending, setIsPending] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  useEffect(() => {
-    stateRef.current = {
-      formData,
-      selectedCountry,
-      activeTargets,
-      consentComm,
-      consentProc,
-    };
-  });
-
-  useEffect(() => {
-    function handleOutsideClick(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowCountryDropdown(false);
-        setCountrySearch("");
-      }
-    }
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  const {
+    formData,
+    selectedCountry,
+    setSelectedCountry,
+    showCountries,
+    setShowCountryDropdown,
+    countrySearch,
+    setCountrySearch,
+    activeTargets,
+    consentComm,
+    setConsentComm,
+    consentProc,
+    setConsentProc,
+    errors,
+    setErrors,
+    isPending,
+    setIsPending,
+    isSuccess,
+    setIsSuccess,
+    countryOptions,
+    dropdownRef,
+    formRef,
+    stateRef,
+    handleInputChange,
+    handleTargetToggle,
+  } = useFormContext();
 
   const performSubmit = async () => {
     const current = stateRef.current;
@@ -99,19 +75,6 @@ export default function WebApplicationForm() {
     } finally {
       setIsPending(false);
     }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleTargetToggle = (target) => {
-    setActiveTargets((prev) =>
-      prev.includes(target)
-        ? prev.filter((item) => item !== target)
-        : [...prev, target],
-    );
   };
 
   const handleFormSubmit = (e) => {
@@ -500,10 +463,9 @@ export default function WebApplicationForm() {
             </div>
             <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
             <p className={s.successText}>
-              Thank you, {formData.firstName.toUpperCase()}. Our software
-              engineering cluster has indexed your web development context and
-              will initiate communication channels at {formData.email} within 24
-              hours.
+              Thanks, {formData.firstName} {formData.lastName} — we've got your
+              request. Our team is reviewing your project details now and will
+              reach out to {formData.email} within 24 hours.
             </p>
           </div>
         )}

@@ -1,11 +1,11 @@
 export const mobileFormData = {
   header: {
-    pillText: "Mobile Framework Intake",
-    mainHeading: "Ready to Build a Mobile App That Engages Your Customers?",
+    pillText: "Application Development Intake",
+    mainHeading: "Launch Your Mobile Product.",
     subHeading:
-      "Whether you're launching a new mobile app, modernizing an existing application, or building a custom enterprise solution, we design and develop secure, scalable applications.",
+      "Initialize cross-platform React Native architectures, high-performance iOS engines, and native Android ecosystems custom tailored to your business scale.",
   },
-  appTargets: [
+  mobileTargets: [
     "Android App",
     "iOS App",
     "Cross-Platform App",
