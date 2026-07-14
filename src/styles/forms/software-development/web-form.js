@@ -53,6 +53,19 @@ export const webFormStyles = {
     "w-full bg-transparent border-none p-3.5 pl-4 text-sm font-inter text-white placeholder:text-white/20 outline-none",
   textarea:
     "w-full bg-white/[0.04] border border-white/10 rounded-lg p-[14px_16px] text-sm font-inter text-white placeholder:text-white/20 outline-none transition-all duration-200 focus:border-[#FF7A59] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#FF7A59]/10 resize-y min-h-[120px]",
+  disclosureContainer:
+    "w-full mt-5 pt-5 border-t border-dashed border-white/10 flex flex-col gap-5",
+  challengesContainer:
+    "w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1 text-left",
+  challengeRow:
+    "flex items-start gap-3 p-3.5 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer select-none group/row",
+  challengeRowActive:
+    "bg-[#FF7A59]/5 border-[#FF7A59]/20 hover:border-[#FF7A59]/30",
+  challengeCheckbox:
+    "w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF7A59] focus:ring-[#FF7A59]/20 transition-all cursor-pointer mt-0.5 shrink-0 accent-[#FF7A59]",
+  challengeLabel:
+    "text-xs font-inter text-[#A3B1CC] leading-normal transition-colors group-hover/row:text-white",
+  challengeLabelActive: "text-white font-medium",
   complianceBlock:
     "w-full flex flex-col gap-3.5 mt-6 pt-5 border-t border-white/5 text-left",
   complianceRow: "flex items-start gap-3 group/comp cursor-pointer select-none",
@@ -62,14 +75,12 @@ export const webFormStyles = {
     "text-xs font-inter text-[#A3B1CC] leading-relaxed transition-colors duration-200",
   errorText:
     "text-[#FF6B6B] text-xs font-inter mt-1.5 flex items-center gap-1.5",
-  recaptchaWrapper:
-    "mt-4 flex justify-start scale-90 origin-left sm:scale-100 min-h-[78px]",
   footerRow:
-    "mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
+    "mt-4 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 w-full text-left sm:text-right",
   privacyFooter:
-    "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-left font-medium tracking-wide",
+    "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-center sm:text-left font-medium tracking-wide",
   submitBtnWrapper:
-    "flex flex-col items-center sm:items-end gap-2.5 shrink-0 w-full sm:w-auto",
+    "flex items-center justify-center shrink-0 w-full sm:w-auto",
   submitBtn:
     "w-full sm:w-auto px-8 py-3.5 bg-[#FF7A59] text-white text-sm font-bold font-inter rounded-lg transition-all duration-200 hover:bg-[#E66B4E] hover:-translate-y-px active:translate-y-0 shadow-lg shadow-[#FF7A59]/10 hover:shadow-[#FF7A59]/20 cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
   successCard:

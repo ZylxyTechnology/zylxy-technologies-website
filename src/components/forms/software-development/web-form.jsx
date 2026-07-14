@@ -13,14 +13,11 @@ import {
   ShieldAlert,
   User,
 } from "lucide-react";
-import Script from "next/script";
 import { useEffect, useMemo, useRef, useState } from "react";
 import countryList from "react-select-country-list";
 
 export default function WebApplicationForm() {
   const dropdownRef = useRef(null);
-  const recaptchaRef = useRef(null);
-  const recaptchaWidgetId = useRef(null);
   const formRef = useRef(null);
   const stateRef = useRef({});
   const countryOptions = useMemo(() => countryList().getData(), []);
@@ -48,8 +45,6 @@ export default function WebApplicationForm() {
   const [errors, setErrors] = useState({});
   const [isPending, setIsPending] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState("");
-  const [recaptchaReady, setRecaptchaReady] = useState(false);
 
   useEffect(() => {
     stateRef.current = {
@@ -72,7 +67,7 @@ export default function WebApplicationForm() {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  const performSubmit = async (token) => {
+  const performSubmit = async () => {
     const current = stateRef.current;
     const payload = {
       ...current.formData,
@@ -81,7 +76,6 @@ export default function WebApplicationForm() {
       consentCommunications: current.consentComm,
       consentProcessing: current.consentProc,
       honeyTrap: formRef.current?.honeyTrap?.value || "",
-      captchaToken: token,
     };
 
     try {
@@ -94,44 +88,18 @@ export default function WebApplicationForm() {
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        setErrors(result.errors || { global: "Data sync loop breakdown." });
+        setErrors(
+          result.errors || { global: "Data sync grid pipeline error loop." },
+        );
       } else {
         setIsSuccess(true);
       }
     } catch (err) {
-      setErrors({ global: "Network connection handshake reset." });
+      setErrors({ global: "Data containment interface connection timeout." });
     } finally {
       setIsPending(false);
-      if (window.grecaptcha && recaptchaWidgetId.current !== null) {
-        window.grecaptcha.reset(recaptchaWidgetId.current);
-      }
-      setRecaptchaToken("");
     }
   };
-
-  useEffect(() => {
-    if (!recaptchaReady || !recaptchaRef.current) return;
-    if (recaptchaWidgetId.current !== null) return;
-    if (!window.grecaptcha || !window.grecaptcha.ready) return;
-
-    window.grecaptcha.ready(() => {
-      if (recaptchaWidgetId.current !== null || !recaptchaRef.current) return;
-      recaptchaWidgetId.current = window.grecaptcha.render(
-        recaptchaRef.current,
-        {
-          sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-          size: "invisible",
-          badge: "bottomright",
-          theme: "dark",
-          callback: (token) => {
-            setRecaptchaToken(token);
-            performSubmit(token);
-          },
-          "expired-callback": () => setRecaptchaToken(""),
-        },
-      );
-    });
-  }, [recaptchaReady]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -148,10 +116,9 @@ export default function WebApplicationForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (recaptchaWidgetId.current === null || !window.grecaptcha) return;
     setIsPending(true);
     setErrors({});
-    window.grecaptcha.execute(recaptchaWidgetId.current);
+    performSubmit();
   };
 
   const filteredCountries = countryOptions.filter(
@@ -162,11 +129,6 @@ export default function WebApplicationForm() {
 
   return (
     <section id="WebLeadGen" className={s.section}>
-      <Script
-        src="https://www.google.com/recaptcha/api.js"
-        strategy="afterInteractive"
-        onLoad={() => setRecaptchaReady(true)}
-      />
       <div className={s.backgroundEffects} />
       <div className={s.radialGlow} />
 
@@ -323,7 +285,7 @@ export default function WebApplicationForm() {
                             ))
                           ) : (
                             <div className="text-[11px] text-white/30 text-center py-4">
-                              No allocations
+                              No locations aligned
                             </div>
                           )}
                         </div>
@@ -504,21 +466,19 @@ export default function WebApplicationForm() {
                   {errors.consentProcessing}
                 </div>
               )}
-
-              <div className={s.recaptchaWrapper}>
-                <div ref={recaptchaRef} />
-              </div>
-              {errors.captcha && (
-                <div className={s.errorText}>
-                  <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {errors.captcha}
-                </div>
-              )}
             </div>
+
+            {errors.global && (
+              <div className={s.errorText}>
+                <ShieldAlert className="w-4 h-4 shrink-0" />
+                {errors.global}
+              </div>
+            )}
 
             <div className={s.footerRow}>
               <p className={s.privacyFooter}>
-                Data ingestion pipeline follows strict privacy protocols.
+                Data ingestion pipeline follows strict privacy protocols. Lead
+                generation sync matches CRM data containment criteria.
               </p>
               <div className={s.submitBtnWrapper}>
                 <button
@@ -531,13 +491,6 @@ export default function WebApplicationForm() {
                 </button>
               </div>
             </div>
-
-            {errors.global && (
-              <div className={s.errorText}>
-                <ShieldAlert className="w-4 h-4 shrink-0" />
-                {errors.global}
-              </div>
-            )}
           </form>
         ) : (
           <div className={s.successCard}>

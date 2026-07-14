@@ -16,7 +16,6 @@ export async function POST(request) {
       consentCommunications,
       consentProcessing,
       honeyTrap,
-      captchaToken,
     } = body;
 
     if (honeyTrap !== "") {
@@ -74,26 +73,6 @@ export async function POST(request) {
     if (!consentProcessing) {
       errors.consentProcessing =
         "Please check the box to confirm your consent to store and process data.";
-    }
-
-    if (!captchaToken) {
-      errors.captcha = "Please complete the reCAPTCHA verification.";
-    } else {
-      const captchaVerify = await fetch(
-        "https://www.google.com/recaptcha/api/siteverify",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            secret: process.env.RECAPTCHA_SECRET_KEY,
-            response: captchaToken,
-          }),
-        },
-      );
-      const captchaResult = await captchaVerify.json();
-      if (!captchaResult.success) {
-        errors.captcha = "reCAPTCHA verification failed. Please try again.";
-      }
     }
 
     if (Object.keys(errors).length > 0) {
