@@ -165,9 +165,9 @@ export const servicesData = {
       icon: Palette,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
-      image: "/assets/services/uiUxBranding.jpg",
+      image: "/public/assets/services/brand-creative-design.jpg",
       fallbackImage:
-        "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800",
+        "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=800",
       tags: ["Identity", "Graphics", "Guidelines"],
       features: [
         "Logo Design",

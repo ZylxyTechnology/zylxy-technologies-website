@@ -1,6 +1,6 @@
 export const mobileFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] py-24 px-6 sm:px-8 text-white relative overflow-hidden scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] py-24 px-6 sm:px-8 text-white relative z-30 clear-both overflow-hidden scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
@@ -80,7 +80,7 @@ export const mobileFormStyles = {
   privacyFooter:
     "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-left font-medium tracking-wide",
   submitBtnWrapper:
-    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto",
+    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-50 sm:w-auto",
   submitBtn:
     "w-full sm:w-auto px-8 py-3.5 bg-[#FF7A59] text-white text-sm font-bold font-inter rounded-lg transition-all duration-200 hover:bg-[#E66B4E] hover:-translate-y-px active:translate-y-0 shadow-lg shadow-[#FF7A59]/10 hover:shadow-[#FF7A59]/20 cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
   successCard:

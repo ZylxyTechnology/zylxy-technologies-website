@@ -10,23 +10,22 @@ export const formRegistry = {
   "custom-software-development": dynamic(
     () => import("@/components/forms/software-development/custom-software.jsx"),
   ),
-  //   "ui-ux-design-prototyping": dynamic(
-  //     () => import("@/components/forms/software-development/ui-ux-form"),
-  //   ),
-  //   "brand-creative-design": dynamic(
-  //     () => import("@/components/forms/software-development/brand-creative-form"),
-  //   ),
-  //   "application-support-maintenance": dynamic(
-  //     () =>
-  //       import("@/components/forms/software-development/application-support-form"),
-  //   ),
+  "ui-ux-design-prototyping": dynamic(
+    () => import("@/components/forms/software-development/ui-ux-design.jsx"),
+  ),
+  "brand-creative-design": dynamic(
+    () => import("@/components/forms/software-development/brand-design.jsx"),
+  ),
+  "application-support": dynamic(
+    () => import("@/components/forms/software-development/app-maintenance.jsx"),
+  ),
 
   //   "ai-engineering-automation": dynamic(
   //     () => import("@/components/forms/ai-crm-solutions/ai-engineering-form"),
   //   ),
-  //   "hubspot-crm-implementation": dynamic(
-  //     () => import("@/components/forms/ai-crm-solutions/hubspot-crm-form"),
-  //   ),
+  "hubspot-crm-implementation": dynamic(
+    () => import("@/app/hubspot/components/forms/consultationForm.jsx"),
+  ),
 
   //   "talent-acquisition": dynamic(
   //     () =>

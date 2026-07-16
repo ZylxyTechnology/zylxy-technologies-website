@@ -50,7 +50,7 @@ export async function POST(request) {
     }
 
     const portalId = "246492214";
-    const formId = "136f1611-21aa-4c4d-a9aa-d71ba33afa5c";
+    const formId = "efb4de68-d30e-4819-bb2b-87b9a95b8b3b";
     const cleanPhone = phone.replace(/\D/g, "");
     const prefix =
       dialCode && !dialCode.startsWith("+") && dialCode !== "IN"
@@ -90,8 +90,8 @@ export async function POST(request) {
           fields,
           context: {
             ipAddress: clientIp,
-            pageUri: "https://zylxytech.com/services/ui-ux-design-prototyping",
-            pageName: "UI/UX Design & Prototyping Intake Portal",
+            pageUri: "https://zylxytech.com/services/brand-creative-design",
+            pageName: "Brand & Creative Design Intake Portal",
           },
           legalConsentOptions: {
             consent: {

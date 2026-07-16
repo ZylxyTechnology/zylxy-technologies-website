@@ -1,18 +1,16 @@
+"use client";
+
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import PageTransition from "@/components/ui/PageTransition";
 import { servicesData } from "@/data/services/servicesData";
-import { servicesStyles } from "@/styles/services/services";
+import { servicesDetailsStyles as s } from "@/styles/services/servicesDetails";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { use } from "react";
 
-export async function generateStaticParams() {
-  return servicesData.services.map((s) => ({
-    slug: s.id || s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-  }));
-}
-
-export default async function ServiceDetailPage({ params }) {
-  const resolvedParams = await params;
+export default function ServiceDetailPage({ params }) {
+  const resolvedParams = use(params);
   const slug = resolvedParams.slug;
 
   const service = servicesData.services.find(
@@ -23,113 +21,150 @@ export default async function ServiceDetailPage({ params }) {
     notFound();
   }
 
+  const handleConsultationScroll = () => {
+    const leadContainer =
+      document.querySelector("form") ||
+      document.getElementById("WebLeadGen") ||
+      document.getElementById("MobileLeadGen");
+    if (leadContainer) {
+      leadContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <PageTransition>
-      <main className={servicesStyles.detailPageWrapper}>
-        <div className="max-w-7xl mx-auto w-full">
-          <div className={servicesStyles.detailTopNav}>
-            <div className={servicesStyles.pillLine}>
-              <div className={servicesStyles.pillLineBar} />
-              <span className={servicesStyles.pillText}>Service Details</span>
+      <main className={s.pageWrapper}>
+        <div className={s.bgGrid} />
+        <div className={s.radialGlow} />
+
+        <div className={s.container}>
+          <div className={s.topHeader}>
+            <div className={s.titleContainer}>
+              <div className={s.pillWrapper}>
+                <div className={s.pillBar} />
+                <span className={s.pillText}>Service Architecture Profile</span>
+              </div>
+              <h1 className={s.mainTitle}>{service.title}</h1>
             </div>
-            <Link href="/#services-section" className={servicesStyles.backBtn}>
-              ← Back to services
+            <Link href="/#services-section" className={s.backLink}>
+              <span className={s.backArrow}>←</span> Back to System Hub
             </Link>
           </div>
 
-          <div className={servicesStyles.detailShell}>
-            <div className={servicesStyles.detailGrid}>
-              <div className={servicesStyles.detailMedia}>
+          <div className={s.shellCard}>
+            <div className={s.mainGrid}>
+              <div className={s.mediaColumn}>
                 <img
                   src={service.image || service.fallbackImage}
                   alt={service.title}
-                  className={servicesStyles.detailImg}
+                  className={s.mediaImage}
                 />
-                <div className={servicesStyles.detailOverlay} />
-                <div className={servicesStyles.detailMetaBox}>
-                  <div className={servicesStyles.detailMetaBadge}>
-                    <div className={servicesStyles.detailMetaDot} />
-                    <span className={servicesStyles.detailMetaText}>
-                      Dedicated service view
-                    </span>
+                <div className={s.mediaOverlay} />
+                <div className={s.metaBadgeContainerMobile}>
+                  <div className={s.metaBadge}>
+                    <span className={s.metaBadgeDot} />
+                    Operational Core Ecosystem
                   </div>
-                  <h1 className={servicesStyles.detailMainTitle}>
-                    {service.title}
-                  </h1>
                 </div>
               </div>
 
-              <div className={servicesStyles.detailContent}>
-                <div className={servicesStyles.detailTopControl}>
-                  <div className={servicesStyles.detailTagWrapper}>
+              <div className={s.contentColumn}>
+                <div>
+                  <div className={s.metaBadgeContainerWeb}>
+                    <span className={s.metaBadgeDot} />
+                    Operational Core Ecosystem
+                  </div>
+
+                  <div className={s.tagsContainer}>
                     {service.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={servicesStyles.detailMiniTag}
+                        className={s.tagItem}
                         style={{
-                          color: service.accent,
-                          backgroundColor: service.accentBg,
-                          borderColor: `${service.accent}22`,
+                          color: service.accent || "#FF7A59",
+                          backgroundColor:
+                            service.accentBg || "rgba(250, 122, 89, 0.05)",
+                          borderColor: `${service.accent || "#FF7A59"}22`,
                         }}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                </div>
 
-                <p className={servicesStyles.detailParagraph}>
-                  {service.detailDesc || service.desc}
-                </p>
+                  <p className={s.descriptionText}>
+                    {service.detailDesc || service.desc}
+                  </p>
 
-                <div className="mb-8">
-                  <div className={servicesStyles.detailBlockHeader}>
-                    <div className={servicesStyles.detailBlockDash} />
-                    <span className={servicesStyles.detailBlockTitle}>
-                      What is included
-                    </span>
-                  </div>
-                  <div className={servicesStyles.inclusionGrid}>
-                    {service.features?.map((feature) => (
-                      <div
-                        key={feature}
-                        className={servicesStyles.inclusionCard}
-                      >
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <div className={servicesStyles.detailBlockHeader}>
-                    <div className={servicesStyles.detailBlockDash} />
-                    <span className={servicesStyles.detailBlockTitle}>
-                      How we work
-                    </span>
-                  </div>
-                  <div className={servicesStyles.processStack}>
-                    {service.process?.map((step, idx) => (
-                      <div key={step} className={servicesStyles.processItem}>
-                        <div
-                          className={servicesStyles.processBadge}
-                          style={{
-                            color: service.accent,
-                            backgroundColor: service.accentBg,
-                          }}
-                        >
-                          {idx + 1}
+                  <div className={s.sectionBlock}>
+                    <div className={s.blockHeader}>
+                      <div className={s.blockDot} />
+                      <h3 className={s.blockTitle}>
+                        Core Architecture Inclusions
+                      </h3>
+                    </div>
+                    <div className={s.featuresGrid}>
+                      {service.features?.map((feature) => (
+                        <div key={feature} className={s.featureCard}>
+                          <CheckCircle2 className={s.featureIcon} />
+                          <span className={s.featureText}>{feature}</span>
                         </div>
-                        <div className={servicesStyles.processText}>{step}</div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
+
+                  <div className={s.processSection}>
+                    <div className={s.blockHeader}>
+                      <div className={s.blockDot} />
+                      <h3 className={s.blockTitle}>
+                        Deployment Delivery Process
+                      </h3>
+                    </div>
+                    <div className={s.processStack}>
+                      {service.process?.map((step, idx) => (
+                        <div key={step} className={s.processItem}>
+                          <div
+                            className={s.processBadge}
+                            style={{
+                              color: service.accent || "#FF7A59",
+                              backgroundColor:
+                                service.accentBg || "rgba(250, 122, 89, 0.05)",
+                              borderColor: `${service.accent || "#FF7A59"}33`,
+                            }}
+                          >
+                            {idx + 1}
+                          </div>
+                          <div className={s.processText}>{step}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className={s.ctaBlock}>
+                  <div className={s.ctaGlow} />
+                  <div className={s.ctaTextGroup}>
+                    <div className={s.ctaLabel}>
+                      <Sparkles className={s.ctaSparkle} />
+                      Accelerate Operations
+                    </div>
+                    <h4 className={s.ctaHeading}>
+                      Ready to map out your infrastructure?
+                    </h4>
+                  </div>
+                  <button
+                    onClick={handleConsultationScroll}
+                    className={s.ctaButton}
+                  >
+                    Book a Free Consultation
+                    <ArrowRight className={s.ctaBlockIcon} />
+                  </button>
                 </div>
               </div>
             </div>
 
             {service.projects && service.projects.length > 0 && (
-              <div className="px-8 lg:px-12 pb-8 lg:pb-12 bg-white border-b border-slate-100">
+              <div className={s.showcaseWrapper}>
                 <PortfolioShowcase projects={service.projects} />
               </div>
             )}

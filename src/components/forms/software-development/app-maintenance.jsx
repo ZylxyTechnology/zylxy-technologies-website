@@ -1,14 +1,13 @@
 "use client";
 
-import { consultationFormData as d } from "@/app/hubspot/data/forms/consultationFormData";
-import { consultationFormStyles as s } from "@/app/hubspot/styles/forms/consultationFormStyles";
 import { useFormContext } from "@/context/FormContext";
+import { appMaintenanceFormData as d } from "@/data/forms/software-development/app-maintenance";
+import { appMaintenanceFormStyles as s } from "@/styles/forms/software-development/app-maintenance";
 import {
   Building2,
   CalendarCheck,
   ChevronDown,
   Mail,
-  MessageCircle,
   MessageSquare,
   Search,
   Send,
@@ -17,7 +16,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function HubSpotConsultationForm() {
+export default function AppMaintenanceForm() {
   const {
     formData,
     selectedCountry,
@@ -73,11 +72,14 @@ export default function HubSpotConsultationForm() {
     };
 
     try {
-      const response = await fetch("/api/lead/ai-crm-solutions/hubspot-crm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "/api/lead/software-development/app-maintenance",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
       const result = await response.json();
 
@@ -108,62 +110,8 @@ export default function HubSpotConsultationForm() {
       c.value.toLowerCase().includes(countrySearch.toLowerCase()),
   );
 
-  const renderIcon = (type) => {
-    const cls = "w-4 h-4";
-    if (type === "whatsapp") return <MessageCircle className={cls} />;
-    if (type === "email") return <Mail className={cls} />;
-    if (type === "linkedin")
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cls}
-        >
-          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-          <rect width="4" height="12" x="2" y="9" />
-          <circle cx="4" cy="4" r="2" />
-        </svg>
-      );
-    if (type === "facebook")
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cls}
-        >
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-        </svg>
-      );
-    if (type === "behance")
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cls}
-        >
-          <path d="M9 12h2a2.5 2.5 0 0 0 0-5H9v5z" />
-          <path d="M9 17h2.5a2.5 2.5 0 0 0 0-5H9v5z" />
-          <path d="M6 7v10h5.5a4.5 4.5 0 0 0 0-9H6z" />
-          <path d="M16 14h5a3 3 0 0 0-6 0v1a3 3 0 0 0 6 0" />
-          <path d="M16 9h4" />
-        </svg>
-      );
-    return null;
-  };
   return (
-    <section id="HubSpotCrmLeadGen" className={s.section}>
+    <section id="AppMaintenanceLeadGen" className={s.section}>
       <div className={s.backgroundEffects} />
       <div className={s.radialGlow} />
 
@@ -406,7 +354,7 @@ export default function HubSpotConsultationForm() {
                   Select the Services You Need *
                 </label>
                 <div className={s.challengesContainer}>
-                  {d.crmTargets.map((target) => {
+                  {d.maintenanceTargets.map((target) => {
                     const isChecked = activeTargets.includes(target);
                     return (
                       <div
@@ -449,7 +397,7 @@ export default function HubSpotConsultationForm() {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Describe your data lifecycle operations, pipeline goals, reporting criteria, or support scopes..."
+                    placeholder="Describe your maintenance SLA parameters, existing stack architectures, support cycles, or operational bottlenecks..."
                     className={s.textarea}
                     style={{ paddingLeft: "44px" }}
                   />
@@ -491,8 +439,8 @@ export default function HubSpotConsultationForm() {
                   className={s.complianceInput}
                 />
                 <span className={s.complianceLabel}>
-                  I agree to allow Zylxy Technologies to store and process my
-                  personal data. *
+                  I agree to allow Zylxy Technologies to process captured
+                  contact field parameters. *
                 </span>
               </div>
               {errors.consentProcessing && (
@@ -512,8 +460,8 @@ export default function HubSpotConsultationForm() {
 
             <div className={s.footerRow}>
               <p className={s.privacyFooter}>
-                We care about your privacy. Learn how we handle your data in our
-                Privacy Policy.
+                Data ingestion pipeline follows strict privacy protocols. Lead
+                generation sync matches CRM data containment criteria.
               </p>
               <div className={s.submitBtnWrapper}>
                 <button
@@ -521,7 +469,7 @@ export default function HubSpotConsultationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  Syncing Mesh...
+                  {isPending ? "Syncing Grid..." : "Transmit Request"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>
@@ -536,29 +484,12 @@ export default function HubSpotConsultationForm() {
             <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
             <p className={s.successText}>
               Thanks, {formData.firstName} {formData.lastName} — we've got your
-              request. Our HubSpot solutions pool is analyzing your setup data
-              parameters now and will connect to {formData.email} within 24
-              hours.
+              request. Our technical support cluster is reviewing your lifecycle
+              maintenance parameters now and will reach out to {formData.email}{" "}
+              within 24 hours.
             </p>
           </div>
         )}
-        <div className={s.contactRow}>
-          {d.contacts.map((contact) => (
-            <a
-              key={contact.label}
-              href={contact.url}
-              target="_blank"
-              rel="noreferrer"
-              className={s.contactCard}
-            >
-              <div className={s.contactIconWrapper}>
-                {renderIcon(contact.type)}
-              </div>
-              <div className={s.contactLabel}>{contact.label}</div>
-              <div className={s.contactValue}>{contact.value}</div>
-            </a>
-          ))}
-        </div>
       </div>
     </section>
   );

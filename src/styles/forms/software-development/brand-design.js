@@ -1,6 +1,6 @@
-export const webFormStyles = {
+export const brandDesignFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] py-24 px-6 sm:px-8 text-white relative z-30 clear-both overflow-hidden scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] pt-32 pb-24 px-6 sm:px-8 text-white relative z-30 clear-both isolate scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
@@ -12,9 +12,9 @@ export const webFormStyles = {
   pillText:
     "text-xs font-bold font-inter text-[#FF7A59] tracking-[0.15em] uppercase",
   mainHeading:
-    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-tight",
+    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-tight relative z-20",
   subHeading:
-    "text-sm sm:text-base text-[#A3B1CC] font-inter leading-relaxed max-w-[540px] mx-auto",
+    "text-sm sm:text-base text-[#A3B1CC] font-inter leading-relaxed max-w-3xl mx-auto block mt-2",
   formCard:
     "bg-white/[0.03] border border-white/10 rounded-2xl p-6 sm:p-10 backdrop-blur-md shadow-2xl relative overflow-hidden",
   formAccentBar:
@@ -78,7 +78,7 @@ export const webFormStyles = {
   footerRow:
     "mt-4 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
   privacyFooter:
-    "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-left font-medium tracking-wide",
+    "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md tracking-wide leading-relaxed text-left font-medium",
   submitBtnWrapper:
     "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto",
   submitBtn:

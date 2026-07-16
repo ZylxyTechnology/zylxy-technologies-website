@@ -1,25 +1,26 @@
-export const uiUxDesignData = {
+export const uiUxDesignFormData = {
   header: {
     pillText: "Interface Architecture Design",
-    mainHeading: "Design Interfaces That Convert Visitors.",
+    mainHeading: "Ready to Create Exceptional Digital Experiences?",
     subHeading:
-      "Transform complex operational workflows into clean, interactive user paths. We align visual systems, interactive prototypes, and production design languages with your development parameters.",
+      "Whether you're designing a new website, mobile application, SaaS platform, or enterprise dashboard, we create intuitive, user-centric UI/UX designs that enhance usability, strengthen your brand, and deliver engaging digital experiences that drive business success.",
   },
   designTargets: [
-    "User Research & Discovery",
-    "Wireframing & Interactive Prototyping",
-    "SaaS & Web Application Design",
-    "Mobile App Interface Architecture",
-    "Cross-Platform Design Systems",
-    "Heuristic UX Audits",
+    "Website Design",
+    "Mobile App Design",
+    "Dashboard Design",
+    "Wireframing & Prototype",
+    "UX Audit",
     "Not Sure / Need Consultation",
   ],
   organizationTypes: [
+    "Nonprofit",
     "Small Business",
-    "Professional Service Firm",
-    "Educational Organization",
-    "Nonprofit Organization",
+    "Educational Institution",
+    "Workforce Development Organization",
     "Accelerator / Incubator",
     "Community Organization",
+    "Professional Services",
+    "Other",
   ],
 };

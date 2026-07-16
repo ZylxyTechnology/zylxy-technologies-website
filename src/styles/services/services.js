@@ -2,28 +2,28 @@ export const servicesStyles = {
   section: "bg-[#F0F4FF] py-[64px] sm:py-[96px]",
   wrapper: "max-w-[1200px] mx-auto px-6 sm:px-8",
   headerRow:
-    "flex flex-col sm:flex-row sm:items-end justify-between mb-[36px] sm:mb-[52px] gap-5",
-  titleArea: "",
-  pillLine: "flex items-center gap-2.5 mb-3",
+    "flex flex-col items-start justify-start mb-[40px] sm:mb-[56px] gap-6 w-full",
+  titleArea: "w-full max-w-3xl text-left",
+  pillLine: "flex items-center gap-2.5 mb-3.5",
   pillLineBar: "w-5.5 h-0.5 bg-[#2563EB] rounded-sm",
   pillWrapper:
     "px-[12px] py-[4px] bg-[#EFF6FF] border border-[#DBEAFE] rounded-[100px]",
   pillText:
     "text-[11px] font-bold font-inter text-[#2563EB] tracking-[0.08em] uppercase",
   mainHeading:
-    "font-syne font-extrabold text-[32px] sm:text-[clamp(26px,3vw,44px)] text-[#050E21] tracking-[-0.04em] leading-[1.05]",
+    "font-syne font-extrabold text-[32px] sm:text-[clamp(28px,3.5vw,46px)] text-[#050E21] tracking-[-0.04em] leading-[1.1]",
   subHeading:
-    "text-[14px] text-[#475569] font-inter leading-[1.7] mt-[10px] max-w-[380px]",
-  tabSection: "w-full",
+    "text-[14px] sm:text-[15px] text-[#475569] font-inter leading-[1.7] mt-[12px] max-w-2xl text-left",
+  tabSection: "w-full mt-2",
   tabMobileGrid: "grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full",
   tabDesktopRow:
-    "inline-flex items-center gap-2 p-1.5 bg-white border border-slate-200 rounded-xl shadow-sm overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+    "inline-flex flex-wrap items-center gap-2.5 p-2 bg-white border border-slate-200 rounded-xl shadow-sm transition-all duration-300",
   tabBtnMobile:
     "w-full min-w-0 px-3 py-2.5 rounded-lg text-[12px] font-semibold font-inter cursor-pointer text-center outline-none border-none transition-all duration-200",
   tabBtnDesktop:
-    "px-4 py-2.5 rounded-lg text-[13.5px] font-semibold font-inter cursor-pointer border-none transition-all duration-300 flex items-center gap-2 whitespace-nowrap outline-none shrink-0 snap-start",
+    "px-4.5 py-[11px] rounded-lg text-[13.5px] font-bold font-inter cursor-pointer border-none transition-all duration-300 flex items-center gap-2 whitespace-nowrap outline-none shrink-0",
   tabBtnActive:
-    "bg-[#2563EB] text-white shadow-[0_2px_10px_rgba(37,99,235,0.35)]",
+    "bg-[#2563EB] text-white shadow-[0_4px_12px_rgba(37,99,235,0.25)]",
   tabBtnInactive:
     "bg-transparent text-[#475569] hover:bg-[#EFF6FF] hover:text-[#2563EB]",
   tabCounter:

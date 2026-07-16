@@ -1,6 +1,6 @@
 export const consultationFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] py-24 px-6 sm:px-8 text-white relative overflow-hidden scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] py-24 px-6 sm:px-8 text-white relative z-30 clear-both overflow-hidden scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
@@ -35,7 +35,7 @@ export const consultationFormStyles = {
   inputErrorClass:
     "border-[#FF6B6B] bg-[#FF6B6B]/5 focus:border-[#FF6B6B] focus:ring-[#FF6B6B]/10",
   select:
-    "w-full bg-white/[0.04] border border-white/10 rounded-lg pl-11 pr-10 py-3.5 text-sm font-inter text-white outline-none transition-all duration-200 focus:border-[#FF7A59] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#FF7A59]/10 appearance-none cursor-pointer",
+    "w-full bg-white/[0.04] border border-white/10 rounded-lg pl-5 pr-10 py-3.5 text-sm font-inter text-white outline-none transition-all duration-200 focus:border-[#FF7A59] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#FF7A59]/10 appearance-none cursor-pointer",
   selectWrapper:
     "relative w-full flex items-center after:content-['▼'] after:text-[10px] after:text-white/30 after:absolute after:right-4 after:pointer-events-none group-focus-within/field:after:text-[#FF7A59]",
   phoneContainer:
@@ -55,9 +55,10 @@ export const consultationFormStyles = {
     "w-full bg-white/[0.04] border border-white/10 rounded-lg p-[14px_16px] text-sm font-inter text-white placeholder:text-white/20 outline-none transition-all duration-200 focus:border-[#FF7A59] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#FF7A59]/10 resize-y min-h-[120px]",
   disclosureContainer:
     "w-full mt-5 pt-5 border-t border-dashed border-white/10 flex flex-col gap-5",
-  challengesContainer: "w-full flex flex-col gap-3 mt-1 text-left",
+  challengesContainer:
+    "w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1 text-left",
   challengeRow:
-    "flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer select-none group/row",
+    "flex items-start gap-3 p-3.5 rounded-lg bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer select-none group/row",
   challengeRowActive:
     "bg-[#FF7A59]/5 border-[#FF7A59]/20 hover:border-[#FF7A59]/30",
   challengeCheckbox:
@@ -71,21 +72,21 @@ export const consultationFormStyles = {
   complianceInput:
     "w-4 h-4 rounded border-white/20 bg-white/5 text-[#FF7A59] focus:ring-[#FF7A59]/20 transition-all cursor-pointer mt-0.5 shrink-0 accent-[#FF7A59]",
   complianceLabel:
-    "text-xs font-inter text-[#677489] leading-relaxed transition-colors group-hover/comp:text-[#A3B1CC]",
+    "text-xs font-inter text-[#A3B1CC] leading-relaxed transition-colors duration-200",
   errorText:
     "text-[#FF6B6B] text-xs font-inter mt-1.5 flex items-center gap-1.5",
   footerRow:
-    "mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
+    "mt-4 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-8 w-full text-left sm:text-right",
   privacyFooter:
     "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md leading-relaxed text-left font-medium tracking-wide",
   submitBtnWrapper:
-    "flex flex-col items-center sm:items-end gap-2.5 shrink-0 w-full sm:w-auto",
+    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto",
   submitBtn:
     "w-full sm:w-auto px-8 py-3.5 bg-[#FF7A59] text-white text-sm font-bold font-inter rounded-lg transition-all duration-200 hover:bg-[#E66B4E] hover:-translate-y-px active:translate-y-0 shadow-lg shadow-[#FF7A59]/10 hover:shadow-[#FF7A59]/20 cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
   successCard:
     "bg-white/[0.03] border border-white/10 rounded-2xl p-12 text-center backdrop-blur-md shadow-2xl relative overflow-hidden flex flex-col items-center justify-center gap-4 min-h-[440px]",
   successIconBox:
-    "w-16 h-16 rounded-full bg-[#FFF0EB] border border-[#FEDDCC] flex items-center justify-center text-[#FF7A59] mb-2 shadow-sm animate-bounce",
+    "w-16 h-16 rounded-full bg-[#FFF0EB] border border-[#FEDDCC] flex items-center justify-center text-[#FF7A59] mb-2 shadow-sm",
   successTitle: "font-lexend font-bold text-2xl text-white tracking-tight",
   successText:
     "text-sm font-inter text-[#A3B1CC] leading-relaxed max-w-[420px] mx-auto font-medium",

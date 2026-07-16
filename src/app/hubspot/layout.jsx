@@ -1,3 +1,4 @@
+import { FormProvider } from "@/context/FormContext";
 export const metadata = {
   title: "HubSpot Consultant | CRM & Automation Specialist",
   description:
@@ -8,7 +9,9 @@ export default function HubSpotLayout({ children }) {
   return (
     <div className="min-h-screen bg-navy text-white antialiased selection:bg-hs-orange/30">
       <div className="relative flex flex-col w-full min-h-screen">
-        {children}
+        <FormProvider initialOrgType="Small Business" defaultTargets={[]}>
+          {children}
+        </FormProvider>
       </div>
     </div>
   );
