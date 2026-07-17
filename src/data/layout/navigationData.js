@@ -26,9 +26,42 @@ import {
 export const ANNOUNCEMENT_DATA = {
   location: "Next-Gen Software Engineering & Intelligent AI Solutions",
   contacts: [
-    "zylxytechnologies@gmail.com",
-    "US: +1 (203) 954-7392",
-    "IN: +91 9108 703 123",
+    {
+      label: "WhatsApp",
+      value: "+91 9108 703 123",
+      url: "https://wa.me/919108703123",
+      type: "whatsapp",
+    },
+    {
+      label: "US Phone",
+      value: "+1 (203) 954-7392",
+      url: "tel:+12039547392",
+      type: "phone",
+    },
+    {
+      label: "Email",
+      value: "zylxytechnologies@gmail.com",
+      url: "mailto:zylxytechnologies@gmail.com",
+      type: "email",
+    },
+    {
+      label: "LinkedIn",
+      value: "Zylxy Technologies",
+      url: "https://www.linkedin.com/company/zylxy/",
+      type: "linkedin",
+    },
+    {
+      label: "Facebook",
+      value: "Zylxy Technologies",
+      url: "https://www.facebook.com/zylxy/",
+      type: "facebook",
+    },
+    {
+      label: "Behance",
+      value: "zylxytechnologies",
+      url: "https://www.behance.net/zylxytechnologies",
+      type: "behance",
+    },
   ],
 };
 

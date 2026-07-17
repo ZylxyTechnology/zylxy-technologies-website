@@ -10,7 +10,7 @@ export const formRegistry = {
   "custom-software-development": dynamic(
     () => import("@/components/forms/software-development/custom-software.jsx"),
   ),
-  "ui-ux-design-prototyping": dynamic(
+  "ui-ux-design": dynamic(
     () => import("@/components/forms/software-development/ui-ux-design.jsx"),
   ),
   "brand-creative-design": dynamic(
@@ -20,9 +20,9 @@ export const formRegistry = {
     () => import("@/components/forms/software-development/app-maintenance.jsx"),
   ),
 
-  //   "ai-engineering-automation": dynamic(
-  //     () => import("@/components/forms/ai-crm-solutions/ai-engineering-form"),
-  //   ),
+  "ai-engineering-automation": dynamic(
+    () => import("@/components/forms/ai-crm-solutions/ai-automation.jsx"),
+  ),
   "hubspot-crm-implementation": dynamic(
     () => import("@/app/hubspot/components/forms/consultationForm.jsx"),
   ),
