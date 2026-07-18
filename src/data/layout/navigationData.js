@@ -133,13 +133,13 @@ export const NAVBAR_DATA = {
             {
               name: "Talent Acquisition",
               slug: "talent-acquisition",
-              customRoute: "/careers/talent-acquisition",
+              customRoute: "/careers/recruitment-services/talent-acquisition",
               icon: Target,
             },
             {
-              name: "Career Services",
-              slug: "career-services",
-              customRoute: "/careers/explore-opportunities",
+              name: "Campus Recruitment",
+              slug: "campus-recruitment",
+              customRoute: "/careers/recruitment-services/campus-recruitment",
               icon: TrendingUp,
             },
           ],

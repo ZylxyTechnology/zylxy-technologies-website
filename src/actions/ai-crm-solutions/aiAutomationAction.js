@@ -86,6 +86,7 @@ export async function submitAiAutomationAction(prevState, formData) {
         value: payload.selectedApps.join(";"),
       },
       { objectTypeId: "0-1", name: "message", value: payload.message || "" },
+      { objectTypeId: "0-1", name: "hs_chat_assistant_source", value: "FORM" },
       { objectTypeId: "0-2", name: "name", value: payload.orgName },
       { objectTypeId: "0-2", name: "industry_type", value: payload.orgType },
     ];

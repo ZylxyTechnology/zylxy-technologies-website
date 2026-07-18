@@ -75,6 +75,7 @@ export async function POST(request) {
         value: selectedApps.join(";"),
       },
       { objectTypeId: "0-1", name: "message", value: message || "" },
+      { objectTypeId: "0-1", name: "hs_chat_assistant_source", value: "FORM" },
       { objectTypeId: "0-2", name: "name", value: orgName },
       { objectTypeId: "0-2", name: "industry_type", value: orgType },
     ];

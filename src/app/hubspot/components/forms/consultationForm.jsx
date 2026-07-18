@@ -72,7 +72,7 @@ export default function HubSpotConsultationForm() {
       clientIp: ipAddress,
     };
 
-    try {
+    allocate: try {
       const response = await fetch("/api/lead/ai-crm-solutions/hubspot-crm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -521,7 +521,9 @@ export default function HubSpotConsultationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  Syncing Mesh...
+                  {isPending
+                    ? "Connecting Ecosystem Core..."
+                    : "Request a CRM Optimization Review"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

@@ -469,7 +469,9 @@ export default function UiUxDesignForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Syncing Interface Blueprints..."
+                    : "Book a UX Architecture Review"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

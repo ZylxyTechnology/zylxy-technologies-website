@@ -272,7 +272,7 @@ export const servicesData = {
       id: "talent-acquisition",
       category: "Recruitment",
       title: "Talent Acquisition",
-      customRoute: "/careers/talent-acquisition",
+      customRoute: "/careers/recruitment-services/talent-acquisition",
       desc: "End-to-end recruitment services connecting you with top-tier technical and executive talent.",
       detailDesc:
         "We bridge the gap between great companies and exceptional talent, utilizing data-driven sourcing to find the perfect fit for your technical and operational roles.",
@@ -298,10 +298,10 @@ export const servicesData = {
       projects: [],
     },
     {
-      id: "career-services",
+      id: "campus-recruitment",
       category: "Recruitment",
-      title: "Career Services",
-      customRoute: "/careers/explore-opportunities",
+      title: "Campus Recruitment",
+      customRoute: "/careers/recruitment-services/campus-recruitment",
       desc: "Professional resume building, interview preparation, and profile optimization.",
       detailDesc:
         "Empowering professionals to take the next step in their careers with optimized resumes, LinkedIn profiles, and targeted interview coaching.",

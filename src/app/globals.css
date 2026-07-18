@@ -122,9 +122,9 @@
 }
 
 @layer base {
-  html {
+  /* html {
     scroll-behavior: smooth !important;
-  }
+  } */
   body {
     background-color: var(--color-navy);
     font-family: var(--font-inter);

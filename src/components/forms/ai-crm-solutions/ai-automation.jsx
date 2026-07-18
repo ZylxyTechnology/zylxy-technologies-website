@@ -471,7 +471,9 @@ export default function AiAutomationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Logic..." : "Transmit Request"}
+                  {isPending
+                    ? "Mapping Automated Workflows..."
+                    : "Request a Free Process Audit"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

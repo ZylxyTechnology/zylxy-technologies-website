@@ -1,16 +1,16 @@
 export const testimonialsStyles = {
   section:
-    "bg-[#050E21] py-24 scroll-mt-28 border-t border-white/[0.06] relative overflow-hidden",
+    "bg-[#050E21] py-16 md:py-20 lg:py-24 scroll-mt-28 border-t border-white/[0.06] relative overflow-hidden",
   wrapper: "max-w-[1200px] mx-auto px-8 relative z-10",
   headerRow:
     "flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6",
   titleArea: "text-left max-w-2xl",
   pillLine: "flex items-center gap-2.5 mb-2",
-  pillLineBar: "w-5.5 h-0.5 bg-[#2563EB] rounded-sm",
+  pillLineBar: "w-[22px] h-0.5 bg-[#2563EB] rounded-sm",
   pillText:
     "text-[13px] font-bold font-inter text-[#60A5FA] tracking-widest uppercase",
   mainHeading:
-    "font-syne font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tighter leading-[1.05] mt-2",
+    "font-syne font-extrabold text-3xl md:text-4xl lg:text-[50px] text-white tracking-tighter leading-[1.05] mt-2",
   subHeading:
     "text-sm text-slate-400 font-inter leading-relaxed max-w-md text-left md:text-right md:mb-1",
   carouselWrapper: "relative w-full overflow-hidden touch-pan-y",

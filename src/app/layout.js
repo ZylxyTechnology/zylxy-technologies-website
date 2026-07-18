@@ -1,11 +1,6 @@
-"use client";
-
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
-import FooterSection from "@/components/layout/FooterSection";
-import Navbar from "@/components/layout/Navbar";
+import ClientLayoutWrapper from "@/components/layout/ClientLayoutWrapper";
 import "@/styles/animations.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import { usePathname } from "next/navigation";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,28 +9,26 @@ const inter = Inter({
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-syne",
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
+// Because this is now a Server Component, you can utilize the Metadata API for SEO
+export const metadata = {
+  title: "Zylxy Technologies | Engineered for Digital Scale",
+  description:
+    "Enterprise software, AI solutions, and modern digital platforms.",
+};
+
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-
-  // Checks if the user is currently inside any sub-route of your HubSpot portal space
-  const isHubSpotRoute = pathname?.startsWith("/hubspot");
-
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      className={`${inter.variable} ${plusJakartaSans.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#050e21]">
-        {/* Conditionally suppress mainland global frames entirely on HubSpot views */}
-        {!isHubSpotRoute && <AnnouncementBar />}
-        {!isHubSpotRoute && <Navbar />}
-
-        <div className="grow w-full">{children}</div>
-        {!isHubSpotRoute && <FooterSection />}
+      <body className="min-h-screen flex flex-col bg-[#050e21]">
+        {/* All client logic, animations, and conditional routing is handled securely inside the wrapper */}
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );

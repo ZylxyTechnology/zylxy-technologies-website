@@ -469,7 +469,9 @@ export default function AppMaintenanceForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Evaluating Infrastructure Core..."
+                    : "Request a System Health Audit"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

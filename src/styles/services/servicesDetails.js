@@ -1,10 +1,10 @@
 export const servicesDetailsStyles = {
   pageWrapper:
-    "w-full bg-[#111428] min-h-screen py-24 px-6 sm:px-8 text-white relative overflow-hidden block clearing-start",
+    "w-full bg-[#111428] min-h-screen py-[clamp(4rem,8vw,6rem)] px-6 sm:px-8 text-white relative overflow-hidden block clearing-start",
   bgGrid:
     "absolute inset-0 opacity-[0.01] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:32px_32px]",
   radialGlow:
-    "absolute w-[500px] h-[500px] rounded-full bg-[#FF7A59]/5 blur-3xl -top-48 -left-48 pointer-events-none",
+    "absolute w-[min(500px,80vw)] h-[min(500px,80vw)] rounded-full bg-[#FF7A59]/5 blur-3xl -top-48 -left-48 pointer-events-none aspect-square",
   container: "max-w-7xl mx-auto w-full relative z-10",
   topHeader:
     "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-12 border-b border-white/5 pb-6",

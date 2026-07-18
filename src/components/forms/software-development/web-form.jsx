@@ -449,7 +449,9 @@ export default function WebApplicationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Sending Details..."
+                    : "Launch Your Product Evaluation"}{" "}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

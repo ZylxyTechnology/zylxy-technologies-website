@@ -1,31 +1,32 @@
 export const leadershipStyles = {
-  section: "bg-[#F0F4FF] py-24 scroll-mt-28 border-t border-[#E5DFD7]",
-  wrapper: "max-w-[1200px] mx-auto px-8",
+  section:
+    "bg-[#050E21] py-16 md:py-24 relative overflow-hidden border-t border-white/[0.05]",
+  wrapper: "max-w-[1200px] mx-auto px-8 relative z-10",
   headerRow:
     "flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4",
   titleArea: "text-left",
-  pillLine: "inline-flex items-center gap-2.5 ",
-  pillLineBar: "w-5.5 h-0.5 bg-[#2563EB] rounded-sm",
+  pillLine: "inline-flex items-center gap-2.5 mb-2",
+  pillLineBar: "w-[22px] h-0.5 bg-[#60A5FA] rounded-sm",
   pillText:
-    "text-[14px] font-bold font-inter text-blue-600 tracking-widest uppercase",
+    "text-[13px] font-bold font-inter text-[#60A5FA] tracking-widest uppercase",
   mainHeading:
-    "font-syne font-extrabold text-3xl sm:text-4xl md:text-[44px] text-[#131110] tracking-tighter leading-[1.05] mt-4",
+    "font-syne font-extrabold text-3xl md:text-4xl lg:text-[44px] text-white tracking-[-0.02em] leading-[1.05] mt-2",
   subHeading:
-    "text-sm text-[#6B6460] font-inter leading-relaxed max-w-[340px] text-left md:text-right lg:mb-1",
-  grid: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full",
-  card: "group relative bg-white border border-[#E5DFD7] rounded-[16px] p-7 flex flex-col gap-4 text-left w-full transition-all duration-200 hover:border-[#BFDBFE] hover:translate-y-[-3px] hover:shadow-[0_12px_36px_rgba(37,99,235,0.08)]",
-  profileRow: "flex items-center gap-3.5",
+    "text-sm text-white/50 font-inter leading-relaxed max-w-[340px] text-left md:text-right lg:mb-1",
+  grid: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full",
+  card: "group relative bg-white/[0.02] border border-white/[0.06] rounded-[16px] p-7 flex flex-col gap-5 text-left w-full transition-all duration-500 ease-out hover:border-white/[0.15] hover:bg-white/[0.04] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] backdrop-blur-sm",
+  profileRow: "flex items-center gap-4",
   avatarBox:
-    "w-[54px] h-[54px] rounded-[14px] flex items-center justify-center shrink-0 transition-all duration-200",
+    "w-[56px] h-[56px] rounded-[14px] flex items-center justify-center shrink-0 transition-all duration-500 bg-white/[0.05] border border-white/[0.1] group-hover:scale-105 group-hover:border-[#60A5FA]/30",
   avatarText:
     "font-syne font-extrabold text-lg text-white tracking-tight leading-none",
   metaDetails: "flex flex-col",
   leaderName:
-    "font-syne font-bold text-[15px] text-[#131110] tracking-tight leading-tight",
-  leaderRole: "text-xs font-bold font-inter mt-1",
-  leaderSince: "text-[11px] text-[#A09898] font-inter mt-0.5",
-  leaderDesc: "text-[13px] text-[#6B6460] font-inter leading-[1.7]",
-  tagBox: "flex gap-1.5 flex-wrap mt-auto",
+    "font-syne font-bold text-[16px] text-white tracking-tight leading-tight",
+  leaderRole: "text-[12px] font-bold font-inter text-[#60A5FA] mt-1",
+  leaderSince: "text-[11px] text-white/40 font-inter mt-0.5",
+  leaderDesc: "text-[13px] text-white/60 font-inter leading-[1.7]",
+  tagBox: "flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/[0.06]",
   tagItem:
-    "text-[11px] font-semibold font-inter px-[9px] py-[3px] rounded-full border border-[#BFDBFE] bg-[#EFF6FF] text-[#2563EB]",
+    "text-[10px] font-semibold font-inter px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors duration-300 group-hover:border-[#60A5FA]/30 group-hover:text-[#60A5FA]",
 };

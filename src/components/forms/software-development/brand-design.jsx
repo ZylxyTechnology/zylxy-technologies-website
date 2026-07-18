@@ -469,7 +469,9 @@ export default function BrandDesignForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Compiling Identity Assets..."
+                    : "Request a Brand Strategy Consultation"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

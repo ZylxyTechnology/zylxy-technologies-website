@@ -1,10 +1,10 @@
 export const uiUxDesignFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] pt-32 pb-24 px-6 sm:px-8 text-white relative z-30 clear-both isolate scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
-    "absolute w-[600px] h-[600px] rounded-full bg-[#2563EB]/10 blur-3xl -bottom-48 -right-48 pointer-events-none",
+    "absolute w-[min(600px,90vw)] h-[min(600px,90vw)] rounded-full bg-[#2563EB]/10 blur-3xl -bottom-48 -right-48 pointer-events-none aspect-square",
   wrapper: "max-w-[880px] mx-auto relative z-10",
   headerContainer: "text-center mb-14 flex flex-col items-center gap-3.5",
   pillLine: "flex items-center justify-center gap-2.5",

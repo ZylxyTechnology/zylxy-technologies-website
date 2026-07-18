@@ -1,4 +1,7 @@
 import dynamic from "next/dynamic";
+const TrainingPlacementForm = dynamic(
+  () => import("@/components/forms/training-placement/TrainingPlacement.jsx"),
+);
 
 export const formRegistry = {
   "web-application-development": dynamic(
@@ -26,29 +29,8 @@ export const formRegistry = {
   "hubspot-crm-implementation": dynamic(
     () => import("@/app/hubspot/components/forms/consultationForm.jsx"),
   ),
-
-  //   "talent-acquisition": dynamic(
-  //     () =>
-  //       import("@/components/forms/recruitment-services/talent-acquisition-form"),
-  //   ),
-  //   "campus-recruitment": dynamic(
-  //     () => import("@/components/forms/recruitment-services/campus-recruitment"),
-  //   ),
-
-  //   "corporate-training": dynamic(
-  //     () =>
-  //       import("@/components/forms/training-placement/corporate-training-form"),
-  //   ),
-  //   "academic-training-partnerships": dynamic(
-  //     () =>
-  //       import("@/components/forms/training-placement/academic-partnerships-form"),
-  //   ),
-  //   "internship-programs": dynamic(
-  //     () =>
-  //       import("@/components/forms/training-placement/internship-programs-form"),
-  //   ),
-  //   "placement-assistance": dynamic(
-  //     () =>
-  //       import("@/components/forms/training-placement/placement-assistance-form"),
-  //   ),
+  "corporate-training": TrainingPlacementForm,
+  "academic-partnerships": TrainingPlacementForm,
+  "internship-programs": TrainingPlacementForm,
+  "placement-assistance": TrainingPlacementForm,
 };

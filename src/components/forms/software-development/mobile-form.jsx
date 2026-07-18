@@ -452,7 +452,9 @@ export default function MobileApplicationForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Processing App Architecture..."
+                    : "Request a Mobile Strategy Session"}{" "}
                   <Send className="w-4 h-4" />
                 </button>
               </div>

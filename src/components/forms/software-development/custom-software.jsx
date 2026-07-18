@@ -452,7 +452,9 @@ export default function CustomSoftwareForm() {
                   disabled={isPending}
                   className={s.submitBtn}
                 >
-                  {isPending ? "Syncing Grid..." : "Transmit Request"}
+                  {isPending
+                    ? "Analyzing Technical Requirements..."
+                    : "Secure Your Engineering Assessment"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>
