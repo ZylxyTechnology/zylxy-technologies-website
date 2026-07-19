@@ -25,9 +25,8 @@ export async function generateStaticParams() {
 }
 
 export default async function PackagePage({ params }) {
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
-  const packageDetail = packagesData[slug?.toLowerCase()];
+  const { slug } = await params;
+  const packageDetail = packagesData[slug.toLowerCase()];
 
   if (!packageDetail) {
     notFound();
