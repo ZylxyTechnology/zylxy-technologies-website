@@ -1,42 +1,47 @@
 "use client";
 
-import { clientsData } from "@/data/sections/clientsData";
+import { Container } from "@/components/layout/core/Container";
+import { Section } from "@/components/layout/core/Section";
+import { MotionReveal } from "@/components/motion/MotionReveal";
+import { clientsDataConfig, trustedBrands } from "@/data/home/trustedBrands";
 import { clientsStyles } from "@/styles/sections/clients";
 
 export default function ClientsSection() {
   const scrollItems = [
-    ...clientsData.items,
-    ...clientsData.items,
-    ...clientsData.items,
+    ...trustedBrands,
+    ...trustedBrands,
+    ...trustedBrands,
   ];
 
   return (
-    <section className={clientsStyles.section}>
-      <div className={clientsStyles.container}>
-        <div className={clientsStyles.pillWrapper}>
-          <div className={clientsStyles.pillLine} />
-          <span className={clientsStyles.pill}>{clientsData.pillText}</span>
-        </div>
-      </div>
+    <Section className={clientsStyles.section}>
+      <MotionReveal direction="up">
+        <Container className={clientsStyles.container}>
+          <div className={clientsStyles.pillWrapper}>
+            <div className={clientsStyles.pillLine} />
+            <span className={clientsStyles.pill}>{clientsDataConfig.pillText}</span>
+          </div>
+        </Container>
 
-      <div className={clientsStyles.marqueeWrapper}>
-        <div className={clientsStyles.marqueeTrack}>
-          {scrollItems.map((client, idx) => (
-            <div key={idx} className={clientsStyles.itemWrapper}>
-              <span className={clientsStyles.clientText}>{client}</span>
-              <div className={clientsStyles.separatorDot} />
-            </div>
-          ))}
+        <div className={`${clientsStyles.marqueeWrapper} group/marquee`}>
+          <div className={clientsStyles.marqueeTrack}>
+            {scrollItems.map((brand, idx) => (
+              <div key={`${brand.id}-${idx}`} className={clientsStyles.itemWrapper}>
+                <span className={clientsStyles.clientText}>{brand.name}</span>
+                <div className={clientsStyles.separatorDot} />
+              </div>
+            ))}
+          </div>
+          <div className={clientsStyles.marqueeTrack} aria-hidden="true">
+            {scrollItems.map((brand, idx) => (
+              <div key={`dup-${brand.id}-${idx}`} className={clientsStyles.itemWrapper}>
+                <span className={clientsStyles.clientText}>{brand.name}</span>
+                <div className={clientsStyles.separatorDot} />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className={clientsStyles.marqueeTrack} aria-hidden="true">
-          {scrollItems.map((client, idx) => (
-            <div key={`dup-${idx}`} className={clientsStyles.itemWrapper}>
-              <span className={clientsStyles.clientText}>{client}</span>
-              <div className={clientsStyles.separatorDot} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </MotionReveal>
+    </Section>
   );
 }

@@ -1,6 +1,6 @@
 export const announcementStyles = {
   barWrapper:
-    "hidden md:flex bg-gradient-to-r from-[#0D1B3E] to-[#1D4ED8] py-[9px] px-8 justify-between items-center flex-wrap gap-2",
+    "hidden md:flex bg-gradient-to-r from-[#0D1B3E] to-[#1D4ED8] py-[9px] px-8 justify-between items-center flex-wrap gap-2 w-full",
   locationGroup: "flex items-center gap-[10px]",
   statusDot: "w-1.5 h-1.5 rounded-full bg-[#06B6D4] shadow-[0_0_7px_#06B6D4]",
   locationText: "text-xs text-white/90 tracking-wider font-sans",
@@ -11,7 +11,7 @@ export const announcementStyles = {
 
 export const navbarStyles = {
   navContainer:
-    "bg-[#050E21] border-b border-white/5 px-8 h-20 flex items-center justify-between sticky top-0 z-50 w-full",
+    "px-8 h-full flex items-center justify-between w-full",
   innerWrapper:
     "max-w-7xl mx-auto w-full flex items-center justify-between relative h-full",
   logoSection:
@@ -24,7 +24,7 @@ export const navbarStyles = {
   brandTitle:
     "font-sans font-extrabold text-xl text-white tracking-tight leading-none transition-colors duration-200 group-hover/logo:text-[#60A5FA]",
   brandSubtitle:
-    "font-sans text-[10px] font-bold text-white/40 tracking-[0.12em] uppercase leading-none transition-colors duration-200 group-hover/logo:text-white/60",
+    "font-sans text-[10px] font-bold text-white/40 tracking-[0.12em] uppercase leading-none transition-colors duration-200 group-hover/logo:text-white/60 max-w-[150px] truncate",
   menuList: "hidden md:flex items-center gap-1.5 h-full static",
   menuItemWrapper: "h-full flex items-center group/nav static",
   menuButton:
@@ -39,9 +39,12 @@ export const navbarStyles = {
   primaryBtn:
     "px-5 py-2 text-xs bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 no-underline",
   megaMenuWrapper:
-    "absolute top-full left-0 right-0 w-full bg-[#071330] border border-white/10 rounded-b-xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-200 ease-out z-50",
+    "absolute top-full left-0 right-0 w-full bg-[#071330]/95 backdrop-blur-xl border border-white/10 rounded-b-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-300 ease-enterprise z-50",
+  megaMenuLayout: "flex w-full",
+  megaMenuLeft: "w-[75%] p-8 border-r border-white/5",
+  megaMenuRight: "w-[25%] p-8 bg-gradient-to-br from-white/[0.02] to-transparent relative overflow-hidden flex flex-col rounded-br-2xl",
   servicesGrid: "grid grid-cols-4 gap-8",
-  industriesGrid: "grid grid-cols-4 gap-6",
+  industriesGrid: "grid grid-cols-4 gap-6 p-8",
   pillarCol: "flex flex-col gap-3",
   pillarHeading:
     "text-[11px] font-bold text-[#2563EB] uppercase tracking-wider font-inter border-b border-white/5 pb-2 mb-1.5",
@@ -57,6 +60,15 @@ export const navbarStyles = {
   industryTitle:
     "text-[13px] font-bold text-white/80 font-sans tracking-tight group-hover/ind:text-[#2563EB] transition-colors duration-200",
   industryDesc: "text-[11.5px] text-white/40 font-inter leading-relaxed",
+  
+  // Featured Block Styles
+  featuredTag: "text-[10px] font-bold tracking-widest text-[#60A5FA] uppercase border border-[#60A5FA]/30 px-2.5 py-1 rounded-full self-start mb-6 bg-[#60A5FA]/10",
+  featuredTitle: "text-lg font-bold text-white mb-2 font-sans tracking-tight leading-snug",
+  featuredDesc: "text-[13px] text-white/50 font-inter leading-relaxed mb-8",
+  featuredCta: "mt-auto inline-flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-[#2563EB] border border-white/10 hover:border-[#2563EB] transition-all duration-500 ease-enterprise group/cta cursor-pointer no-underline hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)]",
+  featuredCtaText: "text-sm font-semibold text-white",
+  featuredGlow: "absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.15),transparent_50%)] pointer-events-none",
+  
   mobileMenuBtn:
     "md:hidden flex flex-col justify-center items-center gap-1 w-8 h-8 bg-transparent border-none cursor-pointer focus:outline-none z-20 hover:scale-105 transition-transform",
   mobileMenuOverlay:

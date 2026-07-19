@@ -1,6 +1,6 @@
 export const leadFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate overflow-hidden scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
@@ -31,9 +31,9 @@ export const leadFormStyles = {
     "absolute left-4 w-4 h-4 text-[#A3B1CC] z-10 pointer-events-none transition-colors duration-200 group-focus-within/field:text-[#2563EB]",
   inputIconError: "text-[#FF6B6B]",
   input:
-    "w-full bg-white/[0.04] border border-white/10 rounded-lg pl-11 pr-4 py-3.5 text-sm font-inter text-white placeholder:text-white/20 outline-none transition-all duration-200 focus:border-[#2563EB] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#2563EB]/10",
+    "w-full bg-white/[0.02] border border-white/10 rounded-xl pl-11 pr-4 py-4 text-sm font-inter text-white placeholder:text-white/40 outline-none transition-all duration-500 hover:bg-white/[0.04] focus:border-[#60A5FA] focus:bg-white/[0.05] focus:ring-4 focus:ring-[#2563EB]/20",
   inputErrorClass:
-    "border-[#FF6B6B] bg-[#FF6B6B]/5 focus:border-[#FF6B6B] focus:ring-[#FF6B6B]/10",
+    "border-[#FF6B6B] bg-[#FF6B6B]/5 focus:border-[#FF6B6B] focus:ring-[#FF6B6B]/20",
   select:
     "w-full bg-white/[0.04] border border-white/10 rounded-lg pl-5 pr-10 py-3.5 text-sm font-inter text-white outline-none transition-all duration-200 focus:border-[#2563EB] focus:bg-[#1B1F3A] focus:ring-4 focus:ring-[#2563EB]/10 appearance-none cursor-pointer",
   selectWrapper:
@@ -81,9 +81,10 @@ export const leadFormStyles = {
   privacyFooter:
     "text-xs font-inter text-[#677489] max-w-sm sm:max-w-md tracking-wide leading-relaxed text-left font-medium",
   submitBtnWrapper:
-    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto",
+    "flex flex-col items-center sm:items-end gap-1 shrink-0 w-full sm:w-auto relative group/submit",
   submitBtn:
-    "w-full sm:w-auto px-8 py-3.5 bg-[#2563EB] text-white text-sm font-bold font-inter rounded-lg transition-all duration-200 hover:bg-[#1D4ED8] hover:-translate-y-px active:translate-y-0 shadow-lg shadow-[#2563EB]/10 hover:shadow-[#2563EB]/20 cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    "w-full sm:w-auto px-10 py-4 bg-[#2563EB] text-white text-[15px] font-bold font-inter rounded-xl transition-all duration-500 ease-enterprise hover:bg-[#3B82F6] hover:-translate-y-1 active:translate-y-0 shadow-[0_4px_20px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.6),inset_0_1px_0_rgba(255,255,255,0.3)] cursor-pointer border-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative z-10",
+  submitGlow: "absolute inset-0 bg-[#60A5FA] blur-xl opacity-0 group-hover/submit:opacity-40 transition-opacity duration-500 ease-enterprise pointer-events-none rounded-xl",
   successCard:
     "bg-white/[0.03] border border-white/10 rounded-2xl p-12 text-center backdrop-blur-md shadow-2xl relative overflow-hidden flex flex-col items-center justify-center gap-4 min-h-[440px]",
   successIconBox:

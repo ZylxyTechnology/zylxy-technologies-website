@@ -1,7 +1,7 @@
 export const caseStudiesStyles = {
   section:
-    "bg-[#050E21] py-16 md:py-20 lg:py-24 scroll-mt-28 border-t border-white/[0.06] relative overflow-hidden",
-  wrapper: "max-w-[1200px] mx-auto px-8 relative z-10",
+    "bg-background scroll-mt-28 border-t border-border",
+  wrapper: "relative z-10",
   headerRow:
     "flex flex-col md:flex-row md:items-end justify-between mb-12 gap-5",
   titleArea: "max-w-2xl",

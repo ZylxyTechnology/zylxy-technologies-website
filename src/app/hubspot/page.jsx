@@ -9,24 +9,52 @@ import Hero from "@/app/hubspot/components/sections/Hubspot-Hero";
 import Testimonials from "@/app/hubspot/components/sections/Hubspot-Testimonials";
 import FAQ from "@/app/hubspot/components/sections/Hubspot-faq";
 import HubSpotPackagesOverview from "@/app/hubspot/packages/HubSpot-PackagesOverview";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 import NoiseReveal from "@/components/ui/NoiseReveal";
 
 export default function HubSpotConsultantPage() {
   return (
     <NoiseReveal>
-      <main className="w-full bg-white overflow-x-clip min-h-screen selection:bg-[#FF7A59]/20">
+      <div className="relative w-full min-h-screen bg-white">
         <HubSpotNavbar />
-        <Hero />
-        <HubSpotStatsBar />
-        <HubSpotIntroFeature />
-        <HubSpotFeaturedProjects />
-        <HubSpotPackagesOverview />
-        <WhyMe />
-        <Testimonials />
-        <FAQ />
-        <ConsultationForm />
-        <HubspotFooter />
-      </main>
+        <main className="w-full overflow-x-clip selection:bg-[#FF7A59]/20">
+          <Hero />
+          
+          <MotionReveal direction="up" delay={0.1}>
+            <HubSpotStatsBar />
+          </MotionReveal>
+          
+          <MotionReveal direction="fade">
+            <HubSpotIntroFeature />
+          </MotionReveal>
+          
+          <MotionReveal direction="up">
+            <HubSpotFeaturedProjects />
+          </MotionReveal>
+          
+          <MotionReveal direction="fade">
+            <HubSpotPackagesOverview />
+          </MotionReveal>
+          
+          <MotionReveal direction="fade">
+            <WhyMe />
+          </MotionReveal>
+          
+          <MotionReveal direction="fade">
+            <Testimonials />
+          </MotionReveal>
+          
+          <MotionReveal direction="fade">
+            <FAQ />
+          </MotionReveal>
+          
+          <MotionReveal direction="up" delay={0.2}>
+            <ConsultationForm />
+          </MotionReveal>
+          
+          <HubspotFooter />
+        </main>
+      </div>
     </NoiseReveal>
   );
 }

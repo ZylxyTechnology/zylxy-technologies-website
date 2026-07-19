@@ -10,7 +10,16 @@ import { useEffect, useRef, useState } from "react";
 export default function HubSpotNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     function handleOutsideClick(event) {
@@ -30,7 +39,13 @@ export default function HubSpotNavbar() {
   };
 
   return (
-    <nav className={s.nav}>
+    <nav 
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ease-in-out ${
+        scrolled 
+          ? "bg-white/90 backdrop-blur-xl border-b border-[#F0E8E3] shadow-md py-1 h-16" 
+          : "bg-white h-20"
+      }`}
+    >
       <div className={s.container} ref={dropdownRef}>
         <Link href="/" className={s.logoLink}>
           <div className={s.logoIconWrapper}>
@@ -40,6 +55,7 @@ export default function HubSpotNavbar() {
               width={24}
               height={24}
               className="object-contain select-none shrink-0"
+              style={{ width: "auto", height: "auto" }}
               priority
             />
           </div>

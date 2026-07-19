@@ -12,13 +12,13 @@ export const heroData = {
     "Free Consultation",
   ],
   contactCard: {
-    name: "Marcus Vance",
-    organization: "MORTAR",
-    role: "Academy Applicant",
+    name: "Sudha Saravanan",
+    organization: "Zylxy Technologies",
+    role: "Founder & Director",
     badges: [
-      "Lifecycle Stage: Application",
-      "Custom Object: Cohort 2026",
-      "Data Status: Clean & Verified",
+      "Lifecycle Stage: Enterprise Partner",
+      "Verified Strategy Lead",
+      "Data Status: Executive Level",
     ],
   },
   automationCard: {

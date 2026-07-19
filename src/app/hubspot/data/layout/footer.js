@@ -1,22 +1,47 @@
 export const footerData = {
-  brand: {
-    tagline:
-      "Optimizing data pipelines and scaling system architectures for sustainable organizational impact.",
-    trademark: "HubSpot is a registered trademark of HubSpot, Inc.",
+  company: {
+    name: "ZYLXY HubSpot Consulting",
+    legal: "Technologies Pvt. Ltd. · GSTIN: 29AABCZ3647A1ZD",
+    desc: "Certified HubSpot Solutions Partner. We engineer scalable CRM architectures for ambitious organizations.",
   },
-  quickLinks: [
-    { label: "About Me", href: "/hubspot#why-me" },
-    { label: "Service Packages", href: "/hubspot#packages" },
-    { label: "Featured Projects", href: "/hubspot#projects" },
-    { label: "Client Testimonials", href: "/hubspot#testimonials" },
-    { label: "FAQ", href: "/hubspot#faq" },
+  columns: [
+    {
+      title: "Solutions",
+      items: [
+        { label: "Starter Package", href: "/hubspot#solutions" },
+        { label: "Growth Package", href: "/hubspot#solutions" },
+        { label: "Custom Implementation", href: "/hubspot#solutions" },
+        { label: "Health Check Audit", href: "/hubspot#solutions" },
+      ],
+    },
+    {
+      title: "Expertise",
+      items: [
+        { label: "Nonprofits", href: "/hubspot#industries" },
+        { label: "Workforce Development", href: "/hubspot#industries" },
+        { label: "Educational Organizations", href: "/hubspot#industries" },
+        { label: "Accelerators & Incubators", href: "/hubspot#industries" },
+      ],
+    },
+    {
+      title: "Resources",
+      items: [
+        { label: "Director Profile", href: "/hubspot#intro" },
+        { label: "Project Showcases", href: "/hubspot#projects" },
+        { label: "Book a Consultation", href: "/hubspot#consultation" },
+        { label: "Back to Main Site", href: "/" },
+      ],
+    },
   ],
-  cta: {
-    title: "Ready to scale your operations?",
-    buttonText: "Book a Free Consultation",
+  contact: {
+    title: "Contact",
+    items: [
+      { label: "HSR Layout, Bangalore 560102", href: "https://maps.google.com/?q=HSR+Layout+Bangalore", type: "external" },
+      { label: "zylxytechnologies@gmail.com", href: "mailto:zylxytechnologies@gmail.com", type: "email" },
+      { label: "+91 9108 703 123", href: "tel:+919108703123", type: "tel" },
+    ],
   },
-  legal: [
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms of Service", href: "/terms-of-service" },
-  ],
+  bottom: {
+    copyright: "© 2026 Zylxy Technologies Private Limited. All rights reserved.",
+  },
 };

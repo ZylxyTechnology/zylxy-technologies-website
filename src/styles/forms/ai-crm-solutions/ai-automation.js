@@ -1,6 +1,6 @@
 export const aiAutomationFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate overflow-hidden scroll-mt-24 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:

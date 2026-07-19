@@ -1,66 +1,66 @@
 "use client";
 
 import { footerData } from "@/app/hubspot/data/layout/footer";
-import { footerStyles as s } from "@/app/hubspot/styles/layout/footer";
-import Image from "next/image";
+import { footerStyles } from "@/styles/layout/footer";
 import Link from "next/link";
 
 export default function HubSpotFooter() {
   return (
-    <footer className={s.footer}>
-      <div className={s.container}>
-        <div className={s.leftCol}>
-          <Link href="/" className={s.logoLink}>
-            <div className={s.logoIconWrapper}>
-              <Image
-                src="/logos/ZylxyLogo.png"
-                alt="Zylxy Technologies Corporate Logo"
-                width={24}
-                height={24}
-                className="object-contain select-none shrink-0"
-              />
+    <footer id="hubspot-footer" className={footerStyles.footer}>
+      <div className={footerStyles.wrapper}>
+        
+        {/* Top Section */}
+        <div className={footerStyles.topSection}>
+          <div className={footerStyles.logoContainer}>
+            <div className={footerStyles.logoText}>
+              {footerData.company.name}
             </div>
-            <div className={s.textWrapper}>
-              <span className={s.brandTitle}>HubSpot CRM</span>
-              <span className={s.brandSubtitle}>CONSULTANT SPECIALIST</span>
+            <div className={footerStyles.legalText}>
+              {footerData.company.legal}
             </div>
-          </Link>
-          <p className={s.tagline}>{footerData.brand.tagline}</p>
+          </div>
+          <p className={footerStyles.descText}>{footerData.company.desc}</p>
         </div>
 
-        <div className={s.centerCol}>
-          <h4 className={s.linksTitle}>Quick Links</h4>
-          <div className={s.linksList}>
-            {footerData.quickLinks.map((link, idx) => (
-              <Link key={idx} href={link.href} className={s.linkItem}>
-                {link.label}
-              </Link>
+        {/* Middle Grid */}
+        <div className={footerStyles.grid}>
+          {footerData.columns.map((col) => (
+            <div key={col.title} className={footerStyles.colContainer}>
+              <div className={footerStyles.colTitle}>{col.title}</div>
+              {col.items.map((item) => (
+                <Link key={item.label} href={item.href} className={footerStyles.linkItem}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          ))}
+
+          {/* Contact Column */}
+          <div className={footerStyles.colContainer}>
+            <div className={footerStyles.colTitle}>
+              {footerData.contact.title}
+            </div>
+            {footerData.contact.items.map((item) => (
+              <a 
+                key={item.label} 
+                href={item.href} 
+                className={footerStyles.contactItem}
+                target={item.type === "external" ? "_blank" : undefined}
+                rel={item.type === "external" ? "noopener noreferrer" : undefined}
+              >
+                {item.label}
+              </a>
             ))}
           </div>
         </div>
 
-        <div className={s.rightCol}>
-          <h4 className={s.ctaTitle}>{footerData.cta.title}</h4>
-          <Link
-            href="/hubspot#consultation"
-            className={`${s.ctaButton} no-underline`}
-          >
-            {footerData.cta.buttonText}
-          </Link>
-        </div>
-      </div>
-
-      <div className={s.bottomBar}>
-        <div className={s.bottomContainer}>
-          <span className={s.copyText}>
-            © 2026 Zylxy Technologies. All rights reserved.
-          </span>
-          <div className={s.legalLinks}>
-            {footerData.legal.map((link, idx) => (
-              <Link key={idx} href={link.href} className={s.legalItem}>
-                {link.label}
-              </Link>
-            ))}
+        {/* Bottom Bar */}
+        <div className={footerStyles.bottomSection}>
+          <div className={footerStyles.copyright}>
+            {footerData.bottom.copyright}
+          </div>
+          <div className={footerStyles.bottomLinks}>
+             {/* If we had bottom links, they'd go here. Currently none in data, but kept structural placeholder */}
           </div>
         </div>
       </div>

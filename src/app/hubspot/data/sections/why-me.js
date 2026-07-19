@@ -32,13 +32,13 @@ export const whyMeData = {
         {
           title: "CRM Customization Bootcamp for Developers",
           issuer: "HubSpot Academy",
-          image: "/assets/director-certificate01.jpeg",
+          image: "/assets/hubspot/director-certificate01.jpeg",
           code: "511466d642d7478a966bbb02f2e59310",
         },
         {
           title: "RevOps Bootcamp Certification",
           issuer: "HubSpot Academy",
-          image: "/assets/director-certificate02.jpg",
+          image: "/assets/hubspot/director-certificate02.jpg",
           code: "685628512b9f49ec872896f96d0abdce",
         },
       ],

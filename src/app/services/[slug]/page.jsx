@@ -1,7 +1,9 @@
 "use client";
 
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
-import PageTransition from "@/components/ui/PageTransition";
+import { MotionContainer } from "@/components/motion/MotionContainer";
+import { MotionItem } from "@/components/motion/MotionItem";
+import { MotionGrid } from "@/components/motion/MotionGrid";
 import { servicesData } from "@/data/services/servicesData";
 import { servicesDetailsStyles as s } from "@/styles/services/servicesDetails";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
@@ -32,30 +34,29 @@ export default function ServiceDetailPage({ params }) {
   };
 
   return (
-    <PageTransition>
-      <main className={s.pageWrapper}>
-        <div className={s.bgGrid} />
-        <div className={s.radialGlow} />
+    <div className={s.pageWrapper}>
+      <div className={s.bgGrid} />
+      <div className={s.radialGlow} />
 
-        <div className={s.container}>
-          <div className={s.topHeader}>
-            <div className={s.titleContainer}>
-              <div className={s.pillWrapper}>
-                <div className={s.pillBar} />
-                <span className={s.pillText}>Service Architecture Profile</span>
-              </div>
-              <h1 className={s.mainTitle}>{service.title}</h1>
+      <MotionContainer className={s.container}>
+        <MotionItem direction="up" className={s.topHeader}>
+          <div className={s.titleContainer}>
+            <div className={s.pillWrapper}>
+              <div className={s.pillBar} />
+              <span className={s.pillText}>Service Architecture Profile</span>
             </div>
-            <Link href="/#services-section" className={s.backLink}>
-              <span className={s.backArrow}>←</span> Back to System Hub
-            </Link>
+            <h1 className={s.mainTitle}>{service.title}</h1>
           </div>
+          <Link href="/#services-section" className={s.backLink}>
+            <span className={s.backArrow}>←</span> Back to System Hub
+          </Link>
+        </MotionItem>
 
-          <div className={s.shellCard}>
-            <div className={s.mainGrid}>
-              <div className={s.mediaColumn}>
-                <img
-                  src={service.image || service.fallbackImage}
+        <div className={s.shellCard}>
+          <MotionGrid className={s.mainGrid}>
+            <MotionItem direction="left" className={s.mediaColumn}>
+              <img
+                src={service.image || service.fallbackImage}
                   alt={service.title}
                   className={s.mediaImage}
                 />
@@ -66,9 +67,9 @@ export default function ServiceDetailPage({ params }) {
                     Operational Core Ecosystem
                   </div>
                 </div>
-              </div>
+              </MotionItem>
 
-              <div className={s.contentColumn}>
+              <MotionItem direction="up" className={s.contentColumn}>
                 <div>
                   <div className={s.metaBadgeContainerWeb}>
                     <span className={s.metaBadgeDot} />
@@ -160,17 +161,16 @@ export default function ServiceDetailPage({ params }) {
                     <ArrowRight className={s.ctaBlockIcon} />
                   </button>
                 </div>
-              </div>
-            </div>
+              </MotionItem>
+            </MotionGrid>
 
             {service.projects && service.projects.length > 0 && (
-              <div className={s.showcaseWrapper}>
+              <MotionItem direction="up" className={s.showcaseWrapper}>
                 <PortfolioShowcase projects={service.projects} />
-              </div>
+              </MotionItem>
             )}
           </div>
-        </div>
-      </main>
-    </PageTransition>
+        </MotionContainer>
+      </div>
   );
 }

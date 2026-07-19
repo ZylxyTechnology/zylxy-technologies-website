@@ -7,33 +7,77 @@ export const footerData = {
   columns: [
     {
       title: "Build",
-      items: ["Web Development", "App Development", "Software Solutions"],
+      items: [
+        { label: "Web App Development", href: "/services/web-application-development" },
+        { label: "Mobile App Development", href: "/services/mobile-application-development" },
+        { label: "Custom Software", href: "/services/custom-software-development" },
+        { label: "Platform Engineering", href: "/services/application-support" },
+        { label: "UI/UX & Branding", href: "/services/ui-ux-design" },
+      ],
     },
     {
       title: "Grow",
       items: [
-        "IT Consulting",
-        "HubSpot CRM",
-        "Digital Marketing",
-        "UI/UX & Branding",
+        { label: "AI & Automation", href: "/services/ai-engineering-automation" },
+        { label: "HubSpot CRM", href: "/hubspot" },
+        { label: "Brand & Creative", href: "/services/brand-creative-design" },
+      ],
+    },
+    {
+      title: "Recruitment",
+      items: [
+        { label: "Talent Acquisition", href: "/careers/recruitment-services/talent-acquisition" },
+        { label: "Campus Recruitment", href: "/careers/recruitment-services/campus-recruitment" },
       ],
     },
     {
       title: "Learn",
-      items: ["Training & Courses", "Certifications", "Placement Support"],
+      items: [
+        { label: "Corporate Training", href: "/services/corporate-training" },
+        { label: "Academic Partnerships", href: "/services/academic-partnerships" },
+        { label: "Placement Assistance", href: "/services/placement-assistance" },
+        { label: "Knowledge Base", href: "/#faq-section" },
+      ],
     },
+    {
+      title: "Company",
+      items: [
+        { label: "Leadership", href: "/#leadership-section" },
+        { label: "Careers", href: "/careers/recruitment-services/talent-acquisition" },
+        { label: "Contact Us", href: "/#LeadGen" },
+      ],
+    },
+    {
+      title: "Legal & Trust",
+      items: [
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Terms of Service", href: "/terms-of-service" },
+        { label: "Cookie Policy", href: "/cookie-policy" },
+        { label: "Acceptable Use", href: "/acceptable-use" },
+        { label: "Trust Center", href: "/trust" },
+      ],
+    }
   ],
-  contact: {
-    title: "Contact",
+  social: {
+    title: "Social",
     items: [
-      "HSR Layout, Bangalore 560102",
-      "zylxytechnologies@gmail.com",
-      "+91 9108 703 123",
+      { label: "LinkedIn", href: "https://linkedin.com", type: "external" },
+      { label: "Facebook", href: "https://facebook.com", type: "external" },
+      { label: "Behance", href: "https://behance.net", type: "external" },
+      { label: "Gmail", href: "mailto:zylxytechnologies@gmail.com", type: "external" },
+      { label: "WhatsApp", href: "https://wa.me/919108703123", type: "external" },
+    ],
+  },
+  contact: {
+    title: "Reach Us",
+    items: [
+      { label: "HSR Layout, Bangalore 560102", href: "https://maps.google.com/?q=HSR+Layout+Bangalore", type: "external" },
+      { label: "zylxytechnologies@gmail.com", href: "mailto:zylxytechnologies@gmail.com", type: "email" },
+      { label: "+91 9108 703 123", href: "tel:+919108703123", type: "tel" },
     ],
   },
   bottom: {
-    copyright:
-      "© 2025 Zylxy Technologies Private Limited. All rights reserved.",
-    links: ["Privacy Policy", "Terms of Service"],
+    copyright: "© 2026 Zylxy Technologies Private Limited. All rights reserved.",
   },
 };
+

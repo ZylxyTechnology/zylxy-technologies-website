@@ -1,36 +1,48 @@
+import { Container } from "@/components/layout/core/Container";
+import { Section } from "@/components/layout/core/Section";
+import { MotionContainer } from "@/components/motion/MotionContainer";
+import { MotionItem } from "@/components/motion/MotionItem";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 import { heroData } from "@/data/sections/heroData";
 import { heroStyles } from "@/styles/sections/hero";
 import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className={heroStyles.section}>
+    <Section className={heroStyles.section}>
       <div className={heroStyles.atmosphereGlow} />
       <div className={heroStyles.gridOverlay} />
 
-      <div className={heroStyles.wrapper}>
-        <div className={heroStyles.leftColumn}>
-          <div className={heroStyles.badgeContainer}>
+      <Container className={heroStyles.wrapper}>
+        <MotionContainer className={heroStyles.leftColumn} staggerChildren={0.1} delayChildren={0.15}>
+          <MotionItem direction="up" className={heroStyles.badgeContainer}>
             <div className={heroStyles.badgeDot} />
             <span className={heroStyles.badgeText}>{heroData.badge}</span>
-          </div>
+          </MotionItem>
 
-          <h1 className={heroStyles.heading}>
-            {heroData.heading.textBefore}
-            <span className={heroStyles.headingGradient}>
-              {heroData.heading.gradientText}
-            </span>
-            {heroData.heading.textAfter}
-          </h1>
+          <MotionItem direction="up">
+            <h1 className={heroStyles.heading}>
+              {heroData.heading.textBefore}
+              <span className={heroStyles.headingGradient}>
+                {heroData.heading.gradientText}
+              </span>
+              {heroData.heading.textAfter}
+            </h1>
+          </MotionItem>
 
-          <p className={heroStyles.descPrimary}>
-            {heroData.descriptionPrimary}
-          </p>
-          <p className={heroStyles.descSecondary}>
-            {heroData.descriptionSecondary}
-          </p>
+          <MotionItem direction="fade">
+            <p className={heroStyles.descPrimary}>
+              {heroData.descriptionPrimary}
+            </p>
+          </MotionItem>
+          
+          <MotionItem direction="fade">
+            <p className={heroStyles.descSecondary}>
+              {heroData.descriptionSecondary}
+            </p>
+          </MotionItem>
 
-          <div className={heroStyles.btnGroup}>
+          <MotionItem direction="up" className={heroStyles.btnGroup}>
             <Link
               href="/#LeadGen"
               className={`${heroStyles.primaryBtn} no-underline inline-flex items-center justify-center text-center`}
@@ -43,9 +55,9 @@ export default function Hero() {
             >
               {heroData.buttons.secondary}
             </Link>
-          </div>
+          </MotionItem>
 
-          <div className={heroStyles.statsGrid}>
+          <MotionItem direction="up" className={heroStyles.statsGrid}>
             {heroData.stats.map((item, idx) => (
               <div key={idx} className={heroStyles.statsCard}>
                 <div className={heroStyles.statsValue}>{item.value}</div>
@@ -53,25 +65,26 @@ export default function Hero() {
                 <div className={heroStyles.statsNote}>{item.note}</div>
               </div>
             ))}
-          </div>
-        </div>
+          </MotionItem>
+        </MotionContainer>
 
-        <div className={heroStyles.rightColumn}>
+        <MotionReveal direction="scale" delay={0.2} className={heroStyles.rightColumn}>
           <div className={heroStyles.orbContainerWrapper}>
             <div className={heroStyles.orbContainer}>
               <div
                 className={heroStyles.orbRingOuter}
-                style={{ animationDelay: "0s" }}
+                style={{ animationDelay: "0ms" }}
               />
               <div
                 className={heroStyles.orbRingMid}
-                style={{ animationDelay: "-2.5s" }}
+                style={{ animationDelay: "200ms" }}
               />
               <div
                 className={heroStyles.orbRingInner}
-                style={{ animationDelay: "-5s" }}
+                style={{ animationDelay: "400ms" }}
               />
               <div className={heroStyles.orbGlowCore} />
+              <div className={heroStyles.orbCenterNode} />
 
               <svg
                 className={heroStyles.svgCanvas}
@@ -412,13 +425,13 @@ export default function Hero() {
               </svg>
             </div>
           </div>
-        </div>
-      </div>
+        </MotionReveal>
+      </Container>
 
-      <div className={heroStyles.scrollIndicator}>
+      <MotionItem direction="up" delay={1.3} className={heroStyles.scrollIndicator}>
         <span className={heroStyles.scrollText}>SCROLL</span>
         <div className={heroStyles.scrollBar} />
-      </div>
-    </section>
+      </MotionItem>
+    </Section>
   );
 }

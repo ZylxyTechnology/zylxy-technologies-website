@@ -1,7 +1,13 @@
 "use client";
 
+import { Container } from "@/components/layout/core/Container";
+import { Section } from "@/components/layout/core/Section";
+import { MotionContainer } from "@/components/motion/MotionContainer";
+import { MotionItem } from "@/components/motion/MotionItem";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 import { testimonialsData } from "@/data/sections/testimonialsData";
 import { testimonialsStyles } from "@/styles/sections/testimonials";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function TestimonialsSection() {
@@ -73,10 +79,10 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials-section" className={testimonialsStyles.section}>
-      <div className={testimonialsStyles.wrapper}>
-        <div className={testimonialsStyles.headerRow}>
-          <div className={testimonialsStyles.titleArea}>
+    <Section id="testimonials-section" className={testimonialsStyles.section}>
+      <Container className={testimonialsStyles.wrapper}>
+        <MotionContainer className={testimonialsStyles.headerRow}>
+          <MotionItem direction="up" className={testimonialsStyles.titleArea}>
             <div className={testimonialsStyles.pillLine}>
               <div className={testimonialsStyles.pillLineBar} />
               <span className={testimonialsStyles.pillText}>
@@ -86,23 +92,38 @@ export default function TestimonialsSection() {
             <h2 className={testimonialsStyles.mainHeading}>
               {testimonialsData.header.mainHeading}
             </h2>
-          </div>
-          <p className={testimonialsStyles.subHeading}>
-            {testimonialsData.header.subHeading}
-          </p>
-        </div>
+          </MotionItem>
+          <MotionItem direction="left">
+            <p className={testimonialsStyles.subHeading}>
+              {testimonialsData.header.subHeading}
+            </p>
+          </MotionItem>
+        </MotionContainer>
 
-        <div
+        <MotionReveal
+          direction="fade"
+          delay={0.2}
           className={testimonialsStyles.carouselWrapper}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div
+          <motion.div
             className={testimonialsStyles.carouselTrack}
-            style={{
-              transform: `translateX(${getTranslateX()})`,
+            drag="x"
+            dragConstraints={{ right: 0, left: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = offset.x;
+              if (swipe < -50) {
+                handleNext();
+              } else if (swipe > 50) {
+                handlePrev();
+              }
             }}
+            animate={{ x: getTranslateX() }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            style={{ width: "100%", x: 0 }}
           >
             {testimonialsData.testimonials.map((t, idx) => (
               <div key={idx} className={testimonialsStyles.carouselSlide}>
@@ -125,8 +146,8 @@ export default function TestimonialsSection() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </MotionReveal>
 
         <div className={testimonialsStyles.navigationControls}>
           <div className={testimonialsStyles.dotsContainer}>
@@ -163,7 +184,7 @@ export default function TestimonialsSection() {
             </button>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

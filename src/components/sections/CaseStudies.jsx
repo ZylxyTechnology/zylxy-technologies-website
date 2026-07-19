@@ -1,5 +1,7 @@
 "use client";
 
+import { Container } from "@/components/layout/core/Container";
+import { Section } from "@/components/layout/core/Section";
 import { caseStudiesData } from "@/data/sections/caseStudiesData";
 import { caseStudiesStyles as s } from "@/styles/sections/caseStudies";
 import { useEffect, useRef, useState } from "react";
@@ -73,8 +75,8 @@ export default function CaseStudiesSection() {
   };
 
   return (
-    <section id="case-studies-section" className={s.section}>
-      <div className={s.wrapper}>
+    <Section id="case-studies-section" className={s.section}>
+      <Container className={s.wrapper}>
         <div className={s.headerRow}>
           <div className={s.titleArea}>
             <div className={s.pillLine}>
@@ -143,8 +145,8 @@ export default function CaseStudiesSection() {
             </button>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 

@@ -53,7 +53,7 @@ export const servicesStyles = {
   tagBox: "flex gap-1.5 flex-wrap mt-auto pt-3.5 border-t border-slate-100",
   tagItem:
     "text-[10px] font-semibold font-inter px-2.5 py-1 rounded-full border bg-slate-50 text-slate-600 border-slate-200 transition-colors duration-300 group-hover:border-[#BFDBFE] group-hover:bg-blue-50 group-hover:text-[#2563EB]",
-  detailPageWrapper: "min-h-screen bg-[#F0F4FF] pt-28 pb-24 px-8",
+  detailPageWrapper: "min-h-screen bg-[#F0F4FF]",
   detailTopNav:
     "flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4",
   detailShell:

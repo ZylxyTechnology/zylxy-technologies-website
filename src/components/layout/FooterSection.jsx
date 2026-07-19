@@ -2,6 +2,7 @@
 
 import { footerData } from "@/data/layout/footerData";
 import { footerStyles } from "@/styles/layout/footer";
+import Link from "next/link";
 
 export default function FooterSection() {
   return (
@@ -26,21 +27,47 @@ export default function FooterSection() {
             <div key={col.title} className={footerStyles.colContainer}>
               <div className={footerStyles.colTitle}>{col.title}</div>
               {col.items.map((item) => (
-                <div key={item} className={footerStyles.linkItem}>
-                  {item}
-                </div>
+                <Link key={item.label} href={item.href} className={footerStyles.linkItem}>
+                  {item.label}
+                </Link>
               ))}
             </div>
           ))}
+
+          {/* Social Column */}
+          {footerData.social && (
+            <div className={footerStyles.colContainer}>
+              <div className={footerStyles.colTitle}>
+                {footerData.social.title}
+              </div>
+              {footerData.social.items.map((item) => (
+                <a 
+                  key={item.label} 
+                  href={item.href} 
+                  className={footerStyles.linkItem}
+                  target={item.type === "external" ? "_blank" : undefined}
+                  rel={item.type === "external" ? "noopener noreferrer" : undefined}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
 
           <div className={footerStyles.colContainer}>
             <div className={footerStyles.colTitle}>
               {footerData.contact.title}
             </div>
             {footerData.contact.items.map((item) => (
-              <div key={item} className={footerStyles.contactItem}>
-                {item}
-              </div>
+              <a 
+                key={item.label} 
+                href={item.href} 
+                className={footerStyles.contactItem}
+                target={item.type === "external" ? "_blank" : undefined}
+                rel={item.type === "external" ? "noopener noreferrer" : undefined}
+              >
+                {item.label}
+              </a>
             ))}
           </div>
         </div>
@@ -51,10 +78,10 @@ export default function FooterSection() {
             {footerData.bottom.copyright}
           </div>
           <div className={footerStyles.bottomLinks}>
-            {footerData.bottom.links.map((link) => (
-              <span key={link} className={footerStyles.bottomLinkItem}>
-                {link}
-              </span>
+            {footerData.bottom.links?.map((link) => (
+              <Link key={link.label} href={link.href} className={footerStyles.bottomLinkItem}>
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>

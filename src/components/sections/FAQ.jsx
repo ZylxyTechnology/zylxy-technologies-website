@@ -1,5 +1,10 @@
 "use client";
 
+import { Container } from "@/components/layout/core/Container";
+import { Section } from "@/components/layout/core/Section";
+import { MotionReveal } from "@/components/motion/MotionReveal";
+import { MotionContainer } from "@/components/motion/MotionContainer";
+import { MotionItem } from "@/components/motion/MotionItem";
 import { faqData } from "@/data/sections/faqData";
 import { faqStyles } from "@/styles/sections/faq";
 import { useState } from "react";
@@ -8,27 +13,31 @@ export default function FaqSection() {
   const [openIdx, setOpenIdx] = useState(null);
 
   return (
-    <section id="faq-section" className={faqStyles.section}>
-      <div className={faqStyles.wrapper}>
-        <div className={faqStyles.headerContainer}>
-          <div className={faqStyles.pillWrapper}>
-            <div className={faqStyles.pillLineBar} />
-            <span className={faqStyles.pillText}>
-              {faqData.header.pillText}
-            </span>
+    <Section id="faq-section" className={faqStyles.section}>
+      <Container>
+        <div className={faqStyles.wrapper}>
+        <MotionReveal direction="up">
+          <div className={faqStyles.headerContainer}>
+            <div className={faqStyles.pillWrapper}>
+              <div className={faqStyles.pillLineBar} />
+              <span className={faqStyles.pillText}>
+                {faqData.header.pillText}
+              </span>
+            </div>
+            <h2 className={faqStyles.mainHeading}>
+              {faqData.header.mainHeading}
+            </h2>
+            <p className={faqStyles.subHeading}>{faqData.header.subHeading}</p>
           </div>
-          <h2 className={faqStyles.mainHeading}>
-            {faqData.header.mainHeading}
-          </h2>
-          <p className={faqStyles.subHeading}>{faqData.header.subHeading}</p>
-        </div>
+        </MotionReveal>
 
-        <div className={faqStyles.listContainer}>
+        <MotionContainer staggerChildren={0.05} className={faqStyles.listContainer}>
           {faqData.faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
 
             return (
-              <div
+              <MotionItem
+                direction="fade"
                 key={idx}
                 className={`${faqStyles.itemContainer} ${isOpen ? faqStyles.itemContainerOpen : faqStyles.itemContainerClosed}`}
               >
@@ -60,11 +69,12 @@ export default function FaqSection() {
                     {faq.a}
                   </p>
                 </div>
-              </div>
+              </MotionItem>
             );
           })}
+        </MotionContainer>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

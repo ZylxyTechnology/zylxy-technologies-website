@@ -44,6 +44,7 @@ export const servicesData = {
       image: "/assets/services/webDevelopment.jpg",
       fallbackImage:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
+      featured: true,
       tags: ["React", "Next.js", "Node.js", "E-commerce"],
       features: [
         "Corporate & business websites",
@@ -224,6 +225,7 @@ export const servicesData = {
       image: "/assets/services/softwareSolutions.jpg",
       fallbackImage:
         "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=800",
+      featured: true,
       tags: ["Machine Learning", "Workflow", "LLMs"],
       features: [
         "Process Automation",
@@ -282,6 +284,7 @@ export const servicesData = {
       image: "/assets/services/trainingCourses.jpg",
       fallbackImage:
         "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=800",
+      featured: true,
       tags: ["Tech Hiring", "Executive Search", "Screening"],
       features: [
         "Candidate Sourcing",
@@ -339,6 +342,7 @@ export const servicesData = {
       image: "/assets/services/trainingCourses.jpg",
       fallbackImage:
         "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
+      featured: true,
       tags: ["Upskilling", "Workshops", "Tech Stack"],
       features: [
         "Custom Curriculum",

@@ -170,6 +170,13 @@ export const NAVBAR_DATA = {
           ],
         },
       ],
+      featured: {
+        title: "Enterprise HubSpot Implementation",
+        desc: "Transform your operations with a properly architected CRM. Automate pipelines, cleanse data, and align sales with marketing.",
+        ctaLabel: "View Case Study",
+        ctaHref: "/hubspot",
+        tag: "Featured Solution"
+      }
     },
     {
       label: "Industries",

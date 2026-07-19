@@ -9,7 +9,7 @@ import ServicesPage from "./services/page";
 
 export default function Home() {
   return (
-    <main>
+    <div className="w-full min-h-screen flex flex-col">
       <Hero />
       <ClientsSection />
       <FormProvider>
@@ -19,6 +19,6 @@ export default function Home() {
       <TestimonialsSection />
       <FaqSection />
       <LeadForm />
-    </main>
+    </div>
   );
 }

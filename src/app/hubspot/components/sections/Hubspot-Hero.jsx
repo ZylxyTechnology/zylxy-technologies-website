@@ -3,42 +3,36 @@
 import { heroData as hero } from "@/app/hubspot/data/sections/heroData";
 import { heroStyles as s } from "@/app/hubspot/styles/sections/hero";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { MotionContainer } from "@/components/motion/MotionContainer";
+import { MotionItem } from "@/components/motion/MotionItem";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 
 export default function Hero() {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setLoaded(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
-  const loadedClass = loaded ? "loaded" : "";
-
   return (
-    <section
-      id="hero"
-      className={`${s.section} ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-500 ease-out`}
-    >
+    <section id="hero" className={s.section}>
       <div className={s.container}>
-        <div
-          className={`${s.leftCol} ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} transition-all duration-500 ease-out`}
+        <MotionContainer
+          className={s.leftCol}
         >
-          <span className={s.badge}>
+          <MotionItem direction="up" className={s.badge}>
             <span className={s.badgeDot} />
             {hero.badge}
-          </span>
+          </MotionItem>
 
-          <h1 className={s.h1}>HubSpot Consultant</h1>
-          <h2 className={s.h2Sub}>
-            {hero.headingBefore}
-            {hero.headingAccent}
-            {hero.headingAfter}
-          </h2>
+          <MotionItem direction="up">
+            <h1 className={s.h1}>HubSpot Consultant</h1>
+            <h2 className={s.h2Sub}>
+              {hero.headingBefore}
+              {hero.headingAccent}
+              {hero.headingAfter}
+            </h2>
+          </MotionItem>
 
-          <p className={s.description}>{hero.description}</p>
+          <MotionItem direction="fade">
+            <p className={s.description}>{hero.description}</p>
+          </MotionItem>
 
-          <div className={s.btnRow}>
+          <MotionItem direction="up" className={s.btnRow}>
             <Link
               href="/hubspot#consultation"
               className={`${s.primaryBtn} no-underline inline-block text-center`}
@@ -51,9 +45,9 @@ export default function Hero() {
             >
               See my work
             </Link>
-          </div>
+          </MotionItem>
 
-          <div className={s.trustRow}>
+          <MotionItem direction="fade" className={s.trustRow}>
             {hero.trustMicroSignals.map((signal, i) => (
               <span key={i} className={s.trustItem}>
                 {i > 0 && <span className={s.trustDot} />}
@@ -61,13 +55,15 @@ export default function Hero() {
                 {signal}
               </span>
             ))}
-          </div>
-        </div>
+          </MotionItem>
+        </MotionContainer>
 
-        <div
-          className={`${s.rightCol} ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} transition-all duration-500 ease-out`}
+        <MotionReveal
+          direction="fade"
+          delay={0.2}
+          className={s.rightCol}
         >
-          <div className={`${s.mockupWrapper} ${loadedClass}`}>
+          <div className={s.mockupWrapper}>
             <div className={s.circleBg} />
 
             <div className={s.floatingBadges}>
@@ -85,7 +81,7 @@ export default function Hero() {
                 <div className={s.contactRow}>
                   <div className={s.contactAvatar}>
                     <img
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80"
+                      src="/logos/co-founder.jpg"
                       alt={hero.contactCard.name}
                       className={s.avatarImage}
                     />
@@ -171,8 +167,7 @@ export default function Hero() {
                       stroke="#FF7A59"
                       strokeWidth="4"
                       strokeDasharray="100"
-                      strokeDashoffset={loaded ? "35" : "100"}
-                      className="transition-all duration-1000 ease-out delay-150"
+                      strokeDashoffset="35"
                     />
                   </svg>
                 </div>
@@ -195,7 +190,7 @@ export default function Hero() {
               <div className={s.starSmall}>✦</div>
             </div>
           </div>
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );

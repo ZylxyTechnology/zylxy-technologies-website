@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${inter.variable} ${plusJakartaSans.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-[#050e21]">
+      <body className="min-h-screen flex flex-col bg-background text-foreground">
         {/* All client logic, animations, and conditional routing is handled securely inside the wrapper */}
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>

@@ -1,27 +1,27 @@
 export const heroStyles = {
   section:
-    "relative min-h-[100svh] lg:min-h-screen bg-[#050E21] flex flex-col justify-center pt-20 sm:pt-24 lg:pt-32 pb-16 sm:pb-24 lg:pb-32 px-6 lg:px-8 overflow-hidden",
+    "min-h-[100svh] lg:min-h-screen flex flex-col justify-center !py-0",
   atmosphereGlow:
     "absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_65%_at_72%_50%,rgba(37,99,235,0.18)_0%,transparent_65%),radial-gradient(ellipse_40%_40%_at_88%_78%,rgba(6,182,212,0.09)_0%,transparent_55%)]",
   gridOverlay:
     "absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(37,99,235,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.055)_1px,transparent_1px)] bg-[size:52px_52px]",
   wrapper:
-    "max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10",
+    "grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10",
   leftColumn:
-    "lg:col-span-7 flex flex-col items-start text-left mt-4 sm:mt-8 lg:mt-0",
+    "lg:col-span-6 flex flex-col items-start text-left mt-4 sm:mt-8 lg:mt-0",
   rightColumn:
-    "hidden lg:flex lg:col-span-5 relative justify-center items-center h-[500px] w-full pointer-events-none",
+    "hidden lg:flex lg:col-span-6 relative justify-center items-center h-[600px] w-full pointer-events-none",
   badgeContainer:
     "inline-flex items-center gap-2 bg-[#2563EB]/15 border border-[#2563EB]/30 rounded-full px-4 py-1.5 mb-4 sm:mb-6 lg:mb-8",
   badgeDot: "w-1.5 h-1.5 rounded-full bg-[#06B6D4] shadow-[0_0_8px_#06b6d4]",
   badgeText:
     "text-[11px] font-semibold font-inter text-white/70 tracking-widest uppercase",
   heading:
-    "font-syne font-extrabold text-[32px] sm:text-5xl md:text-6xl text-white tracking-tighter leading-[1.05] mb-6 max-w-2xl",
+    "font-syne font-extrabold text-[32px] sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.05] mb-6 max-w-xl",
   headingGradient:
-    "bg-gradient-to-r from-[#60A5FA] to-[#06B6D4] bg-clip-text text-transparent inline-block",
+    "bg-gradient-to-r from-[#60A5FA] to-[#06B6D4] bg-clip-text text-transparent inline-block drop-shadow-[0_0_15px_rgba(96,165,250,0.3)]",
   descPrimary:
-    "text-[15px] sm:text-[16px] lg:text-[17px] text-white/60 font-inter leading-relaxed max-w-lg mb-3.5",
+    "text-[15px] sm:text-[16px] lg:text-[17px] text-white/60 font-inter leading-relaxed max-w-md pr-4 mb-4",
   descSecondary:
     "text-[12px] sm:text-[13px] text-white/30 font-inter tracking-wide mb-6 sm:mb-8 lg:mb-11",
   btnGroup:
