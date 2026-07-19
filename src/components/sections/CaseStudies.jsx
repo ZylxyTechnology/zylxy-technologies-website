@@ -118,11 +118,15 @@ export default function CaseStudiesSection() {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`${s.dot} ${
-                  currentIndex === idx ? s.dotActive : s.dotInactive
-                }`}
+                className="relative flex items-center justify-center min-w-[48px] min-h-[48px] group focus:outline-none"
                 aria-label={`Go to slide group ${idx + 1}`}
-              />
+              >
+                <span
+                  className={`${s.dot} ${
+                    currentIndex === idx ? s.dotActive : s.dotInactive
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

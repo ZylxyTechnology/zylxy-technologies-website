@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { heroData as hero } from "@/app/hubspot/data/sections/heroData";
 import { heroStyles as s } from "@/app/hubspot/styles/sections/hero";
@@ -6,8 +7,15 @@ import Link from "next/link";
 import { MotionContainer } from "@/components/motion/MotionContainer";
 import { MotionItem } from "@/components/motion/MotionItem";
 import { MotionReveal } from "@/components/motion/MotionReveal";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
     <section id="hero" className={s.section}>
       <div className={s.container}>
@@ -63,7 +71,7 @@ export default function Hero() {
           delay={0.2}
           className={s.rightCol}
         >
-          <div className={s.mockupWrapper}>
+          <div className={`${s.mockupWrapper} ${isLoaded ? "loaded" : ""}`}>
             <div className={s.circleBg} />
 
             <div className={s.floatingBadges}>
@@ -80,10 +88,12 @@ export default function Hero() {
                 </div>
                 <div className={s.contactRow}>
                   <div className={s.contactAvatar}>
-                    <img
+                    <Image
                       src="/logos/co-founder.jpg"
                       alt={hero.contactCard.name}
                       className={s.avatarImage}
+                      width={64}
+                      height={64}
                     />
                   </div>
                   <div className={s.contactInfo}>

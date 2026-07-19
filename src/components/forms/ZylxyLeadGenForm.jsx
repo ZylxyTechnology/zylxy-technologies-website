@@ -164,7 +164,7 @@ export default function ZylxyLeadGenForm() {
 
                 <div className={s.grid}>
                   <div className={s.inputGroup}>
-                    <label className={state?.errors?.name ? s.labelError : s.label}>
+                    <label htmlFor="name" className={state?.errors?.name ? s.labelError : s.label}>
                       Full Name *
                     </label>
                     <div className={s.inputWrapper}>
@@ -174,6 +174,7 @@ export default function ZylxyLeadGenForm() {
                       <input
                         type="text"
                         name="name"
+                        id="name"
                         defaultValue={state?.payload?.name || ""}
                         placeholder="Your full name"
                         className={`${s.input} ${state?.errors?.name ? s.inputErrorClass : ""}`}
@@ -188,7 +189,7 @@ export default function ZylxyLeadGenForm() {
                   </div>
 
                   <div className={s.inputGroup}>
-                    <label
+                    <label htmlFor="email"
                       className={state?.errors?.email ? s.labelError : s.label}
                     >
                       Email Address *
@@ -198,8 +199,9 @@ export default function ZylxyLeadGenForm() {
                         className={`${s.inputIcon} ${state?.errors?.email ? s.inputIconError : ""}`}
                       />
                       <input
-                        type="text"
+                        type="email"
                         name="email"
+                        id="email"
                         defaultValue={state?.payload?.email || ""}
                         placeholder="you@company.com"
                         className={`${s.input} ${state?.errors?.email ? s.inputErrorClass : ""}`}
@@ -214,7 +216,7 @@ export default function ZylxyLeadGenForm() {
                   </div>
 
                   <div className={s.inputGroup}>
-                    <label
+                    <label htmlFor="phone"
                       className={state?.errors?.phone ? s.labelError : s.label}
                     >
                       Phone Number *
@@ -275,6 +277,7 @@ export default function ZylxyLeadGenForm() {
                       <input
                         type="tel"
                         name="phone"
+                        id="phone"
                         defaultValue={state?.payload?.phone || ""}
                         placeholder="Verification contact sequence"
                         className={s.phoneInput}
@@ -289,7 +292,7 @@ export default function ZylxyLeadGenForm() {
                   </div>
 
                   <div className={s.inputGroup}>
-                    <label
+                    <label htmlFor="service"
                       className={state?.errors?.service ? s.labelError : s.label}
                     >
                       Service Needed *
@@ -297,6 +300,7 @@ export default function ZylxyLeadGenForm() {
                     <div className={s.selectWrapper}>
                       <select
                         name="service"
+                        id="service"
                         value={selectedService}
                         onChange={(e) => setSelectedService(e.target.value)}
                         className={`${s.select} ${state?.errors?.service ? s.inputErrorClass : ""}`}
@@ -327,12 +331,13 @@ export default function ZylxyLeadGenForm() {
                   </div>
 
                   <div className={s.inputGroup}>
-                    <label className={s.label}>Organization Name</label>
+                    <label htmlFor="orgName" className={s.label}>Organization Name</label>
                     <div className={s.inputWrapper}>
                       <Building2 className={s.inputIcon} />
                       <input
                         type="text"
                         name="orgName"
+                        id="orgName"
                         defaultValue={state?.payload?.orgName || ""}
                         placeholder="Your Company"
                         className={s.input}
@@ -341,10 +346,11 @@ export default function ZylxyLeadGenForm() {
                   </div>
 
                   <div className={s.inputGroup}>
-                    <label className={s.label}>Organization Type</label>
+                    <label htmlFor="orgType" className={s.label}>Organization Type</label>
                     <div className={s.selectWrapper}>
                       <select
                         name="orgType"
+                        id="orgType"
                         defaultValue={
                           state?.payload?.orgType || d.organizationTypes[0]
                         }
@@ -366,11 +372,12 @@ export default function ZylxyLeadGenForm() {
 
                 <div className={s.fullWidthField}>
                   <div className={s.inputGroup}>
-                    <label className={s.label}>Tell us about your project</label>
+                    <label htmlFor="message" className={s.label}>Tell us about your project</label>
                     <div className={s.inputWrapper}>
                       <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#A3B1CC] pointer-events-none" />
                       <textarea
                         name="message"
+                        id="message"
                         defaultValue={state?.payload?.message || ""}
                         placeholder="Describe your project, goals, and core system tracking architecture layouts..."
                         className={s.textarea}
@@ -383,17 +390,17 @@ export default function ZylxyLeadGenForm() {
                 <div className={s.complianceBlock}>
                   <div
                     className={s.complianceRow}
-                    onClick={() => setConsentComm(!consentComm)}
                   >
                     <input
                       type="checkbox"
+                      id="consentComm"
                       checked={consentComm}
-                      readOnly
+                      onChange={() => setConsentComm(!consentComm)}
                       className={s.complianceInput}
                     />
-                    <span className={s.complianceLabel}>
+                    <label htmlFor="consentComm" className={s.complianceLabel}>
                       I agree to receive communications from Zylxy Technologies.
-                    </span>
+                    </label>
                   </div>
                   {state?.errors?.consentCommunications && (
                     <div className={s.errorText}>
@@ -404,18 +411,18 @@ export default function ZylxyLeadGenForm() {
 
                   <div
                     className={s.complianceRow}
-                    onClick={() => setConsentProc(!consentProc)}
                   >
                     <input
                       type="checkbox"
+                      id="consentProc"
                       checked={consentProc}
-                      readOnly
+                      onChange={() => setConsentProc(!consentProc)}
                       className={s.complianceInput}
                     />
-                    <span className={s.complianceLabel}>
+                    <label htmlFor="consentProc" className={s.complianceLabel}>
                       I agree to allow Zylxy Technologies to capture and process
                       personal data fields. *
-                    </span>
+                    </label>
                   </div>
                   {state?.errors?.consentProcessing && (
                     <div className={s.errorText}>

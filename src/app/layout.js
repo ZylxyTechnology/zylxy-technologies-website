@@ -6,18 +6,47 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
+  display: 'swap',
 });
 
-// Because this is now a Server Component, you can utilize the Metadata API for SEO
+// Full Enterprise SEO Metadata Architecture
 export const metadata = {
-  title: "Zylxy Technologies | Engineered for Digital Scale",
-  description:
-    "Enterprise software, AI solutions, and modern digital platforms.",
+  metadataBase: new URL('https://zylxy.com'),
+  title: {
+    default: "Zylxy Technologies | Engineered for Digital Scale",
+    template: "%s | Zylxy Technologies",
+  },
+  description: "Enterprise software, AI solutions, and modern digital platforms built for scale.",
+  openGraph: {
+    title: "Zylxy Technologies | Engineered for Digital Scale",
+    description: "Enterprise software, AI solutions, and modern digital platforms built for scale.",
+    url: "https://zylxy.com",
+    siteName: "Zylxy Technologies",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zylxy Technologies",
+    description: "Enterprise software, AI solutions, and modern digital platforms built for scale.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }) {

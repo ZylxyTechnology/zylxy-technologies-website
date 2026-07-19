@@ -34,7 +34,7 @@ export default function Navbar() {
     >
       <div className={n.navContainer}>
         <div className={n.innerWrapper}>
-          <Link href="/" className={n.logoSection}>
+          <Link href="/" className={n.logoSection} aria-label="Zylxy Technologies Home">
             <div className={n.logoBox}>
               <Image
                 src="/logos/ZylxyLogo.png"
@@ -71,7 +71,7 @@ export default function Navbar() {
                           <div className={n.servicesGrid}>
                             {item.pillars.map((pillar, pIdx) => (
                               <div key={pIdx} className={n.pillarCol}>
-                                <h4 className={n.pillarHeading}>{pillar.title}</h4>
+                                <div className={n.pillarHeading}>{pillar.title}</div>
                                 {pillar.items.map((subItem, sIdx) => {
                                   const SubIcon = subItem.icon;
                                   return (
@@ -102,9 +102,9 @@ export default function Navbar() {
                             <span className={n.featuredTag}>
                               {item.featured.tag}
                             </span>
-                            <h3 className={n.featuredTitle}>
+                            <div className={n.featuredTitle}>
                               {item.featured.title}
-                            </h3>
+                            </div>
                             <p className={n.featuredDesc}>
                               {item.featured.desc}
                             </p>
@@ -145,7 +145,7 @@ export default function Navbar() {
                                 <IndIcon className="w-4.5 h-4.5 stroke-[1.5]" />
                               </div>
                               <div className={n.industryMeta}>
-                                <h4 className={n.industryTitle}>{ind.name}</h4>
+                                <div className={n.industryTitle}>{ind.name}</div>
                                 <p className={n.industryDesc}>{ind.desc}</p>
                               </div>
                             </Link>
@@ -185,6 +185,8 @@ export default function Navbar() {
           <button
             className={n.mobileMenuBtn}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <X className="w-5 h-5 text-white" />

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { packagesData } from "@/app/hubspot/data/packages/packageData";
 import { packageDetailStyles as s } from "@/app/hubspot/styles/packages/packageDetail";
 import {
@@ -14,9 +15,19 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "starter" },
+    { slug: "growth" },
+    { slug: "custom" },
+    { slug: "flexible" },
+  ];
+}
+
 export default async function PackagePage({ params }) {
-  const { slug } = await params;
-  const packageDetail = packagesData[slug.toLowerCase()];
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+  const packageDetail = packagesData[slug?.toLowerCase()];
 
   if (!packageDetail) {
     notFound();
@@ -48,10 +59,13 @@ export default async function PackagePage({ params }) {
               <span className={s.imageCardBadge}>Live Portal Output</span>
             </div>
             <div className={s.imageFrame}>
-              <img
+              <Image
                 src={packageDetail.imagePath}
                 alt={`${packageDetail.title} Environment Preview`}
                 className={s.imageElement}
+                width={800}
+                height={500}
+                priority
               />
             </div>
           </div>

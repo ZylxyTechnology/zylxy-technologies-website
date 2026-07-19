@@ -18,7 +18,7 @@ export default function HubSpotFeaturedProjects() {
             const Icon = project.icon;
 
             return (
-              <div key={idx} className={s.card}>
+              <div key={idx} id={project.id} className={s.card}>
                 <div className={s.cardContent}>
                   <div className={s.iconWrapper}>
                     <Icon className="w-4 h-4" />

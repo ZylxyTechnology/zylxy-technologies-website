@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { whyMeData } from "@/app/hubspot/data/sections/why-me";
 import { whyMeStyles as s } from "@/app/hubspot/styles/sections/whyMe";
@@ -25,10 +26,12 @@ export default function WhyMe() {
               <div className={s.profileHeader}>
                 <div className={s.profileInfo}>
                   <div className={s.photoFrame}>
-                    <img
+                    <Image
                       src={leader.photo}
                       alt={leader.name}
                       className={s.directorPhoto}
+                      width={120}
+                      height={120}
                     />
                   </div>
                   <div className={s.metaBlock}>
@@ -36,10 +39,13 @@ export default function WhyMe() {
                     <span className={s.directorRole}>{leader.role}</span>
                   </div>
                 </div>
-                <img
+                <Image
                   src={leader.companyLogo}
                   alt="Company Logo"
                   className={s.logoFrame}
+                  width={100}
+                  height={100}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
 
@@ -56,10 +62,12 @@ export default function WhyMe() {
                   {leader.certifications.map((cert, cIdx) => (
                     <div key={cIdx} className={s.certCard}>
                       <div className={s.certImageWrapper}>
-                        <img
+                        <Image
                           src={cert.image}
                           alt={cert.title}
                           className={s.certImage}
+                          width={60}
+                          height={60}
                         />
                       </div>
                       <div className={s.certMeta}>

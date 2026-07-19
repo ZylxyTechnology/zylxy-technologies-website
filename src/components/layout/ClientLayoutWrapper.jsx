@@ -1,8 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
-import FooterSection from "@/components/layout/FooterSection";
 import Navbar from "@/components/layout/Navbar";
+
+const FooterSection = dynamic(() => import("@/components/layout/FooterSection"), {
+  ssr: true, // Still SSR but chunked separately to improve TTI
+});
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";

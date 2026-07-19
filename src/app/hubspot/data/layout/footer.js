@@ -1,6 +1,6 @@
 export const footerData = {
   company: {
-    name: "ZYLXY HubSpot Consulting",
+    name: "ZYLXY",
     legal: "Technologies Pvt. Ltd. · GSTIN: 29AABCZ3647A1ZD",
     desc: "Certified HubSpot Solutions Partner. We engineer scalable CRM architectures for ambitious organizations.",
   },
@@ -8,25 +8,25 @@ export const footerData = {
     {
       title: "Solutions",
       items: [
-        { label: "Starter Package", href: "/hubspot#solutions" },
-        { label: "Growth Package", href: "/hubspot#solutions" },
-        { label: "Custom Implementation", href: "/hubspot#solutions" },
-        { label: "Health Check Audit", href: "/hubspot#solutions" },
+        { label: "Starter Package", href: "/hubspot/packages/starter" },
+        { label: "Growth Package", href: "/hubspot/packages/growth" },
+        { label: "Custom Implementation", href: "/hubspot/packages/custom" },
+        { label: "Health Check Audit", href: "/hubspot/packages/flexible" },
       ],
     },
     {
       title: "Expertise",
       items: [
-        { label: "Nonprofits", href: "/hubspot#industries" },
-        { label: "Workforce Development", href: "/hubspot#industries" },
-        { label: "Educational Organizations", href: "/hubspot#industries" },
-        { label: "Accelerators & Incubators", href: "/hubspot#industries" },
+        { label: "Nonprofits", href: "/hubspot#projects" },
+        { label: "Workforce Development", href: "/hubspot#projects" },
+        { label: "Educational Organizations", href: "/hubspot#projects" },
+        { label: "Accelerators & Incubators", href: "/hubspot#projects" },
       ],
     },
     {
       title: "Resources",
       items: [
-        { label: "Director Profile", href: "/hubspot#intro" },
+        { label: "Director Profile", href: "/hubspot#why-me" },
         { label: "Project Showcases", href: "/hubspot#projects" },
         { label: "Book a Consultation", href: "/hubspot#consultation" },
         { label: "Back to Main Site", href: "/" },

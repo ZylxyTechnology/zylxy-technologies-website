@@ -14,13 +14,13 @@ export const ServicesFilter = ({ categories, activeTab, onTabChange, getCategory
               className={`w-full min-w-0 px-3 py-2.5 rounded-xl text-xs font-semibold font-inter cursor-pointer text-center outline-none border transition-all duration-300 flex items-center justify-center gap-2 ${
                 isActive
                   ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(37,99,235,0.2)]"
-                  : "bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10 hover:text-foreground"
+                  : "bg-white/5 text-white/80 border-white/10 hover:bg-white/10 hover:text-white"
               }`}
             >
               <span className="truncate">{cat.label}</span>
               <span
                 className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md transition-all duration-200 ${
-                  isActive ? "bg-white/20 text-white" : "bg-white/5 text-muted-foreground"
+                  isActive ? "bg-white/20 text-white" : "bg-white/5 text-white/80"
                 }`}
               >
                 {count}
@@ -43,13 +43,13 @@ export const ServicesFilter = ({ categories, activeTab, onTabChange, getCategory
               className={`px-5 py-2.5 rounded-xl text-sm font-semibold font-inter cursor-pointer outline-none border transition-all duration-300 flex items-center gap-2 whitespace-nowrap shrink-0 ${
                 isActive
                   ? "bg-primary text-primary-foreground border-primary shadow-[0_4px_20px_rgba(37,99,235,0.25)]"
-                  : "bg-transparent text-muted-foreground border-transparent hover:bg-white/5 hover:text-foreground hover:border-white/10"
+                  : "bg-transparent text-white/80 border-transparent hover:bg-white/5 hover:text-white hover:border-white/10"
               }`}
             >
               <span>{cat.label}</span>
               <span
                 className={`text-[10px] font-bold px-2 py-0.5 rounded-md transition-all duration-200 ${
-                  isActive ? "bg-white/20 text-white" : "bg-white/5 text-muted-foreground"
+                  isActive ? "bg-white/20 text-white" : "bg-white/5 text-white/80"
                 }`}
               >
                 {count}

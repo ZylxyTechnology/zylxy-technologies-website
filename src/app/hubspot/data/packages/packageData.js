@@ -10,7 +10,7 @@ export const packagesData = {
     isPopular: false,
     overview:
       "Best for organizations getting started with HubSpot or looking to improve their current setup.",
-    imagePath: "/assets/Starter-Package.jpg",
+    imagePath: "/assets/hubspot/Starter-Package.jpg",
     deliverables: [
       "HubSpot account review and recommendations",
       "CRM setup and configuration",
@@ -33,7 +33,7 @@ export const packagesData = {
     isPopular: true,
     overview:
       "Best for organizations looking to improve marketing, sales, and operational efficiency.",
-    imagePath: "/assets/Growth-Package.jpg",
+    imagePath: "/assets/hubspot/Growth-Package.jpg",
     deliverables: [
       "Includes everything in the Starter Package",
       "Marketing Hub or Sales Hub optimization",
@@ -59,7 +59,7 @@ export const packagesData = {
     isPopular: false,
     overview:
       "Best for organizations with unique processes, advanced automation needs, or ongoing HubSpot support.",
-    imagePath: "/assets/Custom-Package.jpg",
+    imagePath: "/assets/hubspot/Custom-Package.jpg",
     deliverables: [
       "Includes everything in the Growth Package",
       "Custom objects and associations architecture",
@@ -84,7 +84,7 @@ export const packagesData = {
     isPopular: false,
     overview:
       "Best for teams seeking targeted diagnostic health audits, project milestones, or fractional retainer support.",
-    imagePath: "/assets/Flexible-Engagement-Options.jpg",
+    imagePath: "/assets/hubspot/Flexible-Engagement-Options.jpg",
     isFlexibleEngagement: true,
     subModels: [
       {

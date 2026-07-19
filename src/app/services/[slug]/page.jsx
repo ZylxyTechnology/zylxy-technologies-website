@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import PortfolioShowcase from "@/components/sections/PortfolioShowcase";
 import { MotionContainer } from "@/components/motion/MotionContainer";
@@ -55,11 +56,14 @@ export default function ServiceDetailPage({ params }) {
         <div className={s.shellCard}>
           <MotionGrid className={s.mainGrid}>
             <MotionItem direction="left" className={s.mediaColumn}>
-              <img
+              <Image
                 src={service.image || service.fallbackImage}
-                  alt={service.title}
-                  className={s.mediaImage}
-                />
+                alt={service.title}
+                className={s.mediaImage}
+                width={800}
+                height={600}
+                priority
+              />
                 <div className={s.mediaOverlay} />
                 <div className={s.metaBadgeContainerMobile}>
                   <div className={s.metaBadge}>

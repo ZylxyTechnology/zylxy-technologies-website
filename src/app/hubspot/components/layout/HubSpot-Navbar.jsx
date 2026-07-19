@@ -12,6 +12,25 @@ export default function HubSpotNavbar() {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = (menuId) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setActiveDropdown(menuId);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +64,7 @@ export default function HubSpotNavbar() {
           ? "bg-white/90 backdrop-blur-xl border-b border-[#F0E8E3] shadow-md py-1 h-16" 
           : "bg-white h-20"
       }`}
+      onMouseLeave={handleMouseLeave}
     >
       <div className={s.container} ref={dropdownRef}>
         <Link href="/" className={s.logoLink}>
@@ -75,38 +95,63 @@ export default function HubSpotNavbar() {
           ))}
 
           {nav.dropdowns.map((dropdown) => (
-            <div key={dropdown.id} className={s.menuItemWrapper}>
+            <div
+              key={dropdown.id}
+              className={s.menuItemWrapper}
+              onMouseEnter={() => handleMouseEnter(dropdown.id)}
+              onMouseLeave={handleMouseLeave}
+            >
               <button className={s.menuButton}>
-                {dropdown.label} <ChevronDown className={s.chevron} />
+                {dropdown.label}{" "}
+                <ChevronDown
+                  className={`${s.chevron} ${
+                    activeDropdown === dropdown.id ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-
-              <div className={s.megaMenu}>
-                <div className={s.megaLeftCol}>
-                  <h4 className={s.megaLeftTitle}>
-                    {dropdown.label} Solutions
-                  </h4>
-                  <p className={s.megaLeftDesc}>{dropdown.desc}</p>
-                </div>
-                <div className={s.megaGrid}>
-                  {dropdown.items.map((item, idx) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link key={idx} href={item.href} className={s.megaCard}>
-                        <div className={s.megaCardIcon}>
-                          <Icon className={s.megaCardIconInner} />
-                        </div>
-                        <div className={s.megaCardContent}>
-                          <h5 className={s.megaCardTitle}>{item.title}</h5>
-                          <p className={s.megaCardDesc}>{item.desc}</p>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
             </div>
           ))}
         </div>
+
+        {/* Absolute Overlay Layer */}
+        {nav.dropdowns.map((dropdown) => {
+          const isActive = activeDropdown === dropdown.id;
+          return (
+            <div
+              key={dropdown.id}
+              className={`${s.megaMenu} ${
+                isActive
+                  ? "opacity-100 pointer-events-auto translate-y-0"
+                  : "opacity-0 pointer-events-none translate-y-2"
+              } ${scrolled ? "top-[64px]" : "top-[80px]"}`}
+              onMouseEnter={() => handleMouseEnter(dropdown.id)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className={s.megaLeftCol}>
+                <h4 className={s.megaLeftTitle}>
+                  {dropdown.label} Solutions
+                </h4>
+                <p className={s.megaLeftDesc}>{dropdown.desc}</p>
+              </div>
+              <div className={s.megaGrid}>
+                {dropdown.items.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={idx} href={item.href} className={s.megaCard}>
+                      <div className={s.megaCardIcon}>
+                        <Icon className={s.megaCardIconInner} />
+                      </div>
+                      <div className={s.megaCardContent}>
+                        <h5 className={s.megaCardTitle}>{item.title}</h5>
+                        <p className={s.megaCardDesc}>{item.desc}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
 
         <div className={s.desktopActionGroup}>
           <div className={s.actionWrapper}>

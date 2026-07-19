@@ -132,9 +132,9 @@ export default function TestimonialsSection() {
                   <p className={testimonialsStyles.quoteText}>{t.text}</p>
                   <div className={testimonialsStyles.metaRow}>
                     <div>
-                      <h4 className={testimonialsStyles.clientName}>
+                      <div className={testimonialsStyles.clientName}>
                         {t.name}
-                      </h4>
+                      </div>
                       <div className={testimonialsStyles.clientRole}>
                         {t.role}
                       </div>
@@ -155,13 +155,17 @@ export default function TestimonialsSection() {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`${testimonialsStyles.dot} ${
-                  currentIndex === idx
-                    ? testimonialsStyles.dotActive
-                    : testimonialsStyles.dotInactive
-                }`}
+                className="relative flex items-center justify-center min-w-[48px] min-h-[48px] group focus:outline-none"
                 aria-label={`Go to slide group ${idx + 1}`}
-              />
+              >
+                <span
+                  className={`${testimonialsStyles.dot} ${
+                    currentIndex === idx
+                      ? testimonialsStyles.dotActive
+                      : testimonialsStyles.dotInactive
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

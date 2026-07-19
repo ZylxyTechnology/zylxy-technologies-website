@@ -19,39 +19,39 @@ export default function HubSpotConsultantPage() {
         <HubSpotNavbar />
         <main className="w-full overflow-x-clip selection:bg-[#FF7A59]/20">
           <Hero />
-          
+
           <MotionReveal direction="up" delay={0.1}>
             <HubSpotStatsBar />
           </MotionReveal>
-          
-          <MotionReveal direction="fade">
+
+          <MotionReveal direction="fade" delay={0.1}>
             <HubSpotIntroFeature />
           </MotionReveal>
-          
+
           <MotionReveal direction="up">
             <HubSpotFeaturedProjects />
           </MotionReveal>
-          
+
           <MotionReveal direction="fade">
             <HubSpotPackagesOverview />
           </MotionReveal>
-          
+
           <MotionReveal direction="fade">
             <WhyMe />
           </MotionReveal>
-          
+
           <MotionReveal direction="fade">
             <Testimonials />
           </MotionReveal>
-          
+
           <MotionReveal direction="fade">
             <FAQ />
           </MotionReveal>
-          
+
           <MotionReveal direction="up" delay={0.2}>
             <ConsultationForm />
           </MotionReveal>
-          
+
           <HubspotFooter />
         </main>
       </div>

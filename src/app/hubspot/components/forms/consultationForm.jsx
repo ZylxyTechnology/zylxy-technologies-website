@@ -72,7 +72,7 @@ export default function HubSpotConsultationForm() {
       clientIp: ipAddress,
     };
 
-    allocate: try {
+    try {
       const response = await fetch("/api/lead/ai-crm-solutions/hubspot-crm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -163,7 +163,7 @@ export default function HubSpotConsultationForm() {
     return null;
   };
   return (
-    <section id="HubSpotCrmLeadGen" className={s.section}>
+    <section id="consultation" className={s.section}>
       <div className={s.backgroundEffects} />
       <div className={s.radialGlow} />
 
@@ -196,7 +196,7 @@ export default function HubSpotConsultationForm() {
 
             <div className={s.grid}>
               <div className={s.inputGroup}>
-                <label className={errors.firstName ? s.labelError : s.label}>
+                <label htmlFor="firstName" className={errors.firstName ? s.labelError : s.label}>
                   First Name *
                 </label>
                 <div className={s.inputWrapper}>
@@ -206,6 +206,7 @@ export default function HubSpotConsultationForm() {
                   <input
                     type="text"
                     name="firstName"
+                    id="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
                     placeholder="Your first name"
@@ -221,7 +222,7 @@ export default function HubSpotConsultationForm() {
               </div>
 
               <div className={s.inputGroup}>
-                <label className={errors.lastName ? s.labelError : s.label}>
+                <label htmlFor="lastName" className={errors.lastName ? s.labelError : s.label}>
                   Last Name *
                 </label>
                 <div className={s.inputWrapper}>
@@ -231,6 +232,7 @@ export default function HubSpotConsultationForm() {
                   <input
                     type="text"
                     name="lastName"
+                    id="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
                     placeholder="Your last name"
@@ -246,7 +248,7 @@ export default function HubSpotConsultationForm() {
               </div>
 
               <div className={s.inputGroup}>
-                <label className={errors.email ? s.labelError : s.label}>
+                <label htmlFor="email" className={errors.email ? s.labelError : s.label}>
                   Email Address *
                 </label>
                 <div className={s.inputWrapper}>
@@ -254,8 +256,9 @@ export default function HubSpotConsultationForm() {
                     className={`${s.inputIcon} ${errors.email ? s.inputIconError : ""}`}
                   />
                   <input
-                    type="text"
+                    type="email"
                     name="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="you@company.com"
@@ -271,7 +274,7 @@ export default function HubSpotConsultationForm() {
               </div>
 
               <div className={s.inputGroup}>
-                <label className={errors.phone ? s.labelError : s.label}>
+                <label htmlFor="phone" className={errors.phone ? s.labelError : s.label}>
                   Phone Number *
                 </label>
                 <div
@@ -330,6 +333,7 @@ export default function HubSpotConsultationForm() {
                   <input
                     type="tel"
                     name="phone"
+                    id="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="Verification contact sequence"
@@ -345,7 +349,7 @@ export default function HubSpotConsultationForm() {
               </div>
 
               <div className={s.inputGroup}>
-                <label className={errors.orgName ? s.labelError : s.label}>
+                <label htmlFor="orgName" className={errors.orgName ? s.labelError : s.label}>
                   Organization Name *
                 </label>
                 <div className={s.inputWrapper}>
@@ -355,6 +359,7 @@ export default function HubSpotConsultationForm() {
                   <input
                     type="text"
                     name="orgName"
+                    id="orgName"
                     value={formData.orgName}
                     onChange={handleInputChange}
                     placeholder="Your Company"
@@ -370,12 +375,13 @@ export default function HubSpotConsultationForm() {
               </div>
 
               <div className={s.inputGroup}>
-                <label className={errors.orgType ? s.labelError : s.label}>
+                <label htmlFor="orgType" className={errors.orgType ? s.labelError : s.label}>
                   Organization Type *
                 </label>
                 <div className={s.selectWrapper}>
                   <select
                     name="orgType"
+                    id="orgType"
                     value={formData.orgType}
                     onChange={handleInputChange}
                     className={`${s.select} ${errors.orgType ? s.inputErrorClass : ""}`}
@@ -412,21 +418,22 @@ export default function HubSpotConsultationForm() {
                       <div
                         key={target}
                         className={`${s.challengeRow} ${isChecked ? s.challengeRowActive : ""}`}
-                        onClick={() => handleTargetToggle(target)}
                       >
                         <input
                           type="checkbox"
                           name="selectedApps"
+                          id={`target-${target}`}
                           value={target}
                           checked={isChecked}
-                          readOnly
+                          onChange={() => handleTargetToggle(target)}
                           className={s.challengeCheckbox}
                         />
-                        <span
+                        <label
+                          htmlFor={`target-${target}`}
                           className={`${s.challengeLabel} ${isChecked ? s.challengeLabelActive : ""}`}
                         >
                           {target}
-                        </span>
+                        </label>
                       </div>
                     );
                   })}
@@ -442,11 +449,12 @@ export default function HubSpotConsultationForm() {
 
             <div className={s.fullWidthField}>
               <div className={s.inputGroup}>
-                <label className={s.label}>Tell us about your project</label>
+                <label htmlFor="message" className={s.label}>Tell us about your project</label>
                 <div className={s.inputWrapper}>
                   <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#A3B1CC] pointer-events-none" />
                   <textarea
                     name="message"
+                    id="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Describe your data lifecycle operations, pipeline goals, reporting criteria, or support scopes..."
@@ -458,20 +466,18 @@ export default function HubSpotConsultationForm() {
             </div>
 
             <div className={s.complianceBlock}>
-              <div
-                className={s.complianceRow}
-                onClick={() => setConsentComm(!consentComm)}
-              >
+              <div className={s.complianceRow}>
                 <input
                   type="checkbox"
+                  id="consentCommHub"
                   checked={consentComm}
-                  readOnly
+                  onChange={() => setConsentComm(!consentComm)}
                   className={s.complianceInput}
                 />
-                <span className={s.complianceLabel}>
+                <label htmlFor="consentCommHub" className={s.complianceLabel}>
                   I agree to receive alternate operational updates from Zylxy
                   Technologies.
-                </span>
+                </label>
               </div>
               {errors.consentCommunications && (
                 <div className={s.errorText}>
@@ -480,20 +486,18 @@ export default function HubSpotConsultationForm() {
                 </div>
               )}
 
-              <div
-                className={s.complianceRow}
-                onClick={() => setConsentProc(!consentProc)}
-              >
+              <div className={s.complianceRow}>
                 <input
                   type="checkbox"
+                  id="consentProcHub"
                   checked={consentProc}
-                  readOnly
+                  onChange={() => setConsentProc(!consentProc)}
                   className={s.complianceInput}
                 />
-                <span className={s.complianceLabel}>
+                <label htmlFor="consentProcHub" className={s.complianceLabel}>
                   I agree to allow Zylxy Technologies to store and process my
                   personal data. *
-                </span>
+                </label>
               </div>
               {errors.consentProcessing && (
                 <div className={s.errorText}>
