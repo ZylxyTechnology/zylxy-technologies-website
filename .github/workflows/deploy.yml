@@ -43,4 +43,4 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: .next/standalone/
-          server-dir: public_html/
+          server-dir: domains/zylxytech.com/public_html/
