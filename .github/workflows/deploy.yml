@@ -26,13 +26,11 @@ jobs:
         run: |
           npm ci
           npm run build
-          # Next.js standalone output doesn't copy public and static files, we must copy them manually
+          # Next.js standalone output doesn't copy public and static files, we copy them manually
           mkdir -p .next/standalone/public
           cp -r public/. .next/standalone/public/ || true
           mkdir -p .next/standalone/.next/static
           cp -r .next/static/. .next/standalone/.next/static/
-
-
 
       - name: Sync Production Build to Hostinger File Tree (via FTPS)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -43,4 +41,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: .next/standalone/
-          server-dir: domains/zylxytech.com/public_html/
+          # FIX: Sync directly into the directory FTP lands on
+          server-dir: ./
+
+          

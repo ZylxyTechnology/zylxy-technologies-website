@@ -180,7 +180,7 @@ export const NAVBAR_DATA = {
     },
     {
       label: "Industries",
-      href: "#",
+      href: "/industries",
       isMegaMenu: true,
       industries: [
         {

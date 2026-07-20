@@ -22,7 +22,7 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 300);
   };
 
   useEffect(() => {
@@ -37,6 +37,27 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setActiveDropdown(null);
+        setIsMobileMenuOpen(false);
+      }
+    };
+    const handleClickOutside = (e) => {
+      // If click is outside the nav, close the dropdown
+      if (!e.target.closest('nav')) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const toggleMobileDropdown = (label) => {

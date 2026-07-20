@@ -3,36 +3,54 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const body = await request.json();
+    console.log("========== ENTERPRISE API DEBUGGING: TALENT ACQUISITION ==========");
+    console.log("[1] Incoming Frontend Payload:", JSON.stringify(body, null, 2));
+
     const portalId = "246492214";
     const formGuid = "90c110ec-ac3d-492f-a706-47806dfd25a4";
 
     const fieldMapping = {
+      // ---------------------------------------------------------
+      // MAPPING REGISTRY (FROZEN SOURCE OF TRUTH)
+      // ---------------------------------------------------------
       company: "company",
       organization_size: "numberofemployees",
       organization_type: "industry",
       number_of_open_positions: "numemployees",
-      required_skills: "hs_sub_role",
-      project_description: "job_function",
+      required_skills: "hs_sub_role", // Same as Campus Recruitment 'skills_tools_technologies'
+      project_description: "message", // Text property for project details
       linkedin: "hs_linkedin_url",
-      job_description_url: "job_description_file", // User MUST create this custom property in HubSpot
+      job_description_url: "job_function", // CONFIRMED: File property in HubSpot is 'job_function'
+      total_work_experience_required: "hs_seniority", // Same as Campus Recruitment 'total_work_experience'
+      services_needed: "hs_role", // Using role for services mapping or raw
+      job_location: "city",
+      employment_start_date: "start_date"
     };
 
+    console.log("[2] Configured Field Mappings:", JSON.stringify(fieldMapping, null, 2));
+
     const fields = Object.entries(body)
-      .filter(([name]) => !["agree_communications", "authorize_storage"].includes(name))
-      .map(([name, value]) => ({
-        name: fieldMapping[name] || name,
-        value: value ? value.toString() : "",
-      }));
+      .filter(([name]) => !["agree_communications", "authorize_storage", "job_description"].includes(name))
+      .map(([name, value]) => {
+        const mappedName = fieldMapping[name] || name;
+        if (!fieldMapping[name]) {
+          console.warn(`[WARNING] No explicit mapping found for field: '${name}'. Sending as '${mappedName}'.`);
+        }
+        return {
+          name: mappedName,
+          value: value ? value.toString() : "",
+        };
+      });
+
+    console.log("[3] Parsed HubSpot Fields Array:", JSON.stringify(fields, null, 2));
 
     const pageUri = "zylxytech.com/careers/recruitment-services/talent-acquisition";
 
-    // Extract IP address to satisfy HubSpot's analytics requirements
     const ipAddress = request.headers.get("x-forwarded-for") || 
                       request.headers.get("x-real-ip") || 
                       request.ip || 
                       "127.0.0.1";
 
-    // Strictly structured Legal Consent Options for GDPR
     const hasConsentToProcess = body.authorize_storage === "true";
     const hasConsentToCommunicate = body.agree_communications === "true";
 
@@ -47,7 +65,7 @@ export async function POST(request) {
       legalConsentOptions.consent.communications = [
         {
           value: true,
-          subscriptionTypeId: 9999999, // Fallback ID if actual is unknown; required by schema if communications array is provided.
+          subscriptionTypeId: 9999999,
           text: "I agree to receive other communications from Zylxy Technologies."
         }
       ];
@@ -63,6 +81,8 @@ export async function POST(request) {
       legalConsentOptions: legalConsentOptions,
     };
 
+    console.log("[4] Final HubSpot Payload (JSON):", JSON.stringify(hubspotPayload, null, 2));
+
     const hubspotEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
 
     const hsResponse = await fetch(hubspotEndpoint, {
@@ -73,14 +93,31 @@ export async function POST(request) {
       body: JSON.stringify(hubspotPayload),
     });
 
+    console.log(`[5] HubSpot Response Status: ${hsResponse.status} ${hsResponse.statusText}`);
+
     if (!hsResponse.ok) {
       const hsError = await hsResponse.text();
-      console.error("HubSpot Error:", hsResponse.status, hsError);
+      console.error("[6] HubSpot Validation Errors / Response Body:", hsError);
+      
+      try {
+        const errorJson = JSON.parse(hsError);
+        if (errorJson.errors && errorJson.errors.length > 0) {
+           console.error("[7] Parsed HubSpot Errors:");
+           errorJson.errors.forEach(err => console.error(" - ", err.message));
+        }
+      } catch (e) {
+        // Not JSON
+      }
+
       return NextResponse.json(
         { error: "HubSpot API Error", detail: hsError },
         { status: hsResponse.status },
       );
     }
+
+    const hsSuccessData = await hsResponse.json();
+    console.log("[6] HubSpot Success Response Body:", JSON.stringify(hsSuccessData, null, 2));
+    console.log("========== END ENTERPRISE API DEBUGGING ==========");
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {

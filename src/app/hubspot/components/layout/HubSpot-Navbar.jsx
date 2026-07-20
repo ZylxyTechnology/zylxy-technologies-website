@@ -23,7 +23,7 @@ export default function HubSpotNavbar() {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 300);
   };
 
   useEffect(() => {
@@ -45,13 +45,25 @@ export default function HubSpotNavbar() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
         setActiveSubmenu(null);
+        setActiveDropdown(null);
       }
     }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    }
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [isOpen]);
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setActiveSubmenu(null);
+        setActiveDropdown(null);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("keydown", handleKeyDown);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const toggleSubmenu = (menuId) => {
     setActiveSubmenu(activeSubmenu === menuId ? null : menuId);

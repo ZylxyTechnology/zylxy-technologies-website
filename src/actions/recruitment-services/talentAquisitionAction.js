@@ -8,7 +8,9 @@ export async function submitTalentAcquisition(formData) {
     let jobDescriptionUrl = null;
 
     if (jobDescriptionFile && jobDescriptionFile.size > 0) {
+      console.log(`[ACTION] Uploading Job Description File: ${jobDescriptionFile.name} (${jobDescriptionFile.size} bytes)`);
       jobDescriptionUrl = await uploadFileToHubspot(jobDescriptionFile);
+      console.log(`[ACTION] File Upload Result URL: ${jobDescriptionUrl}`);
     }
 
     const dataObj = Object.fromEntries(formData.entries());
