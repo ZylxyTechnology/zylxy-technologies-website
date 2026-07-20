@@ -5,12 +5,31 @@ import { navbarStyles as n } from "@/styles/layout/navbar.dark";
 import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = (menuId) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setActiveDropdown(menuId);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,8 +60,7 @@ export default function Navbar() {
                 alt={NAVBAR_DATA.logoAlt}
                 width={34}
                 height={34}
-                className={n.logoImage}
-                style={{ width: "auto", height: "auto" }}
+                className="scale-95 transition-transform duration-300 group-hover/logo:scale-100 object-contain"
                 priority
               />
             </div>
@@ -57,15 +75,36 @@ export default function Navbar() {
           <div className={n.menuList}>
             {NAVBAR_DATA.menuItems.map((item, idx) => {
               if (item.isMegaMenu && item.pillars) {
+                const isActive = activeDropdown === item.label;
                 return (
-                  <div key={idx} className={n.menuItemWrapper}>
+                  <div 
+                    key={idx} 
+                    className={n.menuItemWrapper}
+                    onMouseEnter={() => handleMouseEnter(item.label)}
+                    onMouseLeave={handleMouseLeave}
+                    onFocus={() => handleMouseEnter(item.label)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget)) {
+                        setActiveDropdown(null);
+                      }
+                    }}
+                  >
                     <div className={n.menuButton}>
-                      <Link href={item.href || "#"} className="hover:text-white transition-colors">
+                      <Link 
+                        href={item.href || "#"} 
+                        className="hover:text-white transition-colors"
+                        aria-haspopup="true"
+                        aria-expanded={isActive ? "true" : "false"}
+                      >
                         {item.label}
                       </Link>
-                      <ChevronDown className="w-3.5 h-3.5 opacity-50" />
+                      <ChevronDown className={`w-3.5 h-3.5 opacity-50 transition-transform duration-300 ${isActive ? "rotate-180" : ""}`} />
                     </div>
-                    <div className={n.megaMenuWrapper}>
+                    <div className={`${n.megaMenuWrapper} ${
+                      isActive 
+                        ? "opacity-100 translate-y-0 pointer-events-auto" 
+                        : "opacity-0 translate-y-2 pointer-events-none"
+                    }`}>
                       <div className={n.megaMenuLayout}>
                         <div className={n.megaMenuLeft}>
                           <div className={n.servicesGrid}>
@@ -123,15 +162,36 @@ export default function Navbar() {
               }
 
               if (item.isMegaMenu && item.industries) {
+                const isActive = activeDropdown === item.label;
                 return (
-                  <div key={idx} className={n.menuItemWrapper}>
+                  <div 
+                    key={idx} 
+                    className={n.menuItemWrapper}
+                    onMouseEnter={() => handleMouseEnter(item.label)}
+                    onMouseLeave={handleMouseLeave}
+                    onFocus={() => handleMouseEnter(item.label)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget)) {
+                        setActiveDropdown(null);
+                      }
+                    }}
+                  >
                     <div className={n.menuButton}>
-                      <Link href={item.href || "#"} className="hover:text-white transition-colors">
+                      <Link 
+                        href={item.href || "#"} 
+                        className="hover:text-white transition-colors"
+                        aria-haspopup="true"
+                        aria-expanded={isActive ? "true" : "false"}
+                      >
                         {item.label}
                       </Link>
-                      <ChevronDown className="w-3.5 h-3.5 opacity-50" />
+                      <ChevronDown className={`w-3.5 h-3.5 opacity-50 transition-transform duration-300 ${isActive ? "rotate-180" : ""}`} />
                     </div>
-                    <div className={n.megaMenuWrapper}>
+                    <div className={`${n.megaMenuWrapper} ${
+                      isActive 
+                        ? "opacity-100 translate-y-0 pointer-events-auto" 
+                        : "opacity-0 translate-y-2 pointer-events-none"
+                    }`}>
                       <div className={n.industriesGrid}>
                         {item.industries.map((ind, iIdx) => {
                           const IndIcon = ind.icon;

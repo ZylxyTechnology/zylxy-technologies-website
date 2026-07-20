@@ -19,7 +19,7 @@ export const navbarStyles = {
   chevron:
     "w-3.5 h-3.5 opacity-70 group-hover/item:rotate-180 transition-transform duration-300",
   megaMenu:
-    "absolute left-6 right-6 sm:left-8 sm:right-8 bg-white/95 backdrop-blur-xl border border-[#F0E8E3] shadow-[0_20px_40px_rgba(0,0,0,0.08)] p-8 grid grid-cols-12 gap-8 transition-all duration-300 z-50 rounded-b-xl max-w-[1280px]",
+    "absolute left-6 right-6 sm:left-8 sm:right-8 bg-white/95 backdrop-blur-xl border border-[#F0E8E3] shadow-[0_20px_40px_rgba(0,0,0,0.08)] p-8 grid grid-cols-12 gap-8 transition-all duration-300 z-50 rounded-b-xl max-w-[1280px] before:content-[''] before:absolute before:top-[-20px] before:left-0 before:right-0 before:h-[20px] before:bg-transparent",
   megaLeftCol: "col-span-3 border-r border-[#F0E8E3] pr-6 flex flex-col gap-3",
   megaLeftTitle: "font-lexend font-bold text-base text-[#1B1F3A]",
   megaLeftDesc: "font-inter text-xs text-[#677489] leading-relaxed",

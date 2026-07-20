@@ -39,7 +39,7 @@ export const navbarStyles = {
   primaryBtn:
     "px-5 py-2 text-xs bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-semibold tracking-wide transition-all rounded-lg shrink-0 shadow-[0_2px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 no-underline",
   megaMenuWrapper:
-    "absolute top-full left-0 right-0 w-full bg-[#071330]/95 backdrop-blur-xl border border-white/10 rounded-b-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] opacity-0 translate-y-2 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto transition-all duration-300 ease-enterprise z-50",
+    "absolute top-full left-0 right-0 w-full bg-[#071330]/95 backdrop-blur-xl border border-white/10 rounded-b-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-300 ease-enterprise z-50 before:content-[''] before:absolute before:top-[-20px] before:left-0 before:right-0 before:h-[20px] before:bg-transparent",
   megaMenuLayout: "flex w-full",
   megaMenuLeft: "w-[75%] p-8 border-r border-white/5",
   megaMenuRight: "w-[25%] p-8 bg-gradient-to-br from-white/[0.02] to-transparent relative overflow-hidden flex flex-col rounded-br-2xl",
@@ -49,13 +49,13 @@ export const navbarStyles = {
   pillarHeading:
     "text-[11px] font-bold text-[#2563EB] uppercase tracking-wider font-inter border-b border-white/5 pb-2 mb-1.5",
   subServiceLink:
-    "flex items-center gap-3.5 p-2 rounded-xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all duration-300 no-underline group/link w-full",
+    "flex items-center gap-3.5 p-2 rounded-xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 hover:-translate-y-0.5 transition-all duration-300 no-underline group/link w-full",
   iconWrapper:
-    "w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 group-hover/link:bg-[#2563EB] group-hover/link:text-white group-hover/link:border-[#2563EB] transition-all duration-300 shrink-0 shadow-sm",
+    "w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 group-hover/link:bg-[#2563EB] group-hover/link:text-white group-hover/link:border-[#2563EB] group-hover/link:scale-110 transition-all duration-300 shrink-0 shadow-sm",
   industryCard:
-    "flex gap-3.5 p-3 rounded-lg bg-transparent border border-transparent hover:bg-white/[0.02] hover:border-white/5 transition-all duration-200 no-underline group/ind",
+    "flex gap-3.5 p-3 rounded-lg bg-transparent border border-transparent hover:bg-white/[0.02] hover:border-white/5 hover:-translate-y-0.5 transition-all duration-300 no-underline group/ind",
   industryIcon:
-    "w-8.5 h-8.5 rounded-lg bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center text-[#2563EB] shrink-0 transition-colors duration-200 group-hover/ind:bg-[#2563EB] group-hover/ind:text-white",
+    "w-8.5 h-8.5 rounded-lg bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center text-[#2563EB] shrink-0 group-hover/ind:bg-[#2563EB] group-hover/ind:text-white group-hover/ind:scale-110 transition-all duration-300",
   industryMeta: "flex flex-col gap-0.5",
   industryTitle:
     "text-[13px] font-bold text-white/80 font-sans tracking-tight group-hover/ind:text-[#2563EB] transition-colors duration-200",

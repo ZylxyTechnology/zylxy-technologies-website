@@ -75,7 +75,6 @@ export default function HubSpotNavbar() {
               width={24}
               height={24}
               className="object-contain select-none shrink-0"
-              style={{ width: "auto", height: "auto" }}
               priority
             />
           </div>
@@ -94,64 +93,66 @@ export default function HubSpotNavbar() {
             </div>
           ))}
 
-          {nav.dropdowns.map((dropdown) => (
-            <div
-              key={dropdown.id}
-              className={s.menuItemWrapper}
-              onMouseEnter={() => handleMouseEnter(dropdown.id)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button className={s.menuButton}>
-                {dropdown.label}{" "}
-                <ChevronDown
-                  className={`${s.chevron} ${
-                    activeDropdown === dropdown.id ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-          ))}
-        </div>
+          {nav.dropdowns.map((dropdown) => {
+            const isActive = activeDropdown === dropdown.id;
+            return (
+              <div
+                key={dropdown.id}
+                className={s.menuItemWrapper}
+                onMouseEnter={() => handleMouseEnter(dropdown.id)}
+                onMouseLeave={handleMouseLeave}
+                onFocus={() => handleMouseEnter(dropdown.id)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget)) {
+                    setActiveDropdown(null);
+                  }
+                }}
+              >
+                <button 
+                  className={s.menuButton}
+                  aria-haspopup="true"
+                  aria-expanded={isActive ? "true" : "false"}
+                >
+                  {dropdown.label}{" "}
+                  <ChevronDown
+                    className={`${s.chevron} ${isActive ? "rotate-180" : ""}`}
+                  />
+                </button>
 
-        {/* Absolute Overlay Layer */}
-        {nav.dropdowns.map((dropdown) => {
-          const isActive = activeDropdown === dropdown.id;
-          return (
-            <div
-              key={dropdown.id}
-              className={`${s.megaMenu} ${
-                isActive
-                  ? "opacity-100 pointer-events-auto translate-y-0"
-                  : "opacity-0 pointer-events-none translate-y-2"
-              } ${scrolled ? "top-[64px]" : "top-[80px]"}`}
-              onMouseEnter={() => handleMouseEnter(dropdown.id)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className={s.megaLeftCol}>
-                <h4 className={s.megaLeftTitle}>
-                  {dropdown.label} Solutions
-                </h4>
-                <p className={s.megaLeftDesc}>{dropdown.desc}</p>
+                <div
+                  className={`${s.megaMenu} ${
+                    isActive
+                      ? "opacity-100 pointer-events-auto translate-y-0"
+                      : "opacity-0 pointer-events-none translate-y-2"
+                  } ${scrolled ? "top-[64px]" : "top-[80px]"}`}
+                >
+                  <div className={s.megaLeftCol}>
+                    <h4 className={s.megaLeftTitle}>
+                      {dropdown.label} Solutions
+                    </h4>
+                    <p className={s.megaLeftDesc}>{dropdown.desc}</p>
+                  </div>
+                  <div className={s.megaGrid}>
+                    {dropdown.items.map((item, idx) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link key={idx} href={item.href} className={s.megaCard}>
+                          <div className={s.megaCardIcon}>
+                            <Icon className={s.megaCardIconInner} />
+                          </div>
+                          <div className={s.megaCardContent}>
+                            <h5 className={s.megaCardTitle}>{item.title}</h5>
+                            <p className={s.megaCardDesc}>{item.desc}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-              <div className={s.megaGrid}>
-                {dropdown.items.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link key={idx} href={item.href} className={s.megaCard}>
-                      <div className={s.megaCardIcon}>
-                        <Icon className={s.megaCardIconInner} />
-                      </div>
-                      <div className={s.megaCardContent}>
-                        <h5 className={s.megaCardTitle}>{item.title}</h5>
-                        <p className={s.megaCardDesc}>{item.desc}</p>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
 
         <div className={s.desktopActionGroup}>
           <div className={s.actionWrapper}>
