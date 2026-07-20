@@ -43,5 +43,7 @@ jobs:
           local-dir: .next/standalone/
           # FIX: Sync directly into the directory FTP lands on
           server-dir: ./
+          # FIX: Reset the sync state file to bypass the 550 No such file or directory error
+          state-name: .sync-state-v2.json
 
           
