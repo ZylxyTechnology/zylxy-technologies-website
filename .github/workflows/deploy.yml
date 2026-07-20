@@ -29,14 +29,13 @@ jobs:
 
      # ... Previous steps stay exactly the same ...
 
-      - name: Sync Production Build to Hostinger File Tree (via SFTP)
+      - name: Sync Production Build to Hostinger File Tree (via FTPS)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # CRITICAL FIXES FOR HOSTINGER SFTP:
-          protocol: sftp
-          port: 65002
+          protocol: ftps
+          port: 21
           local-dir: .next/standalone/
           server-dir: domains/zylxytech.com/public_html/
