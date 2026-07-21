@@ -1,6 +1,8 @@
 "use server";
 
-export async function submitUiUxLeadAction(prevState, formData) {
+import { getHubspotContext } from "@/utils/hubspotContext";
+
+export async function submitUiUxDesignAction(prevState, formData) {
   const selectedAppsArray = formData.getAll("selectedApps");
   const payload = {
     firstName: formData.get("firstName")?.toString().trim() || "",
@@ -90,6 +92,13 @@ export async function submitUiUxLeadAction(prevState, formData) {
       { objectTypeId: "0-2", name: "industry_type", value: payload.orgType },
     ];
 
+    const context = getHubspotContext(
+      null,
+      "https://zylxytech.com/services/ui-ux-design-prototyping",
+      "UI/UX Design & Prototyping Intake Portal",
+      payload.clientIp,
+    );
+
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -98,11 +107,7 @@ export async function submitUiUxLeadAction(prevState, formData) {
         body: JSON.stringify({
           submittedAt: Date.now(),
           fields,
-          context: {
-            ipAddress: payload.clientIp || "127.0.0.1",
-            pageUri: "https://zylxytech.com/services/ui-ux-design-prototyping",
-            pageName: "UI/UX Design & Prototyping Intake Portal",
-          },
+          context,
           legalConsentOptions: {
             consent: {
               consentToProcess: payload.consentProcessing,

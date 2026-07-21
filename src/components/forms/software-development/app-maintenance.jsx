@@ -89,6 +89,11 @@ export default function AppMaintenanceForm() {
         );
       } else {
         setIsSuccess(true);
+        setTimeout(() => {
+          document
+            .getElementById("AppMaintenanceLeadGen")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
       }
     } catch (err) {
       setErrors({ global: "Data containment interface connection timeout." });

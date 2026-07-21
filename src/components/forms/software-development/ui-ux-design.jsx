@@ -89,6 +89,11 @@ export default function UiUxDesignForm() {
         );
       } else {
         setIsSuccess(true);
+        setTimeout(() => {
+          document
+            .getElementById("UiUxLeadGen")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
       }
     } catch (err) {
       setErrors({ global: "Data containment interface connection timeout." });

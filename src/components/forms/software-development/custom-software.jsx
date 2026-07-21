@@ -72,6 +72,11 @@ export default function CustomSoftwareForm() {
         );
       } else {
         setIsSuccess(true);
+        setTimeout(() => {
+          document
+            .getElementById("CustomSoftwareLeadGen")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
       }
     } catch (err) {
       setErrors({ global: "Data containment interface connection timeout." });

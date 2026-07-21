@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
+import { getHubspotContext } from "@/utils/hubspotContext";
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const headers = request.headers;
-
-    const rawIp =
-      headers.get("x-forwarded-for") || headers.get("x-real-ip") || "127.0.0.1";
-    const clientIp = rawIp.split(",")[0].trim();
 
     const {
       firstName,
@@ -21,6 +17,7 @@ export async function POST(request) {
       selectedApps,
       consentProcessing,
       honeyTrap,
+      clientIp,
     } = body;
 
     if (honeyTrap !== "") {
@@ -79,6 +76,13 @@ export async function POST(request) {
       { objectTypeId: "0-2", name: "industry_type", value: orgType },
     ];
 
+    const context = getHubspotContext(
+      request,
+      "https://zylxytech.com/services/hubspot-crm-implementation",
+      "HubSpot CRM Implementation Intake Portal",
+      clientIp,
+    );
+
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -87,12 +91,7 @@ export async function POST(request) {
         body: JSON.stringify({
           submittedAt: Date.now(),
           fields,
-          context: {
-            ipAddress: clientIp,
-            pageUri:
-              "https://zylxytech.com/services/hubspot-crm-implementation",
-            pageName: "HubSpot CRM Implementation Intake Portal",
-          },
+          context,
           legalConsentOptions: {
             consent: {
               consentToProcess: consentProcessing,

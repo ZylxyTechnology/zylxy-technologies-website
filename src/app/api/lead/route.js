@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getHubspotContext } from "@/utils/hubspotContext";
 
 export async function POST(request) {
   try {
@@ -15,6 +16,7 @@ export async function POST(request) {
       consentCommunications,
       consentProcessing,
       honeyTrap,
+      clientIp,
     } = body;
 
     if (honeyTrap !== "") {
@@ -64,13 +66,17 @@ export async function POST(request) {
       { name: "message", value: message || "" },
     ];
 
+    const context = getHubspotContext(
+      request,
+      "https://zylxytech.com",
+      "Zylxy General Lead Intake Canvas",
+      clientIp,
+    );
+
     const hubspotPayload = {
       submittedAt: Date.now(),
       fields,
-      context: {
-        pageUri: "https://zylxytech.com",
-        pageName: "Zylxy General Lead Intake Canvas",
-      },
+      context,
       legalConsentOptions: {
         consent: {
           consentToProcess: consentProcessing,

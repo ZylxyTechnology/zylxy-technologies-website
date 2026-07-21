@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getHubspotContext } from "@/utils/hubspotContext";
 
 export async function POST(request) {
   try {
@@ -30,7 +31,7 @@ export async function POST(request) {
     console.log("[2] Configured Field Mappings:", JSON.stringify(fieldMapping, null, 2));
 
     const fields = Object.entries(body)
-      .filter(([name]) => !["agree_communications", "authorize_storage", "job_description"].includes(name))
+      .filter(([name]) => !["agree_communications", "authorize_storage", "job_description", "clientIp"].includes(name))
       .map(([name, value]) => {
         const mappedName = fieldMapping[name] || name;
         if (!fieldMapping[name]) {
@@ -44,12 +45,14 @@ export async function POST(request) {
 
     console.log("[3] Parsed HubSpot Fields Array:", JSON.stringify(fields, null, 2));
 
-    const pageUri = "zylxytech.com/careers/recruitment-services/talent-acquisition";
+    const pageUri = "https://zylxytech.com/careers/recruitment-services/talent-acquisition";
 
-    const ipAddress = request.headers.get("x-forwarded-for") || 
-                      request.headers.get("x-real-ip") || 
-                      request.ip || 
-                      "127.0.0.1";
+    const context = getHubspotContext(
+      request,
+      pageUri,
+      "Talent Acquisition Intake Portal",
+      body.clientIp,
+    );
 
     const hasConsentToProcess = body.authorize_storage === "true";
     const hasConsentToCommunicate = body.agree_communications === "true";
@@ -73,11 +76,7 @@ export async function POST(request) {
 
     const hubspotPayload = {
       fields: fields,
-      context: {
-        pageUri: pageUri,
-        pageName: "Talent Acquisition",
-        ipAddress: ipAddress,
-      },
+      context: context,
       legalConsentOptions: legalConsentOptions,
     };
 

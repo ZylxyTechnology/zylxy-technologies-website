@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getHubspotContext } from "@/utils/hubspotContext";
 
 export async function POST(request) {
   try {
@@ -16,6 +17,7 @@ export async function POST(request) {
       consentCommunications,
       consentProcessing,
       honeyTrap,
+      clientIp,
     } = body;
 
     if (honeyTrap !== "") {
@@ -74,6 +76,13 @@ export async function POST(request) {
       { objectTypeId: "0-2", name: "industry_type", value: orgType },
     ];
 
+    const context = getHubspotContext(
+      request,
+      "https://zylxytech.com/services/web-application-development",
+      "Web Application Development Intake Portal",
+      clientIp,
+    );
+
     const response = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -82,11 +91,7 @@ export async function POST(request) {
         body: JSON.stringify({
           submittedAt: Date.now(),
           fields,
-          context: {
-            pageUri:
-              "https://zylxytech.com/services/web-application-development",
-            pageName: "Web Application Development Intake Portal",
-          },
+          context,
           legalConsentOptions: {
             consent: {
               consentToProcess: consentProcessing,

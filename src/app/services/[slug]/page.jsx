@@ -26,9 +26,14 @@ export default function ServiceDetailPage({ params }) {
 
   const handleConsultationScroll = () => {
     const leadContainer =
-      document.querySelector("form") ||
+      document.getElementById("CustomSoftwareLeadGen") ||
+      document.getElementById("UiUxLeadGen") ||
+      document.getElementById("AppMaintenanceLeadGen") ||
       document.getElementById("WebLeadGen") ||
-      document.getElementById("MobileLeadGen");
+      document.getElementById("MobileLeadGen") ||
+      document.getElementById("BrandDesignLeadGen") ||
+      document.querySelector("section[id*='LeadGen']") ||
+      document.querySelector("form");
     if (leadContainer) {
       leadContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }

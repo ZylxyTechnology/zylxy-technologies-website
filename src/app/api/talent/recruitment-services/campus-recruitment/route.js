@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getHubspotContext } from "@/utils/hubspotContext";
 
 export async function POST(request) {
   try {
@@ -17,19 +18,20 @@ export async function POST(request) {
     };
 
     const fields = Object.entries(body)
-      .filter(([name]) => !["agree_communications", "authorize_storage"].includes(name))
+      .filter(([name]) => !["agree_communications", "authorize_storage", "clientIp"].includes(name))
       .map(([name, value]) => ({
         name: fieldMapping[name] || name,
         value: value ? value.toString() : "",
       }));
 
-    const pageUri = "zylxytech.com/careers/recruitment-services/campus-recruitment";
+    const pageUri = "https://zylxytech.com/careers/recruitment-services/campus-recruitment";
     
-    // Extract IP address to satisfy HubSpot's analytics requirements
-    const ipAddress = request.headers.get("x-forwarded-for") || 
-                      request.headers.get("x-real-ip") || 
-                      request.ip || 
-                      "127.0.0.1";
+    const context = getHubspotContext(
+      request,
+      pageUri,
+      "Campus Recruitment Intake Portal",
+      body.clientIp,
+    );
 
     // Strictly structured Legal Consent Options for GDPR
     const hasConsentToProcess = body.authorize_storage === "true";
@@ -54,11 +56,7 @@ export async function POST(request) {
 
     const hubspotPayload = {
       fields: fields,
-      context: {
-        pageUri: pageUri,
-        pageName: "Campus Recruitment",
-        ipAddress: ipAddress,
-      },
+      context: context,
       legalConsentOptions: legalConsentOptions,
     };
 

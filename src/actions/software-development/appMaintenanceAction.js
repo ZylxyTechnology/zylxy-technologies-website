@@ -1,5 +1,7 @@
 "use server";
 
+import { getHubspotContext } from "@/utils/hubspotContext";
+
 export async function submitAppMaintenanceAction(prevState, formData) {
   const selectedAppsArray = formData.getAll("selectedApps");
   const payload = {
@@ -90,6 +92,13 @@ export async function submitAppMaintenanceAction(prevState, formData) {
       { objectTypeId: "0-2", name: "industry_type", value: payload.orgType },
     ];
 
+    const context = getHubspotContext(
+      null,
+      "https://zylxytech.com/services/application-support-maintenance",
+      "Application Support & Maintenance Intake Portal",
+      payload.clientIp,
+    );
+
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -98,12 +107,7 @@ export async function submitAppMaintenanceAction(prevState, formData) {
         body: JSON.stringify({
           submittedAt: Date.now(),
           fields,
-          context: {
-            ipAddress: payload.clientIp || "127.0.0.1",
-            pageUri:
-              "https://zylxytech.com/services/application-support-maintenance",
-            pageName: "Application Support & Maintenance Intake Portal",
-          },
+          context,
           legalConsentOptions: {
             consent: {
               consentToProcess: payload.consentProcessing,

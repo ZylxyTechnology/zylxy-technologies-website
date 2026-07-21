@@ -1,5 +1,7 @@
 "use server";
 
+import { getHubspotContext } from "@/utils/hubspotContext";
+
 export async function submitCustomSoftwareAction(prevState, formData) {
   const selectedAppsArray = formData.getAll("selectedApps");
   const payload = {
@@ -89,6 +91,12 @@ export async function submitCustomSoftwareAction(prevState, formData) {
       { objectTypeId: "0-2", name: "industry_type", value: payload.orgType },
     ];
 
+    const context = getHubspotContext(
+      null,
+      "https://zylxytech.com/services/custom-software-development",
+      "Custom Software Development Intake Portal",
+    );
+
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -97,11 +105,7 @@ export async function submitCustomSoftwareAction(prevState, formData) {
         body: JSON.stringify({
           submittedAt: Date.now(),
           fields,
-          context: {
-            pageUri:
-              "https://zylxytech.com/services/custom-software-development",
-            pageName: "Custom Software Development Intake Portal",
-          },
+          context,
           legalConsentOptions: {
             consent: {
               consentToProcess: payload.consentProcessing,

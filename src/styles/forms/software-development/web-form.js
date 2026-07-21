@@ -1,6 +1,6 @@
 export const webFormStyles = {
   section:
-    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate overflow-hidden scroll-mt-24 border-b border-white/5",
+    "w-full bg-[#1B1F3A] pt-[clamp(4rem,8vw,8rem)] pb-[clamp(4rem,6vw,6rem)] px-6 sm:px-8 text-white relative z-30 clear-both isolate overflow-hidden scroll-mt-28 border-b border-white/5",
   backgroundEffects:
     "absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(#FFF_1px,transparent_1px)] [background-size:24px_24px]",
   radialGlow:
@@ -12,7 +12,7 @@ export const webFormStyles = {
   pillText:
     "text-xs font-bold font-inter text-[#2563EB] tracking-[0.15em] uppercase",
   mainHeading:
-    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-tight relative z-20",
+    "font-lexend font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-white tracking-tight leading-[1.2] py-1 relative z-20",
   subHeading:
     "text-sm sm:text-base text-[#A3B1CC] font-inter leading-relaxed max-w-3xl mx-auto block mt-2",
   formCard:
