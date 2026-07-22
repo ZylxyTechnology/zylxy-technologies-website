@@ -149,3 +149,5 @@ export function getHubspotFormConfig(serviceKey) {
     HUBSPOT_FORMS_REGISTRY[serviceKey] || HUBSPOT_FORMS_REGISTRY["general-lead"]
   );
 }
+
+export const hubspotFormsRegistry = HUBSPOT_FORMS_REGISTRY;
