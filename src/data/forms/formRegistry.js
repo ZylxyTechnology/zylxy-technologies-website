@@ -1,34 +1,57 @@
 import dynamic from "next/dynamic";
+
+const CustomSoftwareForm = dynamic(
+  () => import("@/components/forms/software-development/custom-software.jsx"),
+);
+const UiUxDesignForm = dynamic(
+  () => import("@/components/forms/software-development/ui-ux-design.jsx"),
+);
+const AppMaintenanceForm = dynamic(
+  () => import("@/components/forms/software-development/app-maintenance.jsx"),
+);
+const WebForm = dynamic(
+  () => import("@/components/forms/software-development/web-form"),
+);
+const MobileForm = dynamic(
+  () => import("@/components/forms/software-development/mobile-form"),
+);
+const BrandDesignForm = dynamic(
+  () => import("@/components/forms/software-development/brand-design.jsx"),
+);
+const AiAutomationForm = dynamic(
+  () => import("@/components/forms/ai-crm-solutions/ai-automation.jsx"),
+);
+const HubSpotCrmForm = dynamic(
+  () => import("@/app/hubspot/components/forms/consultationForm.jsx"),
+);
 const TrainingPlacementForm = dynamic(
   () => import("@/components/forms/training-placement/TrainingPlacement.jsx"),
 );
 
 export const formRegistry = {
-  "web-application-development": dynamic(
-    () => import("@/components/forms/software-development/web-form"),
-  ),
-  "mobile-application-development": dynamic(
-    () => import("@/components/forms/software-development/mobile-form"),
-  ),
-  "custom-software-development": dynamic(
-    () => import("@/components/forms/software-development/custom-software.jsx"),
-  ),
-  "ui-ux-design": dynamic(
-    () => import("@/components/forms/software-development/ui-ux-design.jsx"),
-  ),
-  "brand-creative-design": dynamic(
-    () => import("@/components/forms/software-development/brand-design.jsx"),
-  ),
-  "application-support": dynamic(
-    () => import("@/components/forms/software-development/app-maintenance.jsx"),
-  ),
+  "web-application-development": WebForm,
+  "web-development": WebForm,
 
-  "ai-engineering-automation": dynamic(
-    () => import("@/components/forms/ai-crm-solutions/ai-automation.jsx"),
-  ),
-  "hubspot-crm-implementation": dynamic(
-    () => import("@/app/hubspot/components/forms/consultationForm.jsx"),
-  ),
+  "mobile-app-development": MobileForm,
+  "mobile-application-development": MobileForm,
+
+  "custom-software-development": CustomSoftwareForm,
+
+  "ui-ux-design": UiUxDesignForm,
+  "ui-ux-design-prototyping": UiUxDesignForm,
+
+  "brand-identity-design": BrandDesignForm,
+  "brand-creative-design": BrandDesignForm,
+
+  "application-support": AppMaintenanceForm,
+  "application-support-maintenance": AppMaintenanceForm,
+
+  "ai-engineering-automation": AiAutomationForm,
+  "ai-solutions": AiAutomationForm,
+
+  "hubspot-crm-implementation": HubSpotCrmForm,
+  "hubspot-crm": HubSpotCrmForm,
+
   "corporate-training": TrainingPlacementForm,
   "academic-partnerships": TrainingPlacementForm,
   "internship-programs": TrainingPlacementForm,

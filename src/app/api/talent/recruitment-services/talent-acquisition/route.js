@@ -82,7 +82,7 @@ export async function POST(request) {
 
     console.log("[4] Final HubSpot Payload (JSON):", JSON.stringify(hubspotPayload, null, 2));
 
-    const hubspotEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+    const hubspotEndpoint = `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
 
     const hsResponse = await fetch(hubspotEndpoint, {
       method: "POST",

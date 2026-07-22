@@ -84,7 +84,7 @@ export async function POST(request) {
     );
 
     const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -110,7 +110,7 @@ export async function submitLeadAction(prevState, formData) {
     };
 
     const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -119,9 +119,22 @@ export async function submitLeadAction(prevState, formData) {
     );
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[HubSpot API Rejection Trace]", {
+        status: response.status,
+        body: errorText,
+        portalId,
+        formId,
+        timestamp: new Date().toISOString(),
+      });
       return {
         success: false,
-        errors: { global: "HubSpot interface synchronization rejection." },
+        errors: {
+          global:
+            process.env.NODE_ENV === "development"
+              ? `HubSpot server rejection (${response.status}): ${errorText}`
+              : "HubSpot interface synchronization rejection.",
+        },
         payload,
       };
     }

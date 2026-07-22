@@ -60,7 +60,7 @@ export async function POST(request) {
       legalConsentOptions: legalConsentOptions,
     };
 
-    const hubspotEndpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+    const hubspotEndpoint = `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
 
     const hsResponse = await fetch(hubspotEndpoint, {
       method: "POST",

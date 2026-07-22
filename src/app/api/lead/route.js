@@ -86,7 +86,7 @@ export async function POST(request) {
     };
 
     const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -95,10 +95,23 @@ export async function POST(request) {
     );
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[HubSpot API Rejection Trace]", {
+        status: response.status,
+        body: errorText,
+        portalId,
+        formId,
+        timestamp: new Date().toISOString(),
+      });
       return NextResponse.json(
         {
           success: false,
-          errors: { global: "HubSpot data synchronization failure." },
+          errors: {
+            global:
+              process.env.NODE_ENV === "development"
+                ? `HubSpot server rejection (${response.status}): ${errorText}`
+                : "HubSpot data synchronization failure. Please try again later.",
+          },
         },
         { status: 400 },
       );
