@@ -1,5 +1,8 @@
 "use server";
 
+import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
+import { getServiceConfig } from "@/data/services/serviceRegistry";
+
 export async function submitLeadAction(prevState, formData) {
   const payload = {
     name: formData.get("name")?.toString().trim() || "",
@@ -64,50 +67,20 @@ export async function submitLeadAction(prevState, formData) {
       return { success: false, errors, payload };
     }
 
-    const portalId = "246492214";
-    const formId = "22c7712e-9c35-4c26-9881-4abf481fa67c";
-    const fullPhoneNumber = `${payload.dialCode} ${payload.phone}`;
+    const serviceConfig = getServiceConfig(payload.service);
+    const serviceKey = serviceConfig?.serviceKey || "general-lead";
 
-    const orgTypeTranslationMap = {
-      "Nonprofit Organization": "Nonprofit",
-      "Small Business": "Small Business",
-      "Educational Organization": "Educational Institution",
-      "Workforce Development Organization":
-        "Workforce Development Organization",
-      "Accelerator / Incubator": "Accelerator / Incubator",
-      "Community Organization": "Community Organization",
-      "Professional Service Firm": "Professional Services",
-      Other: "Other",
-    };
-    const mappedOrgType =
-      orgTypeTranslationMap[payload.orgType] || payload.orgType;
-
-    const fields = [
-      { name: "full_name", value: payload.name },
-      { name: "firstname", value: payload.name },
-      { name: "email", value: payload.email },
-      { name: "phone", value: fullPhoneNumber },
-      { name: "0-2/service", value: payload.service },
-      { name: "0-2/name", value: payload.orgName || "" },
-      { name: "company", value: payload.orgName || "" },
-      { name: "0-2/industry_type", value: mappedOrgType },
-      { name: "message", value: payload.message },
-    ];
-
-    const hubspotPayload = {
-      submittedAt: Date.now(),
-      fields,
-      context: {
-        pageUri: "https://zylxytech.com",
+    const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
+      serviceKey,
+      rawPayload: payload,
+      requestContext: {
+        pageUri: "https://zylxytech.com/contact",
         pageName: "Zylxy General Lead Intake Canvas",
       },
-      legalConsentOptions: {
-        consent: {
-          consentToProcess: payload.consentProcessing,
-          text: "I agree to allow Zylxy Technologies to store and process my personal data.",
-        },
-      },
-    };
+    });
+
+    const portalId = formConfig.portalId;
+    const formId = formConfig.formId;
 
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,

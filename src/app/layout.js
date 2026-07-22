@@ -6,13 +6,17 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  preload: true,
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
+  weight: ["500", "600", "700", "800"],
+  preload: true,
 });
 
 // Full Enterprise SEO Metadata Architecture

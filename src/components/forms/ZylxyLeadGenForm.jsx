@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/core/Section";
 import { MotionContainer } from "@/components/motion/MotionContainer";
 import { MotionItem } from "@/components/motion/MotionItem";
 import { leadFormData as d } from "@/data/forms/ZylxyLeadGenForm";
+import { LEAD_GEN_DROPDOWN_OPTIONS } from "@/data/services/serviceRegistry";
 import { leadFormStyles as s } from "@/styles/forms/ZylxyLeadGenForm";
 import {
   Building2,
@@ -311,13 +312,13 @@ export default function ZylxyLeadGenForm() {
                         }}
                       >
                         <option value="">Select a service...</option>
-                        {d.services.map((option) => (
+                        {LEAD_GEN_DROPDOWN_OPTIONS.map((opt) => (
                           <option
-                            key={option}
-                            value={option}
+                            key={opt.key}
+                            value={opt.label}
                             className="bg-[#1B1F3A] text-white"
                           >
-                            {option}
+                            {opt.label}
                           </option>
                         ))}
                       </select>
