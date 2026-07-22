@@ -98,3 +98,14 @@ export default function ZylxyLeadGenForm() {
     </Section>
   );
 }
+
+const renderIcon = (type) => {
+  switch (type) {
+    case "email":
+      return <Mail className="w-5 h-5" />;
+    case "whatsapp":
+      return <MessageCircle className="w-5 h-5" />;
+    default:
+      return null;
+  }
+};
