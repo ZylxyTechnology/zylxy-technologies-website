@@ -388,6 +388,7 @@ export default function ZylxyLeadGenForm() {
                   </div>
                 </div>
 
+                <input type="hidden" name="dialCode" value={selectedCountry.value} />
                 <div className={s.complianceBlock}>
                   <div
                     className={s.complianceRow}
@@ -395,6 +396,7 @@ export default function ZylxyLeadGenForm() {
                     <input
                       type="checkbox"
                       id="consentComm"
+                      name="consentCommunications"
                       checked={consentComm}
                       onChange={() => setConsentComm(!consentComm)}
                       className={s.complianceInput}
@@ -416,6 +418,7 @@ export default function ZylxyLeadGenForm() {
                     <input
                       type="checkbox"
                       id="consentProc"
+                      name="consentProcessing"
                       checked={consentProc}
                       onChange={() => setConsentProc(!consentProc)}
                       className={s.complianceInput}

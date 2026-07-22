@@ -9,18 +9,18 @@ export const footerData = {
       title: "Build",
       items: [
         { label: "Web App Development", href: "/services/web-application-development" },
-        { label: "Mobile App Development", href: "/services/mobile-application-development" },
+        { label: "Mobile App Development", href: "/services/mobile-app-development" },
         { label: "Custom Software", href: "/services/custom-software-development" },
-        { label: "Platform Engineering", href: "/services/application-support" },
-        { label: "UI/UX & Branding", href: "/services/ui-ux-design" },
+        { label: "Platform Engineering", href: "/services/application-support-maintenance" },
+        { label: "UI/UX & Branding", href: "/services/ui-ux-design-prototyping" },
       ],
     },
     {
       title: "Grow",
       items: [
         { label: "AI & Automation", href: "/services/ai-engineering-automation" },
-        { label: "HubSpot CRM", href: "/hubspot" },
-        { label: "Brand & Creative", href: "/services/brand-creative-design" },
+        { label: "HubSpot CRM", href: "/services/hubspot-crm-implementation" },
+        { label: "Brand & Creative", href: "/services/brand-identity-design" },
       ],
     },
     {

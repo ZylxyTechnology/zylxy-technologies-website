@@ -13,8 +13,14 @@ export async function submitLeadAction(prevState, formData) {
     message: formData.get("message")?.toString().trim() || "",
     orgName: formData.get("orgName")?.toString().trim() || "",
     orgType: formData.get("orgType")?.toString() || "",
-    consentCommunications: formData.get("consentCommunications") === "true",
-    consentProcessing: formData.get("consentProcessing") === "true",
+    consentCommunications:
+      formData.get("consentCommunications") === "on" ||
+      formData.get("consentCommunications") === "true" ||
+      Boolean(formData.get("consentCommunications")),
+    consentProcessing:
+      formData.get("consentProcessing") === "on" ||
+      formData.get("consentProcessing") === "true" ||
+      Boolean(formData.get("consentProcessing")),
     honeyTrap: formData.get("honeyTrap")?.toString() || "",
   };
 

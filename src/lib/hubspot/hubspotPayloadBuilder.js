@@ -64,6 +64,7 @@ export function buildHubspotPayload({
     { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
     { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
     { name: "message", value: (rawPayload.message || "").trim() },
+    { name: "hs_chat_assistant_source", value: "website" },
   ];
 
   // Filter out empty values (unless required)
