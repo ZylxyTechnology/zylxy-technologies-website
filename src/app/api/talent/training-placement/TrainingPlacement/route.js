@@ -10,14 +10,14 @@ export async function POST(request) {
       return NextResponse.json({ success: true });
     }
 
-    const serviceKey = "custom-software";
+    const serviceKey = "training-placement";
 
     const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
       serviceKey,
       rawPayload: body,
       requestContext: {
         pageUri: request.url,
-        pageName: "Zylxy Custom Software Intake"
+        pageName: "Zylxy Training & Placement Intake"
       }
     });
 

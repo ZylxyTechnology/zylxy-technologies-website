@@ -1,116 +1,37 @@
 import { NextResponse } from "next/server";
-import { getHubspotContext } from "@/utils/hubspotContext";
+import { executeGovernedHubSpotSync } from "@/lib/hubspot/hubspotSubmissionGovernance";
+import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
 
 export async function POST(request) {
   try {
     const body = await request.json();
-
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      dialCode,
-      message,
-      orgName,
-      orgType,
-      selectedApps,
-      consentCommunications,
-      consentProcessing,
-      honeyTrap,
-      clientIp,
-    } = body;
-
-    if (honeyTrap !== "") {
+    
+    if (body.honeyTrap !== "") {
       return NextResponse.json({ success: true });
     }
 
-    const errors = {};
-    if (!firstName || firstName.trim().length < 2)
-      errors.firstName = "First name is required.";
-    if (!lastName || lastName.trim().length < 2)
-      errors.lastName = "Last name is required.";
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      errors.email = "Valid email is required.";
-    if (!phone) errors.phone = "Phone number is required.";
-    if (!orgName || orgName.trim().length < 1)
-      errors.orgName = "Organization name is required.";
-    if (!orgType || orgType.trim().length < 1)
-      errors.orgType = "Organization type is required.";
-    if (!selectedApps || selectedApps.length === 0)
-      errors.selectedApps = "Select at least one option.";
-    if (!consentProcessing)
-      errors.consentProcessing = "Processing consent mandatory.";
+    const serviceKey = "ui-ux-design";
 
-    if (Object.keys(errors).length > 0) {
-      return NextResponse.json({ success: false, errors }, { status: 400 });
-    }
+    const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
+      serviceKey,
+      rawPayload: body,
+      requestContext: {
+        pageUri: request.url,
+        pageName: "Zylxy UI/UX Design Intake"
+      }
+    });
 
-    const portalId = "246492214";
-    const formId = "136f1611-21aa-4c4d-a9aa-d71ba33afa5c";
-    const cleanPhone = phone.replace(/\D/g, "");
-    const prefix =
-      dialCode && !dialCode.startsWith("+") && dialCode !== "IN"
-        ? `+${dialCode}`
-        : dialCode === "IN"
-          ? "+91"
-          : dialCode;
-    const fullPhoneNumber = prefix ? `${prefix} ${cleanPhone}` : cleanPhone;
+    const result = await executeGovernedHubSpotSync({
+      serviceKey,
+      hubspotPayload,
+      formConfig,
+      correlationId
+    });
 
-    const fields = [
-      { objectTypeId: "0-1", name: "firstname", value: firstName },
-      { objectTypeId: "0-1", name: "lastname", value: lastName },
-      {
-        objectTypeId: "0-1",
-        name: "full_name",
-        value: `${firstName} ${lastName}`.trim(),
-      },
-      { objectTypeId: "0-1", name: "email", value: email },
-      { objectTypeId: "0-1", name: "phone", value: fullPhoneNumber },
-      {
-        objectTypeId: "0-1",
-        name: "software_development",
-        value: selectedApps.join(";"),
-      },
-      { objectTypeId: "0-1", name: "message", value: message || "" },
-      { objectTypeId: "0-2", name: "name", value: orgName },
-      { objectTypeId: "0-2", name: "industry_type", value: orgType },
-    ];
-
-    const context = getHubspotContext(
-      request,
-      "https://zylxytech.com/services/ui-ux-design-prototyping",
-      "UI/UX Design & Prototyping Intake Portal",
-      clientIp,
-    );
-
-    const response = await fetch(
-      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          submittedAt: Date.now(),
-          fields,
-          context,
-          legalConsentOptions: {
-            consent: {
-              consentToProcess: consentProcessing,
-              text: "I agree to allow Zylxy Technologies to store and process my personal data.",
-            },
-          },
-        }),
-      },
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
+    if (!result.success) {
       return NextResponse.json(
-        {
-          success: false,
-          errors: { global: "HubSpot interface rejection: " + errorText },
-        },
-        { status: 400 },
+        { success: false, errors: { global: result.error } },
+        { status: 400 }
       );
     }
 
@@ -118,7 +39,7 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json(
       { success: false, errors: { global: "Internal pipeline link failure." } },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

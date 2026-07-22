@@ -15,7 +15,7 @@ import {
   User,
 } from "lucide-react";
 
-export default function MobileApplicationForm() {
+export default function MobileApplicationForm({ isEmbedded = false }) {
   const {
     formData,
     selectedCountry,
@@ -93,28 +93,15 @@ export default function MobileApplicationForm() {
       c.value.toLowerCase().includes(countrySearch.toLowerCase()),
   );
 
-  return (
-    <section id="MobileLeadGen" className={s.section}>
-      <div className={s.backgroundEffects} />
-      <div className={s.radialGlow} />
-
-      <div className={s.wrapper}>
-        <div className={s.headerContainer}>
-          <div className={s.pillLine}>
-            <div className={s.pillLineBar} />
-            <span className={s.pillText}>{d.header.pillText}</span>
-          </div>
-          <h2 className={s.mainHeading}>{d.header.mainHeading}</h2>
-          <p className={s.subHeading}>{d.header.subHeading}</p>
-        </div>
-
+  const formContent = (
+    <>
         {!isSuccess ? (
           <form
             ref={formRef}
             onSubmit={handleFormSubmit}
-            className={s.formCard}
+            className={isEmbedded ? "" : s.formCard}
           >
-            <div className={s.formAccentBar} />
+            {!isEmbedded && <div className={s.formAccentBar} />}
 
             <div style={{ display: "none" }} aria-hidden="true">
               <input
@@ -461,19 +448,40 @@ export default function MobileApplicationForm() {
             </div>
           </form>
         ) : (
-          <div className={s.successCard}>
-            <div className={s.formAccentBar} />
-            <div className={s.successIconBox}>
-              <CalendarCheck className="w-7 h-7" />
-            </div>
-            <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
-            <p className={s.successText}>
-              Thanks, {formData.firstName} {formData.lastName} — we've got your
-              request. Our team is reviewing your project details now and will
-              reach out to {formData.email} within 24 hours.
-            </p>
+              <div className={isEmbedded ? "" : s.successCard}>
+                {!isEmbedded && <div className={s.formAccentBar} />}
+                <div className={s.successIconBox}>
+                  <CalendarCheck className="w-7 h-7" />
+                </div>
+                <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
+                <p className={s.successText}>
+                  Thank you, {formData.firstName}. Our engineering core has
+                  indexed your project scope parameters cleanly and will launch
+                  contact tracking at {formData.email} within 24 hours.
+                </p>
+              </div>
+            )}
+    </>
+  );
+
+  if (isEmbedded) return formContent;
+
+  return (
+    <section id="MobileLeadGen" className={s.section}>
+      <div className={s.backgroundEffects} />
+      <div className={s.radialGlow} />
+
+      <div className={s.wrapper}>
+        <div className={s.headerContainer}>
+          <div className={s.pillLine}>
+            <div className={s.pillLineBar} />
+            <span className={s.pillText}>{d.header.pillText}</span>
           </div>
-        )}
+          <h2 className={s.mainHeading}>{d.header.mainHeading}</h2>
+          <p className={s.subHeading}>{d.header.subHeading}</p>
+        </div>
+
+        {formContent}
       </div>
     </section>
   );

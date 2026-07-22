@@ -2,6 +2,7 @@
 
 import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
 import { getServiceConfig } from "@/data/services/serviceRegistry";
+import { executeGovernedHubSpotSync } from "@/lib/hubspot/hubspotSubmissionGovernance";
 
 export async function submitLeadAction(prevState, formData) {
   const payload = {
@@ -85,33 +86,20 @@ export async function submitLeadAction(prevState, formData) {
       },
     });
 
-    const portalId = formConfig.portalId;
-    const formId = formConfig.formId;
+    const governanceResult = await executeGovernedHubSpotSync({
+      serviceKey,
+      hubspotPayload,
+      formConfig,
+      correlationId,
+    });
 
-    const response = await fetch(
-      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(hubspotPayload),
-      },
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("[HubSpot API Rejection Trace]", {
-        status: response.status,
-        body: errorText,
-        portalId,
-        formId,
-        timestamp: new Date().toISOString(),
-      });
+    if (!governanceResult.success) {
       return {
         success: false,
         errors: {
           global:
             process.env.NODE_ENV === "development"
-              ? `HubSpot server rejection (${response.status}): ${errorText}`
+              ? `Pipeline Sync Error (${governanceResult.stage}): ${governanceResult.error}`
               : "HubSpot interface synchronization rejection.",
         },
         payload,

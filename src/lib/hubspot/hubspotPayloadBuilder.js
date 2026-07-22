@@ -59,12 +59,11 @@ export function buildHubspotPayload({
     { name: "0-2/service", value: resolvedHubspotValue },
     { name: "service", value: resolvedHubspotValue },
     { name: "software_development", value: selectedApps },
-    { name: "hubspot_crm_services", value: selectedApps },
     { name: "company", value: (rawPayload.orgName || "").trim() },
     { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
     { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
     { name: "message", value: (rawPayload.message || "").trim() },
-    { name: "hs_chat_assistant_source", value: "website" },
+    { name: "hs_chat_assistant_source", value: selectedApps },
   ];
 
   // Filter out empty values (unless required)

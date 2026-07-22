@@ -8,7 +8,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
-  preload: true,
+  preload: false,
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -16,7 +16,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   weight: ["500", "600", "700", "800"],
-  preload: true,
+  preload: false,
 });
 
 // Full Enterprise SEO Metadata Architecture
@@ -53,6 +53,8 @@ export const metadata = {
   },
 };
 
+import { DevDiagnostics } from "@/lib/diagnostics/devDiagnostics";
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -61,6 +63,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground">
         {/* All client logic, animations, and conditional routing is handled securely inside the wrapper */}
+        <DevDiagnostics />
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>

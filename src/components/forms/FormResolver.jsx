@@ -14,6 +14,8 @@ export default function FormResolver({
   fallback = null,
   ...passThroughProps
 }) {
+  const isEmbedded = passThroughProps.isEmbedded;
+  delete passThroughProps.isEmbedded;
   const resolvedServiceConfig = useMemo(() => {
     return getServiceConfig(serviceKey || serviceSlug);
   }, [serviceKey, serviceSlug]);
@@ -33,5 +35,5 @@ export default function FormResolver({
     return fallback;
   }
 
-  return <Component key={resolvedServiceConfig?.serviceKey || serviceKey} {...passThroughProps} />;
+  return <Component key={resolvedServiceConfig?.serviceKey || serviceKey} isEmbedded={isEmbedded} {...passThroughProps} />;
 }

@@ -27,6 +27,9 @@ const HubSpotCrmForm = dynamic(
 const TrainingPlacementForm = dynamic(
   () => import("@/components/forms/training-placement/TrainingPlacement.jsx"),
 );
+const GeneralLeadForm = dynamic(
+  () => import("@/components/forms/general-lead/GeneralLeadForm.jsx"),
+);
 
 export const formRegistry = {
   "web-application-development": WebForm,
@@ -56,4 +59,7 @@ export const formRegistry = {
   "academic-partnerships": TrainingPlacementForm,
   "internship-programs": TrainingPlacementForm,
   "placement-assistance": TrainingPlacementForm,
+
+  "zylxy-lead-gen": GeneralLeadForm,
+  "general-lead": GeneralLeadForm,
 };

@@ -79,13 +79,8 @@ export async function submitHubspotCrmAction(prevState, formData) {
       },
       { objectTypeId: "0-1", name: "email", value: payload.email },
       { objectTypeId: "0-1", name: "phone", value: fullPhoneNumber },
-      {
-        objectTypeId: "0-1",
-        name: "hubspot_crm_services",
-        value: payload.selectedApps.join(";"),
-      },
       { objectTypeId: "0-1", name: "message", value: payload.message || "" },
-      { objectTypeId: "0-1", name: "hs_chat_assistant_source", value: "website" },
+      { objectTypeId: "0-1", name: "hs_chat_assistant_source", value: payload.selectedApps.join(";") },
       { objectTypeId: "0-2", name: "name", value: payload.orgName },
       { objectTypeId: "0-2", name: "industry_type", value: payload.orgType },
     ];
