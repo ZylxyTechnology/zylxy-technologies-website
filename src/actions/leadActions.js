@@ -1,12 +1,13 @@
 "use server";
 
 import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
-import { getServiceConfig } from "@/data/services/serviceRegistry";
+import { getServiceFromCatalog } from "@/data/catalog/serviceCatalog";
 import { executeGovernedHubSpotSync } from "@/lib/hubspot/hubspotSubmissionGovernance";
 
 export async function submitLeadAction(prevState, formData) {
   const payload = {
-    name: formData.get("name")?.toString().trim() || "",
+    firstName: formData.get("firstName")?.toString().trim() || "",
+    lastName: formData.get("lastName")?.toString().trim() || "",
     email: formData.get("email")?.toString().trim() || "",
     phone: formData.get("phone")?.toString().trim() || "",
     dialCode: formData.get("dialCode")?.toString().trim() || "",
@@ -29,19 +30,23 @@ export async function submitLeadAction(prevState, formData) {
     if (payload.honeyTrap !== "") {
       return {
         success: true,
-        submittedName: payload.name.toUpperCase(),
+        submittedName: payload.firstName.toUpperCase(),
         submittedEmail: payload.email,
         errors: {},
       };
     }
 
     const errors = {};
-    if (!payload.name) {
-      errors.name =
-        "Please provide your full name to initialize the inquiry profile.";
-    } else if (payload.name.length < 2) {
-      errors.name =
-        "Please enter a valid full name configuration (minimum 2 characters).";
+    if (!payload.firstName) {
+      errors.firstName = "Please provide your first name.";
+    } else if (payload.firstName.length < 2) {
+      errors.firstName = "Please enter a valid first name (minimum 2 characters).";
+    }
+
+    if (!payload.lastName) {
+      errors.lastName = "Please provide your last name.";
+    } else if (payload.lastName.length < 2) {
+      errors.lastName = "Please enter a valid last name (minimum 2 characters).";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -74,7 +79,7 @@ export async function submitLeadAction(prevState, formData) {
       return { success: false, errors, payload };
     }
 
-    const serviceConfig = getServiceConfig(payload.service);
+    const serviceConfig = getServiceFromCatalog(payload.service);
     const serviceKey = serviceConfig?.serviceKey || "general-lead";
 
     const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
@@ -108,7 +113,7 @@ export async function submitLeadAction(prevState, formData) {
 
     return {
       success: true,
-      submittedName: payload.name.toUpperCase(),
+      submittedName: payload.firstName.toUpperCase(),
       submittedEmail: payload.email,
       errors: {},
     };

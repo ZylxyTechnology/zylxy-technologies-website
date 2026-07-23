@@ -5,8 +5,32 @@ import { Container } from "@/components/layout/core/Container";
 import { Section } from "@/components/layout/core/Section";
 import { MotionContainer } from "@/components/motion/MotionContainer";
 import { MotionItem } from "@/components/motion/MotionItem";
-import { leadFormData as d } from "@/data/forms/ZylxyLeadGenForm";
+import { SERVICE_CATALOG } from "@/data/catalog/serviceCatalog";
+import { CONTACTS } from "@/data/constants/contactInfo";
 import { leadFormStyles as s } from "@/styles/forms/ZylxyLeadGenForm";
+
+const d = {
+  header: {
+    pillText: "Free Consultancy",
+    mainHeading: "Tell us about your project.",
+    subHeading:
+      "No commitment. No pressure. Just a straightforward conversation about your operational and digital growth needs.",
+  },
+  services: Object.values(SERVICE_CATALOG)
+    .filter((s) => s.visibleInLeadGen)
+    .map((s) => s.leadGenLabel),
+  organizationTypes: [
+    "Nonprofit Organization",
+    "Small Business",
+    "Workforce Development Organization",
+    "Educational Organization",
+    "Accelerator / Incubator",
+    "Community Organization",
+    "Professional Service Firm",
+    "Other",
+  ],
+  contacts: CONTACTS,
+};
 import {
   Building2,
   CalendarCheck,
@@ -108,33 +132,52 @@ export default function ZylxyLeadGenForm() {
                 </div>
 
                 <div className={s.grid}>
-                  {/* Full Name */}
-                  <div className={s.inputGroup}>
-                    <label
-                      htmlFor="name"
-                      className={state?.errors?.name ? s.labelError : s.label}
-                    >
-                      Full Name *
-                    </label>
-                    <div className={s.inputWrapper}>
-                      <User
-                        className={`${s.inputIcon} ${state?.errors?.name ? s.inputIconError : ""}`}
-                      />
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        defaultValue={state?.payload?.name || ""}
-                        placeholder="Your full name"
-                        className={`${s.input} ${state?.errors?.name ? s.inputErrorClass : ""}`}
-                      />
-                    </div>
-                    {state?.errors?.name && (
-                      <div className={s.errorText}>
-                        <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {state.errors.name}
+                  {/* First Name & Last Name */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className={s.inputGroup}>
+                      <label htmlFor="firstName" className={state?.errors?.firstName ? s.labelError : s.label}>
+                        First Name *
+                      </label>
+                      <div className={s.inputWrapper}>
+                        <User className={`${s.inputIcon} ${state?.errors?.firstName ? s.inputIconError : ""}`} />
+                        <input
+                          type="text"
+                          name="firstName"
+                          id="firstName"
+                          defaultValue={state?.payload?.firstName || ""}
+                          placeholder="First Name"
+                          className={`${s.input} ${state?.errors?.firstName ? s.inputErrorClass : ""}`}
+                        />
                       </div>
-                    )}
+                      {state?.errors?.firstName && (
+                        <div className={s.errorText}>
+                          <ShieldAlert className="w-4 h-4 shrink-0" />
+                          {state.errors.firstName}
+                        </div>
+                      )}
+                    </div>
+                    <div className={s.inputGroup}>
+                      <label htmlFor="lastName" className={state?.errors?.lastName ? s.labelError : s.label}>
+                        Last Name *
+                      </label>
+                      <div className={s.inputWrapper}>
+                        <User className={`${s.inputIcon} ${state?.errors?.lastName ? s.inputIconError : ""}`} />
+                        <input
+                          type="text"
+                          name="lastName"
+                          id="lastName"
+                          defaultValue={state?.payload?.lastName || ""}
+                          placeholder="Last Name"
+                          className={`${s.input} ${state?.errors?.lastName ? s.inputErrorClass : ""}`}
+                        />
+                      </div>
+                      {state?.errors?.lastName && (
+                        <div className={s.errorText}>
+                          <ShieldAlert className="w-4 h-4 shrink-0" />
+                          {state.errors.lastName}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Email Address */}

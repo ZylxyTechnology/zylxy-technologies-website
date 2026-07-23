@@ -1,3 +1,4 @@
+import { SERVICE_CATALOG } from "../catalog/serviceCatalog";
 import { webProjects } from "@/data/services/software-development/web/web-projects";
 import {
   Bot,
@@ -33,17 +34,16 @@ export const servicesData = {
   services: [
     {
       id: "web-application-development",
-      category: "Software",
-      title: "Web Application Development",
+      category: SERVICE_CATALOG["web-development"].category,
+      title: SERVICE_CATALOG["web-development"].websiteTitle,
+      icon: SERVICE_CATALOG["web-development"].icon,
+      fallbackImage: SERVICE_CATALOG["web-development"].placeholderImage,
       desc: "Corporate websites, SaaS platforms, and custom web apps built on modern, scalable stacks.",
       detailDesc:
         "We engineer high-performance web applications tailored to your business needs, utilizing modern frameworks like Next.js and React to ensure speed, security, and scalability.",
-      icon: Globe,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
       image: "/assets/services/webDevelopment.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
       featured: true,
       tags: ["React", "Next.js", "Node.js", "E-commerce"],
       features: [
@@ -65,17 +65,16 @@ export const servicesData = {
     },
     {
       id: "mobile-application-development",
-      category: "Software",
-      title: "Mobile Application Development",
+      category: SERVICE_CATALOG["mobile-app"].category,
+      title: SERVICE_CATALOG["mobile-app"].websiteTitle,
+      icon: SERVICE_CATALOG["mobile-app"].icon,
+      fallbackImage: SERVICE_CATALOG["mobile-app"].placeholderImage,
       desc: "Native and cross-platform mobile experiences for iOS and Android.",
       detailDesc:
         "Deliver seamless mobile experiences to your users with our custom iOS, Android, and cross-platform development services focused on intuitive UX and robust performance.",
-      icon: Smartphone,
       accent: "#8B5CF6",
       accentBg: "#F5F3FF",
       image: "/assets/services/appDevelopment.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800",
       tags: ["React Native", "iOS", "Android"],
       features: [
         "Native iOS & Android development",
@@ -96,17 +95,16 @@ export const servicesData = {
     },
     {
       id: "custom-software-development",
-      category: "Software",
-      title: "Custom Software Development",
+      category: SERVICE_CATALOG["custom-software"].category,
+      title: SERVICE_CATALOG["custom-software"].websiteTitle,
+      icon: SERVICE_CATALOG["custom-software"].icon,
+      fallbackImage: SERVICE_CATALOG["custom-software"].placeholderImage,
       desc: "Bespoke enterprise software and internal tools designed for your specific workflows.",
       detailDesc:
         "When off-the-shelf software falls short, we build custom enterprise solutions that perfectly align with your operational processes and data requirements.",
-      icon: Cpu,
       accent: "#059669",
       accentBg: "#ECFDF5",
       image: "/assets/services/softwareSolutions.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=800",
       tags: ["SaaS", "CRM", "ERP", "Automation"],
       features: [
         "Custom SaaS platform development",
@@ -127,17 +125,16 @@ export const servicesData = {
     },
     {
       id: "ui-ux-design",
-      category: "Software",
-      title: "UI/UX Design & Prototyping",
+      category: SERVICE_CATALOG["ui-ux-design"].category,
+      title: SERVICE_CATALOG["ui-ux-design"].websiteTitle,
+      icon: SERVICE_CATALOG["ui-ux-design"].icon,
+      fallbackImage: SERVICE_CATALOG["ui-ux-design"].placeholderImage,
       desc: "User-centric interface design and interactive prototypes that drive engagement.",
       detailDesc:
         "We design intuitive, accessible, and visually stunning digital interfaces that solve user problems and elevate your brand's digital presence.",
-      icon: Layout,
       accent: "#DB2777",
       accentBg: "#FDF2F8",
       image: "/assets/services/uiUxBranding.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1561070791-26c113006238?q=80&w=800",
       tags: ["Branding", "UI/UX", "Identity"],
       features: [
         "Logo & visual identity design",
@@ -158,17 +155,16 @@ export const servicesData = {
     },
     {
       id: "brand-creative-design",
-      category: "Software",
-      title: "Brand & Creative Design",
+      category: SERVICE_CATALOG["creative-design"].category,
+      title: SERVICE_CATALOG["creative-design"].websiteTitle,
+      icon: SERVICE_CATALOG["creative-design"].icon,
+      fallbackImage: SERVICE_CATALOG["creative-design"].placeholderImage,
       desc: "Logos, brand identity systems, and visual assets that make you stand out.",
       detailDesc:
         "Establish a strong market presence with comprehensive brand identities, from logo conceptualization to complete visual guidelines.",
-      icon: Palette,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
       image: "/public/assets/services/brand-creative-design.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=800",
       tags: ["Identity", "Graphics", "Guidelines"],
       features: [
         "Logo Design",
@@ -186,17 +182,16 @@ export const servicesData = {
     },
     {
       id: "application-support",
-      category: "Software",
-      title: "Application Support & Maintenance",
+      category: SERVICE_CATALOG["app-maintenance"].category,
+      title: SERVICE_CATALOG["app-maintenance"].websiteTitle,
+      icon: SERVICE_CATALOG["app-maintenance"].icon,
+      fallbackImage: SERVICE_CATALOG["app-maintenance"].placeholderImage,
       desc: "Ongoing technical support, updates, and optimization for your digital assets.",
       detailDesc:
         "Ensure your applications remain secure, fast, and compatible with the latest technologies through our dedicated support and maintenance packages.",
-      icon: Wrench,
       accent: "#475569",
       accentBg: "#F1F5F9",
       image: "/assets/services/itConsulting.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800",
       tags: ["DevOps", "Updates", "Security"],
       features: [
         "24/7 Monitoring",
@@ -214,17 +209,16 @@ export const servicesData = {
     },
     {
       id: "ai-engineering-automation",
-      category: "AI & CRM",
-      title: "AI Engineering & Automation",
+      category: SERVICE_CATALOG["ai-solutions"].category,
+      title: SERVICE_CATALOG["ai-solutions"].websiteTitle,
+      icon: SERVICE_CATALOG["ai-solutions"].icon,
+      fallbackImage: SERVICE_CATALOG["ai-solutions"].placeholderImage,
       desc: "Intelligent workflows and custom AI integrations to accelerate your business.",
       detailDesc:
         "Leverage the power of Artificial Intelligence to automate repetitive tasks, analyze data at scale, and create smarter user experiences.",
-      icon: Bot,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
       image: "/assets/services/softwareSolutions.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=800",
       featured: true,
       tags: ["Machine Learning", "Workflow", "LLMs"],
       features: [
@@ -243,18 +237,17 @@ export const servicesData = {
     },
     {
       id: "hubspot-crm-implementation",
-      category: "AI & CRM",
-      title: "HubSpot CRM Implementation",
       customRoute: "/hubspot",
+      category: SERVICE_CATALOG["hubspot-crm"].category,
+      title: SERVICE_CATALOG["hubspot-crm"].websiteTitle,
+      icon: SERVICE_CATALOG["hubspot-crm"].icon,
+      fallbackImage: SERVICE_CATALOG["hubspot-crm"].placeholderImage,
       desc: "Full HubSpot onboarding, CRM cleanup, and custom workflow automation.",
       detailDesc:
         "Maximize your CRM investment with expert HubSpot implementation, migrating your data safely and automating your sales and marketing pipelines.",
-      icon: Workflow,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
       image: "/assets/services/digitalMarketing.jpg",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1552581234-2612b75d8953?q=80&w=800",
       tags: ["Sales Hub", "Marketing Hub", "Operations"],
       features: [
         "Data Migration",
@@ -272,18 +265,17 @@ export const servicesData = {
     },
     {
       id: "talent-acquisition",
-      category: "Recruitment",
-      title: "Talent Acquisition",
       customRoute: "/careers/recruitment-services/talent-acquisition",
+      category: SERVICE_CATALOG["talent-acquisition"].category,
+      title: SERVICE_CATALOG["talent-acquisition"].websiteTitle,
+      icon: SERVICE_CATALOG["talent-acquisition"].icon,
+      fallbackImage: SERVICE_CATALOG["talent-acquisition"].placeholderImage,
       desc: "End-to-end recruitment services connecting you with top-tier technical and executive talent.",
       detailDesc:
         "We bridge the gap between great companies and exceptional talent, utilizing data-driven sourcing to find the perfect fit for your technical and operational roles.",
-      icon: Target,
       accent: "#059669",
       accentBg: "#ECFDF5",
       image: "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=800",
       featured: true,
       tags: ["Tech Hiring", "Executive Search", "Screening"],
       features: [
@@ -302,18 +294,17 @@ export const servicesData = {
     },
     {
       id: "campus-recruitment",
-      category: "Recruitment",
-      title: "Campus Recruitment",
       customRoute: "/careers/recruitment-services/campus-recruitment",
+      category: SERVICE_CATALOG["campus-recruitment"].category,
+      title: SERVICE_CATALOG["campus-recruitment"].websiteTitle,
+      icon: SERVICE_CATALOG["campus-recruitment"].icon,
+      fallbackImage: SERVICE_CATALOG["campus-recruitment"].placeholderImage,
       desc: "Professional resume building, interview preparation, and profile optimization.",
       detailDesc:
         "Empowering professionals to take the next step in their careers with optimized resumes, LinkedIn profiles, and targeted interview coaching.",
-      icon: TrendingUp,
       accent: "#8B5CF6",
       accentBg: "#F5F3FF",
       image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800",
       tags: ["Resume Building", "Coaching", "LinkedIn"],
       features: [
         "ATS Optimization",
@@ -331,17 +322,16 @@ export const servicesData = {
     },
     {
       id: "corporate-training",
-      category: "Training",
-      title: "Corporate Training",
+      category: SERVICE_CATALOG["corporate-training"].category,
+      title: SERVICE_CATALOG["corporate-training"].websiteTitle,
+      icon: SERVICE_CATALOG["corporate-training"].icon,
+      fallbackImage: SERVICE_CATALOG["corporate-training"].placeholderImage,
       desc: "Customized upskilling programs for your workforce in modern technologies.",
       detailDesc:
         "Keep your team ahead of the curve with our specialized corporate training programs focused on the latest web technologies, AI tools, and CRM systems.",
-      icon: Building2,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
       image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
       featured: true,
       tags: ["Upskilling", "Workshops", "Tech Stack"],
       features: [
@@ -360,17 +350,16 @@ export const servicesData = {
     },
     {
       id: "academic-partnerships",
-      category: "Training",
-      title: "Academic Training Partnerships",
+      category: SERVICE_CATALOG["academic-partnerships"].category,
+      title: SERVICE_CATALOG["academic-partnerships"].websiteTitle,
+      icon: SERVICE_CATALOG["academic-partnerships"].icon,
+      fallbackImage: SERVICE_CATALOG["academic-partnerships"].placeholderImage,
       desc: "Bridging the gap between university curriculum and industry requirements.",
       detailDesc:
         "We partner with educational institutions to provide students with practical, industry-relevant technical training that prepares them for the modern workforce.",
-      icon: GraduationCap,
       accent: "#DB2777",
       accentBg: "#FDF2F8",
       image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800",
       tags: ["Colleges", "Seminars", "Bootcamps"],
       features: [
         "Guest Lectures",
@@ -388,17 +377,16 @@ export const servicesData = {
     },
     {
       id: "internship-programs",
-      category: "Training",
-      title: "Internship Programs",
+      category: SERVICE_CATALOG["internship-programs"].category,
+      title: SERVICE_CATALOG["internship-programs"].websiteTitle,
+      icon: SERVICE_CATALOG["internship-programs"].icon,
+      fallbackImage: SERVICE_CATALOG["internship-programs"].placeholderImage,
       desc: "Hands-on, live-project internships for aspiring developers and engineers.",
       detailDesc:
         "Gain real-world experience through our structured internship programs, working on live projects under the guidance of senior industry professionals.",
-      icon: Laptop,
       accent: "#059669",
       accentBg: "#ECFDF5",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800",
       tags: ["Live Projects", "Mentorship", "Hands-on"],
       features: [
         "Real-world Tasks",
@@ -416,17 +404,16 @@ export const servicesData = {
     },
     {
       id: "placement-assistance",
-      category: "Training",
-      title: "Placement Assistance",
+      category: SERVICE_CATALOG["placement-assistance"].category,
+      title: SERVICE_CATALOG["placement-assistance"].websiteTitle,
+      icon: SERVICE_CATALOG["placement-assistance"].icon,
+      fallbackImage: SERVICE_CATALOG["placement-assistance"].placeholderImage,
       desc: "Dedicated support connecting trained candidates with hiring partners.",
       detailDesc:
         "We don't just train; we help you launch your career. Our placement cell connects successful trainees with our network of hiring partners.",
-      icon: Briefcase,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200",
-      fallbackImage:
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800",
       tags: ["Job Drives", "Interviews", "Hiring Partners"],
       features: [
         "Partner Network",

@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { getHubspotContext } from "@/utils/hubspotContext";
 import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
-import { getServiceConfig } from "@/data/services/serviceRegistry";
+import { getServiceFromCatalog } from "@/data/catalog/serviceCatalog";
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const {
-      name,
+      firstName,
+      lastName,
       email,
       phone,
       countryCode,
@@ -26,8 +27,11 @@ export async function POST(request) {
     }
 
     const errors = {};
-    if (!name || name.trim().length < 2) {
-      errors.name = "Full name configuration is required.";
+    if (!firstName || firstName.trim().length < 2) {
+      errors.firstName = "First name is required.";
+    }
+    if (!lastName || lastName.trim().length < 2) {
+      errors.lastName = "Last name is required.";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,7 +57,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    const serviceConfig = getServiceConfig(service);
+    const serviceConfig = getServiceFromCatalog(service);
     const serviceKey = serviceConfig?.serviceKey || "general-lead";
 
     const requestContext = getHubspotContext(
@@ -63,16 +67,19 @@ export async function POST(request) {
       clientIp,
     );
 
-    const { formConfig, payload: hubspotPayload } = buildHubspotPayload({
+    const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
       serviceKey,
       rawPayload: {
-        name,
+        firstName,
+        lastName,
         email,
         phone,
+        dialCode: countryCode,
         service,
+        message,
         orgName,
         orgType,
-        message,
+        consentCommunications,
         consentProcessing,
       },
       requestContext,

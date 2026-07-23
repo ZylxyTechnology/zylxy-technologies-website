@@ -5,7 +5,7 @@
  */
 
 import { HUBSPOT_FORMS_REGISTRY, getHubspotFormConfig } from "@/data/forms/hubspotFormsRegistry";
-import { getServiceConfig } from "@/data/services/serviceRegistry";
+import { getServiceFromCatalog } from "@/data/catalog/serviceCatalog";
 
 export function buildHubspotPayload({
   serviceKey,
@@ -13,12 +13,12 @@ export function buildHubspotPayload({
   requestContext = {},
 }) {
   const formConfig = getHubspotFormConfig(serviceKey);
-  const serviceConfig = getServiceConfig(serviceKey);
+  const catalogConfig = getServiceFromCatalog(serviceKey);
 
   // Determine canonical HubSpot CRM service value
   const resolvedHubspotValue =
+    catalogConfig?.hubspotValue ||
     formConfig?.hubspotInternalValue ||
-    serviceConfig?.leadGenerationLabel ||
     rawPayload.service ||
     "General Lead";
 
@@ -38,11 +38,9 @@ export function buildHubspotPayload({
     : "";
 
   // Full name calculation
-  const firstName = (rawPayload.firstName || rawPayload.name || "").trim();
+  const firstName = (rawPayload.firstName || "").trim();
   const lastName = (rawPayload.lastName || "").trim();
-  const fullName = rawPayload.name
-    ? rawPayload.name.trim()
-    : `${firstName} ${lastName}`.trim();
+  const fullName = `${firstName} ${lastName}`.trim();
 
   // Multi-select serialization
   const selectedApps = Array.isArray(rawPayload.selectedApps)
