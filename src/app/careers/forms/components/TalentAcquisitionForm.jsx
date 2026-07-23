@@ -160,11 +160,11 @@ export default function TalentAcquisitionForm() {
               className={talentFormStyles.select}
               defaultValue=""
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-[#050E21] text-white">
                 Select Type
               </option>
               {organizationTypeOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
+                <option key={opt.value} value={opt.value} className="bg-[#050E21] text-white">
                   {opt.label}
                 </option>
               ))}
@@ -266,11 +266,11 @@ export default function TalentAcquisitionForm() {
               className={talentFormStyles.select}
               defaultValue=""
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-[#050E21] text-white">
                 Select Experience
               </option>
               {experienceRequiredOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
+                <option key={opt.value} value={opt.value} className="bg-[#050E21] text-white">
                   {opt.label}
                 </option>
               ))}

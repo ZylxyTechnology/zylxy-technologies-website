@@ -22,7 +22,7 @@ export async function submitTalentAcquisition(formData) {
 
     const apiUrl = process.env.NEXT_PUBLIC_SITE_URL
       ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/talent/recruitment-services/talent-acquisition`
-      : "http://localhost:3000/api/talent/recruitment-services/talent-acquisition";
+      : "http://127.0.0.1:3000/api/talent/recruitment-services/talent-acquisition";
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -38,6 +38,7 @@ export async function submitTalentAcquisition(formData) {
 
     return { success: true };
   } catch (error) {
+    console.error("[ACTION ERROR] Submission failed:", error);
     return { success: false, error: "Submission failed" };
   }
 }

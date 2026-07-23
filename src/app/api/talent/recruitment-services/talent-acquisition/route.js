@@ -14,18 +14,18 @@ export async function POST(request) {
       // ---------------------------------------------------------
       // MAPPING REGISTRY (FROZEN SOURCE OF TRUTH)
       // ---------------------------------------------------------
-      company: "company",
-      organization_size: "numberofemployees",
-      organization_type: "industry",
+      company: "company", // Keeps standard company
+      organization_size: "0-2/numberofemployees",
+      organization_type: "0-2/industry_type",
       number_of_open_positions: "numemployees",
-      required_skills: "hs_sub_role", // Same as Campus Recruitment 'skills_tools_technologies'
-      project_description: "message", // Text property for project details
+      required_skills: "hs_sub_role",
+      job_description_url: "job_function",
+      total_work_experience_required: "hs_seniority",
+      services_needed: "recruitment_service",
+      job_location: "job_location", // Fix: HubSpot strictly expects the custom 'job_location' property
+      employment_start_date: "start_date",
       linkedin: "hs_linkedin_url",
-      job_description_url: "job_function", // CONFIRMED: File property in HubSpot is 'job_function'
-      total_work_experience_required: "hs_seniority", // Same as Campus Recruitment 'total_work_experience'
-      services_needed: "hs_role", // Using role for services mapping or raw
-      job_location: "city",
-      employment_start_date: "start_date"
+      project_description: "message",
     };
 
     console.log("[2] Configured Field Mappings:", JSON.stringify(fieldMapping, null, 2));
@@ -42,6 +42,10 @@ export async function POST(request) {
           value: value ? value.toString() : "",
         };
       });
+
+    // Inject missing required fields that duplicate data
+    if (body.company) fields.push({ name: "0-2/name", value: body.company });
+    if (body.phone) fields.push({ name: "0-2/phone", value: body.phone });
 
     console.log("[3] Parsed HubSpot Fields Array:", JSON.stringify(fields, null, 2));
 

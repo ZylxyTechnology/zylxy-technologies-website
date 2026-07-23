@@ -5,7 +5,7 @@ import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
 export async function POST(request) {
   try {
     const body = await request.json();
-    
+
     if (body.honeyTrap !== "") {
       return NextResponse.json({ success: true });
     }
@@ -27,7 +27,7 @@ export async function POST(request) {
 
     if (!body.orgName) errors.orgName = "Please provide your organization name.";
     if (!body.orgType) errors.orgType = "Please select an organization type.";
-    
+
     if (!body.selectedApps || body.selectedApps.length === 0) {
       errors.selectedApps = "Please select at least one training or placement service.";
     }
