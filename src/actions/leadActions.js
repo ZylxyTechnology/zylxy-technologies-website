@@ -3,6 +3,7 @@
 import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
 import { getServiceFromCatalog } from "@/data/catalog/serviceCatalog";
 import { executeGovernedHubSpotSync } from "@/lib/hubspot/hubspotSubmissionGovernance";
+import { headers } from "next/headers";
 
 export async function submitLeadAction(prevState, formData) {
   const payload = {
@@ -82,12 +83,17 @@ export async function submitLeadAction(prevState, formData) {
     const serviceConfig = getServiceFromCatalog(payload.service);
     const serviceKey = serviceConfig?.serviceKey || "general-lead";
 
+    const headersList = await headers();
+    const forwardedFor = headersList.get("x-forwarded-for");
+    const ipAddress = forwardedFor ? forwardedFor.split(",")[0].trim() : headersList.get("x-real-ip");
+
     const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
       serviceKey,
       rawPayload: payload,
       requestContext: {
         pageUri: "https://zylxytech.com/contact",
         pageName: "Zylxy General Lead Intake Canvas",
+        ipAddress: ipAddress || undefined,
       },
     });
 

@@ -457,8 +457,7 @@ export default function ZylxyLeadGenForm() {
                 )}
               </form>
             ) : (
-              <div className={s.successCard}>
-                <div className={s.formAccentBar} />
+              <div className="flex flex-col items-center justify-center min-h-[440px] text-center gap-4">
                 <div className={s.successIconBox}>
                   <CalendarCheck className="w-7 h-7" />
                 </div>
