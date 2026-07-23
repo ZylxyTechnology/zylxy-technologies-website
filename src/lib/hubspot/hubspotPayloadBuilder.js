@@ -45,11 +45,16 @@ export function buildHubspotPayload({
     : `${firstName} ${lastName}`.trim();
 
   // Multi-select serialization
-  const selectedApps = Array.isArray(rawPayload.selectedApps)
-    ? rawPayload.selectedApps.join(";")
-    : rawPayload.selectedApps || "";
+  const isTrainingService =
+    serviceKey === "training-placement" || serviceKey === "corporate-training";
 
-  // Construct fields array
+  const rawMessage = (rawPayload.message || "").trim();
+  const combinedMessage =
+    isTrainingService && selectedApps
+      ? `Requested Services: ${selectedApps}${rawMessage ? `\n\nProject Scope: ${rawMessage}` : ""}`
+      : rawMessage;
+
+  // Construct fields array with service-specific allowlist
   const rawFields = [
     { name: "full_name", value: fullName },
     { name: "firstname", value: firstName || fullName },
@@ -58,12 +63,16 @@ export function buildHubspotPayload({
     { name: "phone", value: fullPhoneNumber },
     { name: "0-2/service", value: resolvedHubspotValue },
     { name: "service", value: resolvedHubspotValue },
-    { name: "software_development", value: selectedApps },
     { name: "company", value: (rawPayload.orgName || "").trim() },
     { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
     { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
-    { name: "message", value: (rawPayload.message || "").trim() },
-    { name: "hs_chat_assistant_source", value: selectedApps },
+    { name: "message", value: combinedMessage },
+    ...(!isTrainingService
+      ? [
+          { name: "software_development", value: selectedApps },
+          { name: "hs_chat_assistant_source", value: selectedApps },
+        ]
+      : []),
   ];
 
   // Filter out empty values (unless required)

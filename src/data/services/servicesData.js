@@ -281,7 +281,7 @@ export const servicesData = {
       icon: Target,
       accent: "#059669",
       accentBg: "#ECFDF5",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=1200",
       fallbackImage:
         "https://images.unsplash.com/photo-1521791136368-1a46827d0505?q=80&w=800",
       featured: true,
@@ -311,7 +311,7 @@ export const servicesData = {
       icon: TrendingUp,
       accent: "#8B5CF6",
       accentBg: "#F5F3FF",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200",
       fallbackImage:
         "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800",
       tags: ["Resume Building", "Coaching", "LinkedIn"],
@@ -339,7 +339,7 @@ export const servicesData = {
       icon: Building2,
       accent: "#2563EB",
       accentBg: "#EFF6FF",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200",
       fallbackImage:
         "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
       featured: true,
@@ -368,7 +368,7 @@ export const servicesData = {
       icon: GraduationCap,
       accent: "#DB2777",
       accentBg: "#FDF2F8",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200",
       fallbackImage:
         "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800",
       tags: ["Colleges", "Seminars", "Bootcamps"],
@@ -396,9 +396,9 @@ export const servicesData = {
       icon: Laptop,
       accent: "#059669",
       accentBg: "#ECFDF5",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200",
       fallbackImage:
-        "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800",
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800",
       tags: ["Live Projects", "Mentorship", "Hands-on"],
       features: [
         "Real-world Tasks",
@@ -424,9 +424,9 @@ export const servicesData = {
       icon: Briefcase,
       accent: "#EA580C",
       accentBg: "#FFF7ED",
-      image: "/assets/services/trainingCourses.jpg",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200",
       fallbackImage:
-        "https://images.unsplash.com/photo-1521791055366-0d553872115f?q=80&w=800",
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800",
       tags: ["Job Drives", "Interviews", "Hiring Partners"],
       features: [
         "Partner Network",
