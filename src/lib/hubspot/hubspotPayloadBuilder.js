@@ -45,6 +45,10 @@ export function buildHubspotPayload({
     : `${firstName} ${lastName}`.trim();
 
   // Multi-select serialization
+  const selectedApps = Array.isArray(rawPayload.selectedApps)
+    ? rawPayload.selectedApps.join(";")
+    : rawPayload.selectedApps || "";
+
   const isTrainingService =
     serviceKey === "training-placement" || serviceKey === "corporate-training";
 
