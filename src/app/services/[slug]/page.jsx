@@ -12,6 +12,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { use } from "react";
 
+// Triggering Next.js cache invalidation
+
+
 export default function ServiceDetailPage({ params }) {
   const resolvedParams = use(params);
   const slug = resolvedParams.slug;

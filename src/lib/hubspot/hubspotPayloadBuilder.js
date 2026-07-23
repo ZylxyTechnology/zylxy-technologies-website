@@ -46,14 +46,18 @@ export function buildHubspotPayload({
   const selectedApps = Array.isArray(rawPayload.selectedApps)
     ? rawPayload.selectedApps.join(";")
     : rawPayload.selectedApps || "";
+    
+  const readableSelectedApps = Array.isArray(rawPayload.selectedApps)
+    ? rawPayload.selectedApps.join(", ")
+    : rawPayload.selectedApps || "";
 
   const isTrainingService =
-    serviceKey === "training-placement" || serviceKey === "corporate-training";
+    catalogConfig?.category === "Training" || serviceKey === "training-placement";
 
   const rawMessage = (rawPayload.message || "").trim();
   const combinedMessage =
-    isTrainingService && selectedApps
-      ? `Requested Services: ${selectedApps}${rawMessage ? `\n\nProject Scope: ${rawMessage}` : ""}`
+    isTrainingService && readableSelectedApps
+      ? `Requested Services: ${readableSelectedApps}${rawMessage ? `\n\nProject Scope: ${rawMessage}` : ""}`
       : rawMessage;
 
   // Construct fields array with service-specific allowlist
@@ -65,18 +69,16 @@ export function buildHubspotPayload({
     { name: "phone", value: fullPhoneNumber },
     ...(!isTrainingService ? [{ name: "service_interest", value: resolvedHubspotValue }] : []),
     { name: "company", value: (rawPayload.orgName || "").trim() },
+    { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
+    { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
     { name: "message", value: combinedMessage },
-    ...(!isTrainingService
-      ? [
-          { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
-          { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
-          ...(selectedApps
-            ? [
-                { name: "software_development", value: selectedApps },
-                { name: "hs_chat_assistant_source", value: selectedApps },
-              ]
-            : []),
-        ]
+    ...(selectedApps
+      ? isTrainingService
+        ? [{ name: "training_requirement", value: selectedApps }]
+        : [
+            { name: "software_development", value: selectedApps },
+            { name: "hs_chat_assistant_source", value: selectedApps },
+          ]
       : []),
   ];
 

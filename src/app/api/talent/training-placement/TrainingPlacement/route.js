@@ -12,12 +12,20 @@ export async function POST(request) {
 
     const serviceKey = "training-placement";
 
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const ipAddress =
+      (forwardedFor ? forwardedFor.split(",")[0].trim() : null) ||
+      request.headers.get("x-real-ip") ||
+      request.headers.get("cf-connecting-ip") ||
+      "127.0.0.1";
+
     const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
       serviceKey,
       rawPayload: body,
       requestContext: {
         pageUri: request.url,
-        pageName: "Zylxy Training & Placement Intake"
+        pageName: "Zylxy Training & Placement Intake",
+        ipAddress: ipAddress
       }
     });
 
