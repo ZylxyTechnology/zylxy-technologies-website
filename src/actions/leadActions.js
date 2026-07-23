@@ -1,11 +1,29 @@
 "use server";
 
+import { HUBSPOT_FORMS_REGISTRY, HUBSPOT_COMMON_CONFIG } from "@/data/forms/hubspotFormsRegistry";
+
+// Maps user-facing dropdown label to the HubSpot form registry key
+const SERVICE_LABEL_TO_REGISTRY_KEY = {
+  "Web Development": "web-development",
+  "Mobile App Development": "mobile-app",
+  "Custom Software Development": "custom-software",
+  "UI/UX Designing & Prototyping": "ui-ux-design",
+  "Creative Design Services": "brand-design",
+  "Application Support & Maintenance": "app-maintenance",
+  "AI Solutions": "ai-automation",
+  "HubSpot CRM Implementation": "hubspot-crm",
+  "Talent Acquisition": "talent-acquisition",
+  "Campus Recruitment": "campus-recruitment",
+  "Training & Placement": "training-placement",
+};
+
 export async function submitLeadAction(prevState, formData) {
   const payload = {
-    name: formData.get("name")?.toString().trim() || "",
+    firstName: formData.get("firstName")?.toString().trim() || "",
+    lastName: formData.get("lastName")?.toString().trim() || "",
     email: formData.get("email")?.toString().trim() || "",
     phone: formData.get("phone")?.toString().trim() || "",
-    dialCode: formData.get("dialCode")?.toString().trim() || "+91",
+    dialCode: formData.get("dialCode")?.toString().trim() || "IN",
     service: formData.get("service")?.toString() || "",
     message: formData.get("message")?.toString().trim() || "",
     orgName: formData.get("orgName")?.toString().trim() || "",
@@ -19,63 +37,76 @@ export async function submitLeadAction(prevState, formData) {
     honeyTrap: formData.get("honeyTrap")?.toString() || "",
   };
 
-  try {
-    if (payload.honeyTrap !== "") {
-      return {
-        success: true,
-        submittedName: payload.name.toUpperCase(),
-        submittedEmail: payload.email,
-        errors: {},
-      };
-    }
+  // Honeypot check — silently succeed if spam bot triggered it
+  if (payload.honeyTrap !== "") {
+    return {
+      success: true,
+      submittedName: payload.firstName.toUpperCase(),
+      submittedEmail: payload.email,
+      errors: {},
+    };
+  }
 
+  try {
     const errors = {};
-    if (!payload.name) {
-      errors.name = "Please provide your full name to initialize the inquiry profile.";
-    } else if (payload.name.length < 2) {
-      errors.name = "Please enter a valid full name configuration (minimum 2 characters).";
+
+    if (!payload.firstName || payload.firstName.length < 2) {
+      errors.firstName = "Please enter your first name (minimum 2 characters).";
+    }
+    if (!payload.lastName || payload.lastName.length < 1) {
+      errors.lastName = "Please enter your last name.";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!payload.email) {
-      errors.email = "A valid email address is required to ensure secure communication routing.";
+      errors.email = "A valid email address is required.";
     } else if (!emailRegex.test(payload.email)) {
       errors.email = "Please provide a correctly formatted email address.";
     }
 
     const cleanPhone = payload.phone.replace(/\D/g, "");
     if (!payload.phone) {
-      errors.phone = "An operational phone number is required to finalize your verification routing.";
+      errors.phone = "A phone number is required.";
     } else if (cleanPhone.length < 6 || cleanPhone.length > 15) {
-      errors.phone = "Please enter a valid phone number configuration.";
+      errors.phone = "Please enter a valid phone number.";
     }
 
     if (!payload.service) {
-      errors.service = "Please select an operational service track parameter from the dropdown selection.";
+      errors.service = "Please select a service from the dropdown.";
     }
 
     if (!payload.consentProcessing) {
-      errors.consentProcessing = "Please check the box to confirm your consent to store and process personal data.";
+      errors.consentProcessing = "Please check the box to confirm your consent to process personal data.";
     }
 
     if (Object.keys(errors).length > 0) {
       return { success: false, errors, payload };
     }
 
-    const prefix = payload.dialCode && !payload.dialCode.startsWith("+") && payload.dialCode !== "IN" 
-      ? `+${payload.dialCode}` 
-      : payload.dialCode === "IN" ? "+91" : payload.dialCode;
+    // Format phone with dial prefix
+    const dialCode = payload.dialCode;
+    const prefix =
+      dialCode && !dialCode.startsWith("+") && dialCode !== "IN"
+        ? `+${dialCode}`
+        : dialCode === "IN"
+          ? "+91"
+          : dialCode;
     const fullPhoneNumber = `${prefix} ${cleanPhone}`.trim();
 
+    // Resolve the correct HubSpot form for this service
+    const registryKey = SERVICE_LABEL_TO_REGISTRY_KEY[payload.service] || "general-lead";
+    const formConfig =
+      HUBSPOT_FORMS_REGISTRY[registryKey] || HUBSPOT_FORMS_REGISTRY["general-lead"];
+    const portalId = formConfig.portalId || HUBSPOT_COMMON_CONFIG.portalId;
+    const formId = formConfig.formId;
+
+    // Only send standard HubSpot contact properties — no custom fields that don't exist
     const rawFields = [
-      { name: "firstname", value: payload.name },
+      { name: "firstname", value: payload.firstName },
+      { name: "lastname", value: payload.lastName },
       { name: "email", value: payload.email },
       { name: "phone", value: fullPhoneNumber },
-      { name: "service", value: payload.service },
-      { name: "0-2/service", value: payload.service },
       { name: "company", value: payload.orgName },
-      { name: "0-2/name", value: payload.orgName },
-      { name: "0-2/industry_type", value: payload.orgType },
       { name: "message", value: payload.message },
     ];
 
@@ -86,7 +117,7 @@ export async function submitLeadAction(prevState, formData) {
       fields,
       context: {
         pageUri: "https://zylxytech.com/contact",
-        pageName: "Zylxy General Lead Intake Canvas",
+        pageName: "Zylxy Lead Generation Form",
       },
       legalConsentOptions: {
         consent: {
@@ -96,9 +127,13 @@ export async function submitLeadAction(prevState, formData) {
       },
     };
 
-    const portalId = "246492214";
-    const formId = "22c7712e-9c35-4c26-9881-4abf481fa67c";
-    
+    console.log("[HubSpot Submit]", {
+      registryKey,
+      portalId,
+      formId,
+      fields: fields.map((f) => f.name),
+    });
+
     const response = await fetch(
       `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -114,7 +149,7 @@ export async function submitLeadAction(prevState, formData) {
       return {
         success: false,
         errors: {
-          global: "HubSpot interface synchronization rejection. Please try again.",
+          global: `Submission failed (${response.status}). Please try again or contact us directly.`,
         },
         payload,
       };
@@ -122,7 +157,7 @@ export async function submitLeadAction(prevState, formData) {
 
     return {
       success: true,
-      submittedName: payload.name.toUpperCase(),
+      submittedName: `${payload.firstName} ${payload.lastName}`.toUpperCase(),
       submittedEmail: payload.email,
       errors: {},
     };
@@ -130,7 +165,7 @@ export async function submitLeadAction(prevState, formData) {
     console.error("[Submission Error]", error);
     return {
       success: false,
-      errors: { global: "Internal data channel pipeline execution failure." },
+      errors: { global: "An unexpected error occurred. Please try again." },
       payload,
     };
   }
