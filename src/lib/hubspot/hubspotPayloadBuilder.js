@@ -71,8 +71,8 @@ export function buildHubspotPayload({
     { name: "message", value: combinedMessage },
     ...(!isTrainingService
       ? [
-          { name: "software_development", value: selectedApps },
-          { name: "hs_chat_assistant_source", value: selectedApps },
+          { name: "software_development", value: selectedApps || "Not specified" },
+          { name: "hs_chat_assistant_source", value: selectedApps || "Not specified" },
         ]
       : []),
   ];
