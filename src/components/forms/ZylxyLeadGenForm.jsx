@@ -23,20 +23,6 @@ import Link from "next/link";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import countryList from "react-select-country-list";
 
-const LEAD_GEN_DROPDOWN_OPTIONS = [
-  "Web Development",
-  "Mobile App Development",
-  "Custom Software Development",
-  "UI/UX Designing & Prototyping",
-  "Creative Design Services",
-  "Application Support & Maintenance",
-  "AI Solutions",
-  "HubSpot CRM Implementation",
-  "Talent Acquisition",
-  "Campus Recruitment",
-  "Training & Placement",
-];
-
 export default function ZylxyLeadGenForm() {
   const dropdownRef = useRef(null);
   const countryOptions = useMemo(() => countryList().getData(), []);
@@ -47,7 +33,6 @@ export default function ZylxyLeadGenForm() {
     payload: {},
   });
 
-  const [selectedService, setSelectedService] = useState("");
   const [selectedCountry, setSelectedCountry] = useState({
     value: "IN",
     label: "India",
@@ -96,116 +81,63 @@ export default function ZylxyLeadGenForm() {
 
             {!state?.success ? (
               <form action={formAction}>
-                {/* Hidden fields */}
-                <input type="hidden" name="dialCode" value={selectedCountry.value} />
-                <input type="hidden" name="consentCommunications" value={consentComm ? "true" : "false"} />
-                <input type="hidden" name="consentProcessing" value={consentProc ? "true" : "false"} />
+                <input
+                  type="hidden"
+                  name="dialCode"
+                  value={selectedCountry.value}
+                />
+                <input
+                  type="hidden"
+                  name="consentCommunications"
+                  value={consentComm ? "true" : "false"}
+                />
+                <input
+                  type="hidden"
+                  name="consentProcessing"
+                  value={consentProc ? "true" : "false"}
+                />
+                <input type="hidden" name="isHubSpotFormContext" value="false" />
 
-                {/* Honeypot anti-spam */}
                 <div style={{ display: "none" }} aria-hidden="true">
-                  <input type="text" name="honeyTrap" tabIndex="-1" autoComplete="off" />
+                  <input
+                    type="text"
+                    name="honeyTrap"
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
                 </div>
 
-                {/* SERVICE — full width */}
-                <div className={s.grid} style={{ marginBottom: "1.5rem" }}>
-                  <div className={s.inputGroup} style={{ gridColumn: "1 / -1" }}>
-                    <label
-                      htmlFor="serviceSelector"
-                      className={state?.errors?.service ? s.labelError : s.label}
-                    >
-                      Service Needed *
-                    </label>
-                    <div className={s.selectWrapper}>
-                      <select
-                        name="service"
-                        id="serviceSelector"
-                        value={selectedService}
-                        onChange={(e) => setSelectedService(e.target.value)}
-                        className={`${s.select} ${state?.errors?.service ? s.inputErrorClass : ""}`}
-                        style={{
-                          color: selectedService ? "#FFFFFF" : "rgba(255,255,255,0.3)",
-                        }}
-                      >
-                        <option value="">Select a service...</option>
-                        {LEAD_GEN_DROPDOWN_OPTIONS.map((opt) => (
-                          <option key={opt} value={opt} className="bg-[#1B1F3A] text-white">
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    {state?.errors?.service && (
-                      <div className={s.errorText}>
-                        <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {state.errors.service}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* FIRST NAME + LAST NAME */}
-                <div className={s.grid} style={{ marginBottom: "1.25rem" }}>
+                <div className={s.grid}>
+                  {/* Full Name */}
                   <div className={s.inputGroup}>
                     <label
-                      htmlFor="firstName"
-                      className={state?.errors?.firstName ? s.labelError : s.label}
+                      htmlFor="name"
+                      className={state?.errors?.name ? s.labelError : s.label}
                     >
-                      First Name *
+                      Full Name *
                     </label>
                     <div className={s.inputWrapper}>
                       <User
-                        className={`${s.inputIcon} ${state?.errors?.firstName ? s.inputIconError : ""}`}
+                        className={`${s.inputIcon} ${state?.errors?.name ? s.inputIconError : ""}`}
                       />
                       <input
                         type="text"
-                        name="firstName"
-                        id="firstName"
-                        defaultValue={state?.payload?.firstName || ""}
-                        placeholder="First name"
-                        className={`${s.input} ${state?.errors?.firstName ? s.inputErrorClass : ""}`}
-                        autoComplete="given-name"
+                        name="name"
+                        id="name"
+                        defaultValue={state?.payload?.name || ""}
+                        placeholder="Your full name"
+                        className={`${s.input} ${state?.errors?.name ? s.inputErrorClass : ""}`}
                       />
                     </div>
-                    {state?.errors?.firstName && (
+                    {state?.errors?.name && (
                       <div className={s.errorText}>
                         <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {state.errors.firstName}
+                        {state.errors.name}
                       </div>
                     )}
                   </div>
 
-                  <div className={s.inputGroup}>
-                    <label
-                      htmlFor="lastName"
-                      className={state?.errors?.lastName ? s.labelError : s.label}
-                    >
-                      Last Name *
-                    </label>
-                    <div className={s.inputWrapper}>
-                      <User
-                        className={`${s.inputIcon} ${state?.errors?.lastName ? s.inputIconError : ""}`}
-                      />
-                      <input
-                        type="text"
-                        name="lastName"
-                        id="lastName"
-                        defaultValue={state?.payload?.lastName || ""}
-                        placeholder="Last name"
-                        className={`${s.input} ${state?.errors?.lastName ? s.inputErrorClass : ""}`}
-                        autoComplete="family-name"
-                      />
-                    </div>
-                    {state?.errors?.lastName && (
-                      <div className={s.errorText}>
-                        <ShieldAlert className="w-4 h-4 shrink-0" />
-                        {state.errors.lastName}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* EMAIL + PHONE */}
-                <div className={s.grid} style={{ marginBottom: "1.25rem" }}>
+                  {/* Email Address */}
                   <div className={s.inputGroup}>
                     <label
                       htmlFor="email"
@@ -224,7 +156,6 @@ export default function ZylxyLeadGenForm() {
                         defaultValue={state?.payload?.email || ""}
                         placeholder="you@company.com"
                         className={`${s.input} ${state?.errors?.email ? s.inputErrorClass : ""}`}
-                        autoComplete="email"
                       />
                     </div>
                     {state?.errors?.email && (
@@ -235,6 +166,7 @@ export default function ZylxyLeadGenForm() {
                     )}
                   </div>
 
+                  {/* Phone Number */}
                   <div className={s.inputGroup}>
                     <label
                       htmlFor="phone"
@@ -261,7 +193,7 @@ export default function ZylxyLeadGenForm() {
                                 type="text"
                                 value={countrySearch}
                                 onChange={(e) => setCountrySearch(e.target.value)}
-                                placeholder="Search country..."
+                                placeholder="Search code..."
                                 className="w-full bg-transparent border-none outline-none text-xs font-inter text-white p-1"
                                 onClick={(e) => e.stopPropagation()}
                               />
@@ -278,8 +210,12 @@ export default function ZylxyLeadGenForm() {
                                       setCountrySearch("");
                                     }}
                                   >
-                                    <span className="truncate max-w-[120px]">{country.label}</span>
-                                    <span className="shrink-0 opacity-80">{country.value}</span>
+                                    <span className="truncate max-w-35">
+                                      {country.label}
+                                    </span>
+                                    <span className="shrink-0 opacity-80">
+                                      {country.value}
+                                    </span>
                                   </div>
                                 ))
                               ) : (
@@ -296,9 +232,8 @@ export default function ZylxyLeadGenForm() {
                         name="phone"
                         id="phone"
                         defaultValue={state?.payload?.phone || ""}
-                        placeholder="Your phone number"
+                        placeholder="Verification contact sequence"
                         className={s.phoneInput}
-                        autoComplete="tel"
                       />
                     </div>
                     {state?.errors?.phone && (
@@ -308,10 +243,8 @@ export default function ZylxyLeadGenForm() {
                       </div>
                     )}
                   </div>
-                </div>
 
-                {/* ORG NAME + ORG TYPE */}
-                <div className={s.grid} style={{ marginBottom: "1.25rem" }}>
+                  {/* Organization Name */}
                   <div className={s.inputGroup}>
                     <label htmlFor="orgName" className={s.label}>
                       Organization Name
@@ -323,13 +256,13 @@ export default function ZylxyLeadGenForm() {
                         name="orgName"
                         id="orgName"
                         defaultValue={state?.payload?.orgName || ""}
-                        placeholder="Your company (optional)"
+                        placeholder="Your Company"
                         className={s.input}
-                        autoComplete="organization"
                       />
                     </div>
                   </div>
 
+                  {/* Organization Type */}
                   <div className={s.inputGroup}>
                     <label htmlFor="orgType" className={s.label}>
                       Organization Type
@@ -338,20 +271,60 @@ export default function ZylxyLeadGenForm() {
                       <select
                         name="orgType"
                         id="orgType"
-                        defaultValue={state?.payload?.orgType || d.organizationTypes[0]}
+                        defaultValue={
+                          state?.payload?.orgType || d.organizationTypes[0]
+                        }
                         className={s.select}
                       >
                         {d.organizationTypes.map((type) => (
-                          <option key={type} value={type} className="bg-[#1B1F3A] text-white">
+                          <option
+                            key={type}
+                            value={type}
+                            className="bg-[#1B1F3A] text-white"
+                          >
                             {type}
                           </option>
                         ))}
                       </select>
                     </div>
                   </div>
+
+                  {/* Service Needed */}
+                  <div className={s.inputGroup}>
+                    <label
+                      htmlFor="service"
+                      className={state?.errors?.service ? s.labelError : s.label}
+                    >
+                      Service Needed *
+                    </label>
+                    <div className={s.selectWrapper}>
+                      <select
+                        name="service"
+                        id="service"
+                        defaultValue={state?.payload?.service || d.services[0]}
+                        className={`${s.select} ${state?.errors?.service ? s.inputErrorClass : ""}`}
+                      >
+                        {d.services.map((serviceName) => (
+                          <option
+                            key={serviceName}
+                            value={serviceName}
+                            className="bg-[#1B1F3A] text-white"
+                          >
+                            {serviceName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {state?.errors?.service && (
+                      <div className={s.errorText}>
+                        <ShieldAlert className="w-4 h-4 shrink-0" />
+                        {state.errors.service}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* MESSAGE — full width */}
+                {/* Project Description */}
                 <div className={s.fullWidthField}>
                   <div className={s.inputGroup}>
                     <label htmlFor="message" className={s.label}>
@@ -363,7 +336,7 @@ export default function ZylxyLeadGenForm() {
                         name="message"
                         id="message"
                         defaultValue={state?.payload?.message || ""}
-                        placeholder="Describe your project, goals, and requirements..."
+                        placeholder="Describe your project, goals, and operational requirements..."
                         className={s.textarea}
                         style={{ paddingLeft: "44px" }}
                       />
@@ -371,12 +344,13 @@ export default function ZylxyLeadGenForm() {
                   </div>
                 </div>
 
-                {/* CONSENT */}
+                {/* Consent Checkboxes */}
                 <div className={s.complianceBlock}>
                   <div className={s.complianceRow}>
                     <input
                       type="checkbox"
                       id="consentComm"
+                      name="consentCommunications"
                       checked={consentComm}
                       onChange={() => setConsentComm(!consentComm)}
                       className={s.complianceInput}
@@ -385,17 +359,25 @@ export default function ZylxyLeadGenForm() {
                       I agree to receive communications from Zylxy Technologies.
                     </label>
                   </div>
+                  {state?.errors?.consentCommunications && (
+                    <div className={s.errorText}>
+                      <ShieldAlert className="w-4 h-4 shrink-0" />
+                      {state.errors.consentCommunications}
+                    </div>
+                  )}
 
                   <div className={s.complianceRow}>
                     <input
                       type="checkbox"
                       id="consentProc"
+                      name="consentProcessing"
                       checked={consentProc}
                       onChange={() => setConsentProc(!consentProc)}
                       className={s.complianceInput}
                     />
                     <label htmlFor="consentProc" className={s.complianceLabel}>
-                      I agree to allow Zylxy Technologies to store and process my personal data. *
+                      I agree to allow Zylxy Technologies to capture and process
+                      personal data fields. *
                     </label>
                   </div>
                   {state?.errors?.consentProcessing && (
@@ -406,22 +388,26 @@ export default function ZylxyLeadGenForm() {
                   )}
                 </div>
 
-                {/* SUBMIT */}
+                {/* Footer / Submit Row */}
                 <div className={s.footerRow}>
                   <p className={s.privacyFooter}>
-                    Your data is secure and handled in accordance with our privacy policy.
+                    Data ingestion pipeline conforms strictly to security safeguards.
                   </p>
                   <div className={s.submitBtnWrapper}>
                     <div className={s.submitGlow} />
-                    <button type="submit" disabled={isPending} className={s.submitBtn}>
-                      {isPending ? "Sending..." : "Send Request"}
+                    <button
+                      type="submit"
+                      disabled={isPending}
+                      className={s.submitBtn}
+                    >
+                      {isPending ? "Transmitting Scope..." : "Transmit Request"}
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
                 {state?.errors?.global && (
-                  <div className={`${s.errorText} mt-4`}>
+                  <div className={s.errorText}>
                     <ShieldAlert className="w-4 h-4 shrink-0" />
                     {state.errors.global}
                   </div>
@@ -433,15 +419,17 @@ export default function ZylxyLeadGenForm() {
                 <div className={s.successIconBox}>
                   <CalendarCheck className="w-7 h-7" />
                 </div>
-                <h3 className={s.successTitle}>Request Received!</h3>
+                <h3 className={s.successTitle}>Inquiry System Synchronized</h3>
                 <p className={s.successText}>
-                  Thank you, {state.submittedName}. We have received your inquiry and will
-                  reach out to {state.submittedEmail} within 24 hours.
+                  Thank you, {state.submittedName}. Our engineering core has indexed
+                  your project scope parameters cleanly and will launch contact
+                  tracking at {state.submittedEmail} within 24 hours.
                 </p>
               </div>
             )}
           </MotionItem>
 
+          {/* Contact Row */}
           <MotionItem direction="up" className={s.contactRow}>
             {d.contacts.map((contact) => (
               <Link

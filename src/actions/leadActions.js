@@ -1,155 +1,106 @@
 "use server";
 
-import { HUBSPOT_FORMS_REGISTRY, HUBSPOT_COMMON_CONFIG } from "@/data/forms/hubspotFormsRegistry";
-
-// Maps user-facing dropdown label to the HubSpot form registry key
-const SERVICE_LABEL_TO_REGISTRY_KEY = {
-  "Web Development": "web-development",
-  "Mobile App Development": "mobile-app",
-  "Custom Software Development": "custom-software",
-  "UI/UX Designing & Prototyping": "ui-ux-design",
-  "Creative Design Services": "brand-design",
-  "Application Support & Maintenance": "app-maintenance",
-  "AI Solutions": "ai-automation",
-  "HubSpot CRM Implementation": "hubspot-crm",
-  "Talent Acquisition": "talent-acquisition",
-  "Campus Recruitment": "campus-recruitment",
-  "Training & Placement": "training-placement",
-};
+import { buildHubspotPayload } from "@/lib/hubspot/hubspotPayloadBuilder";
+import { getServiceConfig } from "@/data/services/serviceRegistry";
+import { executeGovernedHubSpotSync } from "@/lib/hubspot/hubspotSubmissionGovernance";
 
 export async function submitLeadAction(prevState, formData) {
   const payload = {
-    firstName: formData.get("firstName")?.toString().trim() || "",
-    lastName: formData.get("lastName")?.toString().trim() || "",
+    name: formData.get("name")?.toString().trim() || "",
     email: formData.get("email")?.toString().trim() || "",
     phone: formData.get("phone")?.toString().trim() || "",
-    dialCode: formData.get("dialCode")?.toString().trim() || "IN",
+    dialCode: formData.get("dialCode")?.toString().trim() || "",
     service: formData.get("service")?.toString() || "",
     message: formData.get("message")?.toString().trim() || "",
     orgName: formData.get("orgName")?.toString().trim() || "",
     orgType: formData.get("orgType")?.toString() || "",
     consentCommunications:
       formData.get("consentCommunications") === "on" ||
-      formData.get("consentCommunications") === "true",
+      formData.get("consentCommunications") === "true" ||
+      Boolean(formData.get("consentCommunications")),
     consentProcessing:
       formData.get("consentProcessing") === "on" ||
-      formData.get("consentProcessing") === "true",
+      formData.get("consentProcessing") === "true" ||
+      Boolean(formData.get("consentProcessing")),
     honeyTrap: formData.get("honeyTrap")?.toString() || "",
   };
 
-  // Honeypot check — silently succeed if spam bot triggered it
-  if (payload.honeyTrap !== "") {
-    return {
-      success: true,
-      submittedName: payload.firstName.toUpperCase(),
-      submittedEmail: payload.email,
-      errors: {},
-    };
-  }
-
   try {
-    const errors = {};
-
-    if (!payload.firstName || payload.firstName.length < 2) {
-      errors.firstName = "Please enter your first name (minimum 2 characters).";
+    if (payload.honeyTrap !== "") {
+      return {
+        success: true,
+        submittedName: payload.name.toUpperCase(),
+        submittedEmail: payload.email,
+        errors: {},
+      };
     }
-    if (!payload.lastName || payload.lastName.length < 1) {
-      errors.lastName = "Please enter your last name.";
+
+    const errors = {};
+    if (!payload.name) {
+      errors.name =
+        "Please provide your full name to initialize the inquiry profile.";
+    } else if (payload.name.length < 2) {
+      errors.name =
+        "Please enter a valid full name configuration (minimum 2 characters).";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!payload.email) {
-      errors.email = "A valid email address is required.";
+      errors.email =
+        "A valid email address is required to ensure secure communication routing.";
     } else if (!emailRegex.test(payload.email)) {
       errors.email = "Please provide a correctly formatted email address.";
     }
 
     const cleanPhone = payload.phone.replace(/\D/g, "");
     if (!payload.phone) {
-      errors.phone = "A phone number is required.";
+      errors.phone =
+        "An operational phone number is required to finalize your verification routing.";
     } else if (cleanPhone.length < 6 || cleanPhone.length > 15) {
-      errors.phone = "Please enter a valid phone number.";
+      errors.phone = "Please enter a valid phone number configuration.";
     }
 
     if (!payload.service) {
-      errors.service = "Please select a service from the dropdown.";
+      errors.service =
+        "Please select an operational service track parameter from the dropdown selection.";
     }
 
     if (!payload.consentProcessing) {
-      errors.consentProcessing = "Please check the box to confirm your consent to process personal data.";
+      errors.consentProcessing =
+        "Please check the box to confirm your consent to store and process personal data.";
     }
 
     if (Object.keys(errors).length > 0) {
       return { success: false, errors, payload };
     }
 
-    // Format phone with dial prefix
-    const dialCode = payload.dialCode;
-    const prefix =
-      dialCode && !dialCode.startsWith("+") && dialCode !== "IN"
-        ? `+${dialCode}`
-        : dialCode === "IN"
-          ? "+91"
-          : dialCode;
-    const fullPhoneNumber = `${prefix} ${cleanPhone}`.trim();
+    const serviceConfig = getServiceConfig(payload.service);
+    const serviceKey = serviceConfig?.serviceKey || "general-lead";
 
-    // Resolve the correct HubSpot form for this service
-    const registryKey = SERVICE_LABEL_TO_REGISTRY_KEY[payload.service] || "general-lead";
-    const formConfig =
-      HUBSPOT_FORMS_REGISTRY[registryKey] || HUBSPOT_FORMS_REGISTRY["general-lead"];
-    const portalId = formConfig.portalId || HUBSPOT_COMMON_CONFIG.portalId;
-    const formId = formConfig.formId;
-
-    // Only send standard HubSpot contact properties — no custom fields that don't exist
-    const rawFields = [
-      { name: "firstname", value: payload.firstName },
-      { name: "lastname", value: payload.lastName },
-      { name: "email", value: payload.email },
-      { name: "phone", value: fullPhoneNumber },
-      { name: "company", value: payload.orgName },
-      { name: "message", value: payload.message },
-    ];
-
-    const fields = rawFields.filter((f) => f.value !== "");
-
-    const hubspotPayload = {
-      submittedAt: Date.now(),
-      fields,
-      context: {
+    const { formConfig, payload: hubspotPayload, correlationId } = buildHubspotPayload({
+      serviceKey,
+      rawPayload: payload,
+      requestContext: {
         pageUri: "https://zylxytech.com/contact",
-        pageName: "Zylxy Lead Generation Form",
+        pageName: "Zylxy General Lead Intake Canvas",
       },
-      legalConsentOptions: {
-        consent: {
-          consentToProcess: payload.consentProcessing,
-          text: "I agree to allow Zylxy Technologies to store and process my personal data.",
-        },
-      },
-    };
-
-    console.log("[HubSpot Submit]", {
-      registryKey,
-      portalId,
-      formId,
-      fields: fields.map((f) => f.name),
     });
 
-    const response = await fetch(
-      `https://api-na2.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(hubspotPayload),
-      }
-    );
+    const governanceResult = await executeGovernedHubSpotSync({
+      serviceKey,
+      hubspotPayload,
+      formConfig,
+      correlationId,
+    });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("[HubSpot Sync Error]", response.status, errorText);
+    if (!governanceResult.success) {
       return {
         success: false,
         errors: {
-          global: `Submission failed (${response.status}). Please try again or contact us directly.`,
+          global:
+            process.env.NODE_ENV === "development"
+              ? `Pipeline Sync Error (${governanceResult.stage}): ${governanceResult.error}`
+              : "HubSpot interface synchronization rejection.",
         },
         payload,
       };
@@ -157,15 +108,14 @@ export async function submitLeadAction(prevState, formData) {
 
     return {
       success: true,
-      submittedName: `${payload.firstName} ${payload.lastName}`.toUpperCase(),
+      submittedName: payload.name.toUpperCase(),
       submittedEmail: payload.email,
       errors: {},
     };
   } catch (error) {
-    console.error("[Submission Error]", error);
     return {
       success: false,
-      errors: { global: "An unexpected error occurred. Please try again." },
+      errors: { global: "Internal data channel pipeline execution failure." },
       payload,
     };
   }
