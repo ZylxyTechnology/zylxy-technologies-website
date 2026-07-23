@@ -348,17 +348,19 @@ export default function TrainingPlacementForm({ isEmbedded = false }) {
                 </label>
                 <div className={s.challengesContainer}>
                   {d.trainingTargets.map((target) => {
-                    const isChecked = activeTargets.includes(target);
+                    const label = target.label || target;
+                    const value = target.value || target;
+                    const isChecked = activeTargets.includes(value);
                     return (
                       <div
-                        key={target}
+                        key={value}
                         className={`${s.challengeRow} ${isChecked ? s.challengeRowActive : ""}`}
-                        onClick={() => handleTargetToggle(target)}
+                        onClick={() => handleTargetToggle(value)}
                       >
                         <input
                           type="checkbox"
                           name="selectedApps"
-                          value={target}
+                          value={value}
                           checked={isChecked}
                           readOnly
                           className={s.challengeCheckbox}
@@ -366,7 +368,7 @@ export default function TrainingPlacementForm({ isEmbedded = false }) {
                         <span
                           className={`${s.challengeLabel} ${isChecked ? s.challengeLabelActive : ""}`}
                         >
-                          {target}
+                          {label}
                         </span>
                       </div>
                     );
