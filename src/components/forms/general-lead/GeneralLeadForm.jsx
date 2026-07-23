@@ -108,6 +108,7 @@ export default function GeneralLeadForm({ isEmbedded = false }) {
                     type="text"
                     name="firstName"
                     id="firstName"
+                    required
                     defaultValue={state?.payload?.firstName || ""}
                     placeholder="First Name"
                     className={`${s.input} ${state?.errors?.firstName ? s.inputErrorClass : ""}`}
@@ -130,6 +131,7 @@ export default function GeneralLeadForm({ isEmbedded = false }) {
                     type="text"
                     name="lastName"
                     id="lastName"
+                    required
                     defaultValue={state?.payload?.lastName || ""}
                     placeholder="Last Name"
                     className={`${s.input} ${state?.errors?.lastName ? s.inputErrorClass : ""}`}
@@ -158,6 +160,7 @@ export default function GeneralLeadForm({ isEmbedded = false }) {
                   type="email"
                   name="email"
                   id="email"
+                  required
                   defaultValue={state?.payload?.email || ""}
                   placeholder="you@company.com"
                   className={`${s.input} ${state?.errors?.email ? s.inputErrorClass : ""}`}
@@ -234,6 +237,7 @@ export default function GeneralLeadForm({ isEmbedded = false }) {
                   type="tel"
                   name="phone"
                   id="phone"
+                  required
                   defaultValue={state?.payload?.phone || ""}
                   placeholder="Verification contact sequence"
                   className={s.phoneInput}
@@ -330,6 +334,7 @@ export default function GeneralLeadForm({ isEmbedded = false }) {
                 type="checkbox"
                 id="consentProc"
                 name="consentProcessing"
+                required
                 checked={consentProc}
                 onChange={() => setConsentProc(!consentProc)}
                 className={s.complianceInput}
