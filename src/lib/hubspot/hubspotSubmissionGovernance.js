@@ -65,7 +65,7 @@ export async function executeGovernedHubSpotSync({ serviceKey, hubspotPayload, f
     return {
       success: false,
       correlationId: cId,
-      error: error.message,
+      error: error.message + (error.details?.response ? ` Details: ${error.details.response}` : ""),
       stage: error.stage || "unknown",
       details: error.details || {},
     };

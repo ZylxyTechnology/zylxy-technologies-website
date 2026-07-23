@@ -359,7 +359,7 @@ export const servicesData = {
         "We partner with educational institutions to provide students with practical, industry-relevant technical training that prepares them for the modern workforce.",
       accent: "#DB2777",
       accentBg: "#FDF2F8",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200",
+      image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200",
       tags: ["Colleges", "Seminars", "Bootcamps"],
       features: [
         "Guest Lectures",

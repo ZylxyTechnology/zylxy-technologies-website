@@ -58,20 +58,24 @@ export function buildHubspotPayload({
 
   // Construct fields array with service-specific allowlist
   const rawFields = [
-    { name: "full_name", value: fullName },
+    ...(!isTrainingService ? [{ name: "full_name", value: fullName }] : []),
     { name: "firstname", value: firstName || fullName },
     { name: "lastname", value: lastName },
     { name: "email", value: (rawPayload.email || "").trim() },
     { name: "phone", value: fullPhoneNumber },
-    { name: "service_interest", value: resolvedHubspotValue },
+    ...(!isTrainingService ? [{ name: "service_interest", value: resolvedHubspotValue }] : []),
     { name: "company", value: (rawPayload.orgName || "").trim() },
-    { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
-    { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
     { name: "message", value: combinedMessage },
-    ...(!isTrainingService && selectedApps
+    ...(!isTrainingService
       ? [
-          { name: "software_development", value: selectedApps },
-          { name: "hs_chat_assistant_source", value: selectedApps },
+          { name: "0-2/name", value: (rawPayload.orgName || "").trim() },
+          { name: "0-2/industry_type", value: (rawPayload.orgType || "").trim() },
+          ...(selectedApps
+            ? [
+                { name: "software_development", value: selectedApps },
+                { name: "hs_chat_assistant_source", value: selectedApps },
+              ]
+            : []),
         ]
       : []),
   ];

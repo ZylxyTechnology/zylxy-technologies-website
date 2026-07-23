@@ -23,7 +23,7 @@ export const PLACEHOLDER_REGISTRY = {
 
   // --- TRAINING CATEGORIES ---
   "corporate-training": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800", // Professional enterprise workshop
-  "academic-partnerships": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800", // University collaboration
+  "academic-partnerships": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800", // University collaboration
   "internship-programs": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800", // Students working together
   "placement-assistance": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800", // Interview preparation
 

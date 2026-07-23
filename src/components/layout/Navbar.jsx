@@ -81,7 +81,7 @@ export default function Navbar() {
                 alt={NAVBAR_DATA.logoAlt}
                 width={34}
                 height={34}
-                className="scale-95 transition-transform duration-300 group-hover/logo:scale-100 object-contain"
+                className="scale-95 transition-transform duration-300 group-hover/logo:scale-100 object-contain w-auto h-auto"
                 priority
               />
             </div>

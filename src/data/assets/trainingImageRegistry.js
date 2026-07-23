@@ -12,7 +12,7 @@ export const TRAINING_IMAGE_REGISTRY = {
     title: "Corporate Training",
   },
   "academic-partnerships": {
-    src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200",
+    src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200",
     fallback: "/assets/services/trainingCourses.jpg",
     alt: "Academic University Partnership & Seminar Lecture",
     title: "Academic Training Partnerships",

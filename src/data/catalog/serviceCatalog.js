@@ -19,6 +19,8 @@ import { getPlaceholderImage } from "./placeholderRegistry";
 
 // The single Master Form ID that catches all leads (Zylxy Services LeadGen Form)
 const MASTER_FORM_ID = "22c7712e-9c35-4c26-9881-4abf481fa67c";
+// Training & Placement Form ID
+const TRAINING_FORM_ID = "80d4d7f8-6c0d-4db3-900f-3fd54b672174";
 
 /**
  * Enterprise Service Catalog
@@ -178,7 +180,7 @@ export const SERVICE_CATALOG = {
     leadGenLabel: "Corporate Training",
     navigationLabel: "Corporate Training",
     hubspotValue: "Corporate Training",
-    hubspotFormId: MASTER_FORM_ID,
+    hubspotFormId: TRAINING_FORM_ID,
     route: "/services/corporate-training",
     category: "Training",
     icon: Building2,
@@ -192,7 +194,7 @@ export const SERVICE_CATALOG = {
     leadGenLabel: "Academic Partnerships",
     navigationLabel: "Academic Partnerships",
     hubspotValue: "College Training",
-    hubspotFormId: MASTER_FORM_ID,
+    hubspotFormId: TRAINING_FORM_ID,
     route: "/services/academic-partnerships",
     category: "Training",
     icon: GraduationCap,
@@ -206,7 +208,7 @@ export const SERVICE_CATALOG = {
     leadGenLabel: "Internship Programs",
     navigationLabel: "Internships",
     hubspotValue: "Internship Programs",
-    hubspotFormId: MASTER_FORM_ID,
+    hubspotFormId: TRAINING_FORM_ID,
     route: "/services/internship-programs",
     category: "Training",
     icon: Laptop,
@@ -220,7 +222,7 @@ export const SERVICE_CATALOG = {
     leadGenLabel: "Placement Assistance",
     navigationLabel: "Placement",
     hubspotValue: "Placement Assistance",
-    hubspotFormId: MASTER_FORM_ID,
+    hubspotFormId: TRAINING_FORM_ID,
     route: "/services/placement-assistance",
     category: "Training",
     icon: Briefcase,
@@ -228,11 +230,25 @@ export const SERVICE_CATALOG = {
     status: "active",
     visibleInLeadGen: true,
   },
+  "training-placement": {
+    serviceKey: "training-placement",
+    websiteTitle: "Training & Placement",
+    leadGenLabel: "Training & Placement",
+    navigationLabel: "Training & Placement",
+    hubspotValue: "Training & Placement",
+    hubspotFormId: TRAINING_FORM_ID,
+    route: "/training-placement",
+    category: "Training",
+    icon: GraduationCap,
+    placeholderImage: getPlaceholderImage("placement-assistance"),
+    status: "active",
+    visibleInLeadGen: false,
+  },
   
   // --- LEAD GEN UMBRELLA ---
   "find-jobs": {
     serviceKey: "find-jobs",
-    websiteTitle: "Training & Placement",
+    websiteTitle: "Find Jobs",
     leadGenLabel: "Find Jobs",
     navigationLabel: "Find Jobs",
     hubspotValue: "Find Jobs",

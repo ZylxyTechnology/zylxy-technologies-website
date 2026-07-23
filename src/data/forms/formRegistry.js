@@ -49,6 +49,11 @@ const formComponentMapping = {
   [SERVICE_CATALOG["internship-programs"].serviceKey]: TrainingPlacementForm,
   [SERVICE_CATALOG["placement-assistance"].serviceKey]: TrainingPlacementForm,
   [SERVICE_CATALOG["find-jobs"].serviceKey]: TrainingPlacementForm,
+  [SERVICE_CATALOG["training-placement"].serviceKey]: TrainingPlacementForm,
+  
+  // Recruitment
+  [SERVICE_CATALOG["talent-acquisition"].serviceKey]: GeneralLeadForm,
+  [SERVICE_CATALOG["campus-recruitment"].serviceKey]: GeneralLeadForm,
 
   [SERVICE_CATALOG["general-lead"].serviceKey]: GeneralLeadForm,
   "zylxy-lead-gen": GeneralLeadForm, // Keep legacy fallback just in case for now

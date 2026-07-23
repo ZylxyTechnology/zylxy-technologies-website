@@ -86,7 +86,7 @@ export default function HubSpotNavbar() {
               alt="Zylxy Technologies Corporate Logo"
               width={24}
               height={24}
-              className="object-contain select-none shrink-0"
+              className="object-contain select-none shrink-0 w-auto h-auto"
               priority
             />
           </div>
