@@ -95,11 +95,11 @@ export const leadFormStyles = {
   contactRow:
     "mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 w-full border-t border-white/5 pt-12",
   contactCard:
-    "flex flex-col p-4 bg-white/[0.02] border border-white/5 rounded-xl hover:border-[#2563EB] hover:bg-white/[0.04] transition-all duration-300 text-left group/card text-white no-underline outline-none",
+    "flex flex-col p-4 bg-white/[0.04] border border-white/10 rounded-xl hover:border-[#2563EB]/50 hover:bg-white/[0.08] transition-all duration-300 text-left group/card text-white no-underline outline-none shadow-lg",
   contactIconWrapper:
-    "w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-[#A3B1CC] transition-colors duration-300 group-hover/card:bg-[#2563EB]/2 group-hover/card:text-[#2563EB] mb-3",
+    "w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white transition-colors duration-300 group-hover/card:bg-[#2563EB]/10 group-hover/card:text-[#60A5FA] mb-3",
   contactLabel:
-    "text-[10px] font-bold font-inter text-[#677489] tracking-[0.08em] uppercase mb-1 transition-colors duration-300 group-hover/card:text-white",
+    "text-[10px] font-bold font-inter text-[#A3B1CC] tracking-[0.08em] uppercase mb-1 transition-colors duration-300 group-hover/card:text-white",
   contactValue:
-    "text-xs font-inter font-medium text-[#A3B1CC] group-hover/card:text-[white] transition-colors duration-300 truncate",
+    "text-xs font-inter font-medium text-white/90 group-hover/card:text-white transition-colors duration-300 truncate",
 };

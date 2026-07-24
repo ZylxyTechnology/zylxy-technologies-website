@@ -104,7 +104,7 @@ export default function ZylxyLeadGenForm() {
             <div className={s.formAccentBar} />
 
             {!state?.success ? (
-              <form action={formAction}>
+              <form action={formAction} noValidate>
                 <input
                   type="hidden"
                   name="dialCode"
