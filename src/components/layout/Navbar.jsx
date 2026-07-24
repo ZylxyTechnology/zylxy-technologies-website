@@ -66,11 +66,12 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`w-full sticky top-0 z-50 flex flex-col transition duration-300 ease-in-out py-3 ${
+      className={`w-full sticky top-0 z-50 flex flex-col duration-300 ease-in-out py-3 ${
         scrolled 
           ? "bg-[#050E21]/90 backdrop-blur-md border-b border-white/[0.05] shadow-lg shadow-black/20" 
           : "bg-[#050E21] border-b border-transparent"
       }`}
+      style={{ transitionProperty: "background-color, backdrop-filter" }}
     >
       <div className={n.navContainer}>
         <div className={n.innerWrapper}>

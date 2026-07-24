@@ -71,11 +71,12 @@ export default function HubSpotNavbar() {
 
   return (
     <nav 
-      className={`sticky top-0 z-50 w-full transition duration-300 ease-in-out h-16 ${
+      className={`sticky top-0 z-50 w-full duration-300 ease-in-out h-16 ${
         scrolled 
           ? "bg-white/90 backdrop-blur-xl border-b border-[#F0E8E3] shadow-md" 
           : "bg-white border-b border-transparent"
       }`}
+      style={{ transitionProperty: "background-color, backdrop-filter" }}
       onMouseLeave={handleMouseLeave}
     >
       <div className={s.container} ref={dropdownRef}>
