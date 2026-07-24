@@ -12,14 +12,14 @@ export const TRAINING_IMAGE_REGISTRY = {
     title: "Corporate Training",
   },
   "academic-partnerships": {
-    src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200",
-    fallback: "/assets/services/trainingCourses.jpg",
+    src: "/assets/services/academic-partnership.jpg",
+    fallback: "/assets/services/academic-partnership.jpg",
     alt: "Academic University Partnership & Seminar Lecture",
     title: "Academic Training Partnerships",
   },
   "internship-programs": {
-    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200",
-    fallback: "/assets/services/trainingCourses.jpg",
+    src: "/assets/services/Internship-Programs.jpg",
+    fallback: "/assets/services/Internship-Programs.jpg",
     alt: "Hands-on Student Internship Program & Team Mentorship Lab",
     title: "Internship Programs",
   },
