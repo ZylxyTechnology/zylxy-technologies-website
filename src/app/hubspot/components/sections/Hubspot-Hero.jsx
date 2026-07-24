@@ -19,28 +19,28 @@ export default function Hero() {
   return (
     <section id="hero" className={s.section}>
       <div className={s.container}>
-        <MotionContainer
+        <div
           className={s.leftCol}
         >
-          <MotionItem direction="up" className={s.badge}>
+          <div className={s.badge}>
             <span className={s.badgeDot} />
             {hero.badge}
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="up">
+          <div>
             <h1 className={s.h1}>HubSpot Consultant</h1>
             <h2 className={s.h2Sub}>
               {hero.headingBefore}
               {hero.headingAccent}
               {hero.headingAfter}
             </h2>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="fade">
+          <div>
             <p className={s.description}>{hero.description}</p>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="up" className={s.btnRow}>
+          <div className={s.btnRow}>
             <Link
               href="/hubspot#consultation"
               className={`${s.primaryBtn} no-underline inline-block text-center`}
@@ -53,9 +53,9 @@ export default function Hero() {
             >
               See my work
             </Link>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="fade" className={s.trustRow}>
+          <div className={s.trustRow}>
             {hero.trustMicroSignals.map((signal, i) => (
               <span key={i} className={s.trustItem}>
                 {i > 0 && <span className={s.trustDot} />}
@@ -63,8 +63,8 @@ export default function Hero() {
                 {signal}
               </span>
             ))}
-          </MotionItem>
-        </MotionContainer>
+          </div>
+        </div>
 
         <MotionReveal
           direction="fade"

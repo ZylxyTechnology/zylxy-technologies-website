@@ -14,13 +14,13 @@ export default function Hero() {
       <div className={heroStyles.gridOverlay} />
 
       <Container className={heroStyles.wrapper}>
-        <MotionContainer className={heroStyles.leftColumn} staggerChildren={0.1} delayChildren={0.15}>
-          <MotionItem direction="up" className={heroStyles.badgeContainer}>
+        <div className={heroStyles.leftColumn}>
+          <div className={heroStyles.badgeContainer}>
             <div className={heroStyles.badgeDot} />
             <span className={heroStyles.badgeText}>{heroData.badge}</span>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="up">
+          <div>
             <h1 className={heroStyles.heading}>
               {heroData.heading.textBefore}
               <span className={heroStyles.headingGradient}>
@@ -28,21 +28,21 @@ export default function Hero() {
               </span>
               {heroData.heading.textAfter}
             </h1>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="fade">
+          <div>
             <p className={heroStyles.descPrimary}>
               {heroData.descriptionPrimary}
             </p>
-          </MotionItem>
+          </div>
           
-          <MotionItem direction="fade">
+          <div>
             <p className={heroStyles.descSecondary}>
               {heroData.descriptionSecondary}
             </p>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="up" className={heroStyles.btnGroup}>
+          <div className={heroStyles.btnGroup}>
             <Link
               href="/#LeadGen"
               className={`${heroStyles.primaryBtn} no-underline inline-flex items-center justify-center text-center`}
@@ -55,9 +55,9 @@ export default function Hero() {
             >
               {heroData.buttons.secondary}
             </Link>
-          </MotionItem>
+          </div>
 
-          <MotionItem direction="up" className={heroStyles.statsGrid}>
+          <div className={heroStyles.statsGrid}>
             {heroData.stats.map((item, idx) => (
               <div key={idx} className={heroStyles.statsCard}>
                 <div className={heroStyles.statsValue}>{item.value}</div>
@@ -65,8 +65,8 @@ export default function Hero() {
                 <div className={heroStyles.statsNote}>{item.note}</div>
               </div>
             ))}
-          </MotionItem>
-        </MotionContainer>
+          </div>
+        </div>
 
         <MotionReveal direction="scale" delay={0.2} className={heroStyles.rightColumn}>
           <div className={heroStyles.orbContainerWrapper}>
