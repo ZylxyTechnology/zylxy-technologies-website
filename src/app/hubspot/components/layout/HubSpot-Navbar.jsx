@@ -71,10 +71,10 @@ export default function HubSpotNavbar() {
 
   return (
     <nav 
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ease-in-out ${
+      className={`sticky top-0 z-50 w-full transition duration-300 ease-in-out h-16 ${
         scrolled 
-          ? "bg-white/90 backdrop-blur-xl border-b border-[#F0E8E3] shadow-md py-1 h-16" 
-          : "bg-white h-20"
+          ? "bg-white/90 backdrop-blur-xl border-b border-[#F0E8E3] shadow-md" 
+          : "bg-white border-b border-transparent"
       }`}
       onMouseLeave={handleMouseLeave}
     >

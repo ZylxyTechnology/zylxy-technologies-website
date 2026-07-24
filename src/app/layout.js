@@ -8,7 +8,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
-  preload: false,
+  preload: true,
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -16,7 +16,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   weight: ["500", "600", "700", "800"],
-  preload: false,
+  preload: true,
 });
 
 // Full Enterprise SEO Metadata Architecture
