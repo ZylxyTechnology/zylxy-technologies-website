@@ -13,9 +13,7 @@ const nextConfig = {
     ],
   },
   compress: true,
-  generateBuildId: async () => {
-    return "zylxy-production";
-  },
+
 };
 
 export default nextConfig;
